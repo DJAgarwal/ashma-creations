@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+    /* Colors */
+    --color-primary-light: #F8BBD0;
+    --color-primary: #EC407A;
+    --color-secondary: #E1BEE7;
+    --color-background: #FFF8F5;
+    --color-accent: #FF80AB;
+    --color-gold: #D4AF37;
+    --color-charcoal: #333333;
+    --color-soft-gray: #666666;
+
+    /* Fonts */
+    --font-heading: "Pacifico", "Lobster", "Baloo 2", cursive;
+    --font-body: "Poppins", "Nunito", "Quicksand", sans-serif;
+}
+
+@layer base {
+    body {
+        @apply bg-background text-charcoal font-body;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading text-primary;
+    }
+}
