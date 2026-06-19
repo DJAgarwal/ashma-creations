@@ -20,6 +20,18 @@ Route::get('/categories', [CatalogController::class, 'categoryIndex'])->name('ca
 Route::get('/category/{slug}', [CatalogController::class, 'categoryShow'])->where('slug', '[a-z0-9\-]+')->name('categories.show');
 Route::get('/product/{slug}', [CatalogController::class, 'productShow'])->where('slug', '[a-z0-9\-]+')->name('products.show');
 
+// Admin Panel Routes
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [App\Http\Controllers\AdminAuthController::class, 'showLogin'])->name('admin.login');
+    Route::post('/admin/login', [App\Http\Controllers\AdminAuthController::class, 'login']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('/admin/logout', [App\Http\Controllers\AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/admin/logout', [App\Http\Controllers\AdminAuthController::class, 'logout']); // Convenience GET fallback
+});
+
 // Contact page
 Route::get('/contact', [PageController::class, 'show'])->defaults('slug', 'contact')->name('contact');
 

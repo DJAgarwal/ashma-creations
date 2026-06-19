@@ -16,6 +16,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(StaticPageSeeder::class);
 
+        // Create Admin User
+        \App\Models\User::updateOrCreate(
+            ['email' => 'dheerajagarwal1995@gmail.com'],
+            [
+                'name' => 'Dheeraj Agarwal',
+                'password' => \Illuminate\Support\Facades\Hash::make('good best'),
+            ]
+        );
+
         // Parent Category
         $pipeCleaner = Category::updateOrCreate(
             ['slug' => 'pipe-cleaner'],

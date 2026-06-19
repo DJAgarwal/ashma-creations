@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\Cors::class,
             \App\Http\Middleware\LogVisits::class,
         ]);
+        $middleware->redirectTo(function ($request) {
+            return $request->expectsJson() ? null : route('admin.login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
