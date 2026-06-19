@@ -34,10 +34,37 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     {{-- SEO Meta --}}
+    @php
+        $metaTitle = 'Ashma Creations - Handmade With Love';
+        if (!empty($page) && !empty($page->meta_title)) {
+            $metaTitle = $page->meta_title;
+        } elseif (View::hasSection('title')) {
+            $metaTitle = View::yieldContent('title') . ' - Ashma Creations';
+        }
+
+        $metaDescription = 'Ashma Creations crafts beautiful, everlasting handmade pipe cleaner flowers, custom bouquets, and flower pots.';
+        if (!empty($page)) {
+            if (!empty($page->meta_description)) {
+                $metaDescription = $page->meta_description;
+            } elseif (!empty($page->description)) {
+                $metaDescription = \Illuminate\Support\Str::limit(strip_tags($page->description), 155);
+            }
+        }
+
+        $metaImage = url('/images/logo.webp');
+        if (isset($product) && !empty($product->images)) {
+            $images = is_array($product->images) ? $product->images : json_decode($product->images, true);
+            if (!empty($images) && isset($images[0])) {
+                $metaImage = filter_var($images[0], FILTER_VALIDATE_URL) ? $images[0] : asset($images[0]);
+            }
+        } elseif (isset($category) && !empty($category->image_path)) {
+            $metaImage = filter_var($category->image_path, FILTER_VALIDATE_URL) ? $category->image_path : asset($category->image_path);
+        }
+    @endphp
 
     <!-- SEO Meta Tags -->
-    <title>{{ $page->meta_title ?? 'Ashma Creations - Handmade With Love' }}</title>
-    <meta name="description" content="{{ $page->meta_description ?? 'Ashma Creations crafts beautiful, everlasting handmade pipe cleaner flowers, custom bouquets, and flower pots.' }}">
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
     <meta name="keywords" content="{{ $page->meta_keywords ?? 'handmade, crafts, pipe cleaner, bouquets, flower pots, custom gifts, Ashma Creations' }}">
     <meta name="author" content="Ashma Creations">
     <meta http-equiv="content-language" content="en">
@@ -49,21 +76,21 @@
     <link rel="canonical" href="{{ request()->url() }}" />
 
     {{-- Open Graph / Social Sharing --}}
-    <meta property="og:title" content="{{ $page->meta_title ?? 'Ashma Creations - Handmade With Love' }}">
-    <meta property="og:description" content="{{ $page->meta_description ?? 'Ashma Creations crafts beautiful, everlasting handmade pipe cleaner flowers, custom bouquets, and flower pots.' }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ isset($product) && !empty($product->images) ? asset('storage/' . (is_array($product->images) ? ($product->images[0] ?? '') : $product->images)) : url('/images/logo.webp') }}">
+    <meta property="og:image" content="{{ $metaImage }}">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Ashma Creations">
 
     {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $page->meta_title ?? 'Ashma Creations - Handmade With Love' }}">
-    <meta name="twitter:description" content="{{ $page->meta_description ?? 'Ashma Creations crafts beautiful, everlasting handmade pipe cleaner flowers, custom bouquets, and flower pots.' }}">
-    <meta name="twitter:image" content="{{ isset($product) && !empty($product->images) ? asset('storage/' . (is_array($product->images) ? ($product->images[0] ?? '') : $product->images)) : url('/images/logo.webp') }}">
-    <meta name="twitter:creator" content="{{ $twitter['creator'] ?? '@ashmacreations' }}">
-    <meta name="twitter:site" content="{{ $twitter['site'] ?? '@ashmacreations' }}">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+    <meta name="twitter:creator" content="{{ $twitter['creator'] ?? '@ashma_creations07' }}">
+    <meta name="twitter:site" content="{{ $twitter['site'] ?? '@ashma_creations07' }}">
 
     <!-- Favicon and App Icons -->
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">

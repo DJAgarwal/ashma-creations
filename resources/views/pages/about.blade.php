@@ -4,13 +4,29 @@
 
 @section('content')
     <div class="bg-background min-h-screen">
-        <!-- Hero Header -->
-        <section class="relative py-24 bg-white overflow-hidden">
+        <section class="relative py-12 bg-white overflow-hidden">
             <div class="absolute top-0 right-0 w-1/4 h-full bg-primary-light/5 -skew-x-12 transform origin-top-right"></div>
-            <div class="container mx-auto px-4 relative z-10 text-center">
-                <h4 class="text-accent font-body font-bold uppercase tracking-widest mb-4">Handmade With Love</h4>
-                <h1 class="text-5xl md:text-7xl font-heading text-primary mb-8">The Heart Behind <br>Ashma Creations</h1>
-                <div class="w-24 h-1 bg-primary-light mx-auto rounded-full"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <!-- Breadcrumbs -->
+                <nav class="flex text-sm font-body text-soft-gray mb-8 justify-start" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{{ url('/') }}" class="hover:text-primary transition-colors">Home</a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                                <span class="text-primary font-bold">Our Story</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="text-center">
+                    <h4 class="text-accent font-body font-bold uppercase tracking-widest mb-4">Handmade With Love</h4>
+                    <h1 class="text-5xl md:text-7xl font-heading text-primary mb-8">The Heart Behind <br>Ashma Creations</h1>
+                    <div class="w-24 h-1 bg-primary-light mx-auto rounded-full"></div>
+                </div>
             </div>
         </section>
 

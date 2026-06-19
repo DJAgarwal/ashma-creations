@@ -27,6 +27,69 @@ class Category extends Model
     ];
 
     /**
+     * Get the dynamic JSON-LD schema if not explicitly set.
+     */
+    public function getJsonLdAttribute($value)
+    {
+        $decoded = is_string($value) ? json_decode($value, true) : $value;
+        if (!empty($decoded)) {
+            return $decoded;
+        }
+
+        // Generate dynamic JSON-LD for category page
+        $breadcrumbs = [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => 'Home',
+                'item' => url('/')
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Categories',
+                'item' => route('categories.index')
+            ]
+        ];
+
+        $pos = 3;
+        if ($this->parent) {
+            $breadcrumbs[] = [
+                '@type' => 'ListItem',
+                'position' => $pos++,
+                'name' => $this->parent->name,
+                'item' => route('categories.show', $this->parent->slug)
+            ];
+        }
+
+        $breadcrumbs[] = [
+            '@type' => 'ListItem',
+            'position' => $pos,
+            'name' => $this->name,
+            'item' => route('categories.show', $this->slug)
+        ];
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'CollectionPage',
+                    '@id' => route('categories.show', $this->slug),
+                    'url' => route('categories.show', $this->slug),
+                    'name' => $this->meta_title ?? ($this->name . ' - Ashma Creations'),
+                    'description' => $this->meta_description ?? ($this->description ?? 'Explore our complete collection of ' . $this->name . ' at Ashma Creations.'),
+                    'inLanguage' => 'en',
+                    'mainEntityOfPage' => route('categories.show', $this->slug)
+                ],
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => $breadcrumbs
+                ]
+            ]
+        ];
+    }
+
+    /**
      * Get the parent category.
      */
     public function parent(): BelongsTo

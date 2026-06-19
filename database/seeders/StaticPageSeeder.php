@@ -34,7 +34,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ],
                             'description' => 'Ashma Creations offers beautiful, high-quality handmade gifts and decor.',
@@ -83,7 +83,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],
@@ -131,7 +131,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],
@@ -179,7 +179,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],
@@ -227,7 +227,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],
@@ -275,7 +275,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],
@@ -326,7 +326,7 @@ class StaticPageSeeder extends Seeder
                             'contactPoint' => [
                                 '@type' => 'ContactPoint',
                                 'contactType' => 'Customer Support',
-                                'email' => 'dheerajagarwal1995@gmail.com',
+                                'email' => 'ashmacreations07@gmail.com',
                                 'availableLanguage' => 'en'
                             ]
                         ],

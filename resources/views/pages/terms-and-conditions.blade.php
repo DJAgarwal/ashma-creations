@@ -114,7 +114,7 @@
             If you have any questions or clarifications regarding these Terms and Conditions, please feel free to reach out to us:
         </p>
         <p class="text-soft-gray mt-4">
-            <strong>Email:</strong> dheerajagarwal1995@gmail.com<br>
+            <strong>Email:</strong> <a href="mailto:ashmacreations07@gmail.com" class="text-primary hover:text-accent font-semibold underline">ashmacreations07@gmail.com</a><br>
             <strong>Inquiries:</strong> <a href="{{ route('contact') }}" class="text-primary hover:text-accent font-semibold underline">Contact Us Form</a><br>
             <strong>Last Updated:</strong> June 19, 2026
         </p>

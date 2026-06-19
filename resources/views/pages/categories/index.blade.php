@@ -5,6 +5,21 @@
 @section('content')
     <div class="bg-background py-16">
         <div class="container mx-auto px-4">
+            <!-- Breadcrumbs -->
+            <nav class="flex text-sm font-body text-soft-gray mb-8 justify-start" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="{{ url('/') }}" class="hover:text-primary transition-colors">Home</a>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                            <span class="text-primary font-bold">Categories</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
             <!-- Header -->
             <div class="text-center mb-16">
                 <h1 class="text-5xl font-heading text-primary mb-4">Our Collections</h1>

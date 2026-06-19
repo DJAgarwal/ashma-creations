@@ -178,7 +178,7 @@
                         Interested in a specific creation or want to request a custom order? We're just a message away!
                     </p>
                     <div class="flex flex-wrap justify-center gap-6">
-                        <a href="#" class="px-10 py-4 bg-white text-primary font-body font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                        <a href="https://wa.me/917728879509" target="_blank" class="px-10 py-4 bg-white text-primary font-body font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                             Chat on WhatsApp
                         </a>
                         <a href="{{ route('contact') }}" class="px-10 py-4 border-2 border-white/50 text-white font-body font-bold rounded-full hover:bg-white/10 transition-all">

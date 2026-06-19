@@ -54,8 +54,8 @@
             <div class="mt-auto pt-12">
                 <p class="text-sm font-body text-soft-gray uppercase tracking-widest mb-4 text-center">Follow Us</p>
                 <div class="flex justify-center space-x-6">
-                    <a href="#" class="text-primary hover:text-accent transition-colors">Instagram</a>
-                    <a href="#" class="text-primary hover:text-accent transition-colors">WhatsApp</a>
+                    <a href="https://www.instagram.com/ashma_creations07" target="_blank" class="text-primary hover:text-accent transition-colors">Instagram</a>
+                    <a href="https://wa.me/917728879509" target="_blank" class="text-primary hover:text-accent transition-colors">WhatsApp</a>
                 </div>
             </div>
         </div>
