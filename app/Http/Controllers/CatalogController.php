@@ -4,29 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\StaticPage;
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
     /**
-     * Show the home page with featured categories and products.
-     */
-    public function home()
-    {
-        $featuredCategories = Category::whereNull('parent_id')->take(4)->get();
-        $featuredProducts = Product::where('is_featured', true)->take(4)->get();
-
-        return view('pages.home', compact('featuredCategories', 'featuredProducts'));
-    }
-
-    /**
      * Show all top-level categories.
      */
     public function categoryIndex()
     {
+        $page = StaticPage::where('page_name', 'categories')->first();
         $categories = Category::whereNull('parent_id')->get();
 
-        return view('pages.categories.index', compact('categories'));
+        return view('pages.categories.index', compact('page', 'categories'));
     }
 
     /**
@@ -36,11 +27,14 @@ class CatalogController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
         
+        // Use the category model as the 'page' provider for SEO fields
+        $page = $category;
+        
         // Get products from this category and its subcategories
         $categoryIds = $category->children->pluck('id')->push($category->id);
         $products = Product::whereIn('category_id', $categoryIds)->paginate(12);
 
-        return view('pages.categories.show', compact('category', 'products'));
+        return view('pages.categories.show', compact('page', 'category', 'products'));
     }
 
     /**
@@ -50,12 +44,15 @@ class CatalogController extends Controller
     {
         $product = Product::where('slug', $slug)->with('category')->firstOrFail();
         
+        // Use the product model as the 'page' provider for SEO fields
+        $page = $product;
+        
         // Related products (from same category, excluding current)
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->take(4)
             ->get();
 
-        return view('pages.products.show', compact('product', 'relatedProducts'));
+        return view('pages.products.show', compact('page', 'product', 'relatedProducts'));
     }
 }

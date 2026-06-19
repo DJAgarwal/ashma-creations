@@ -1,0 +1,34 @@
+/* Custom Styles for Ashma Creations */
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FFF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #F8BBD0;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #EC407A;
+}
+
+/* Custom selection styling */
+::selection {
+    background-color: #F8BBD0;
+    color: #EC407A;
+}
+
+/* Custom Animation Durations to avoid CSP inline-style violations */
+.animate-duration-10s {
+    animation-duration: 10s !important;
+}
+.animate-duration-8s {
+    animation-duration: 8s !important;
+}

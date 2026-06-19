@@ -62,7 +62,7 @@
     </div>
 </header>
 
-<script>
+<script nonce="{{ $cspNonce ?? '' }}">
     const btn = document.getElementById('mobile-menu-btn');
     const closeBtn = document.getElementById('close-menu-btn');
     const menu = document.getElementById('mobile-menu');

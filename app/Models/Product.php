@@ -18,11 +18,15 @@ class Product extends Model
         'images',
         'category_id',
         'is_featured',
+        'meta_title',
+        'meta_description',
+        'json_ld',
     ];
 
     protected $casts = [
         'images' => 'array',
         'is_featured' => 'boolean',
+        'json_ld' => 'array',
     ];
 
     /**

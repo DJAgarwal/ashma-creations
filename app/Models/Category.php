@@ -17,6 +17,13 @@ class Category extends Model
         'description',
         'parent_id',
         'image_path',
+        'meta_title',
+        'meta_description',
+        'json_ld',
+    ];
+
+    protected $casts = [
+        'json_ld' => 'array',
     ];
 
     /**

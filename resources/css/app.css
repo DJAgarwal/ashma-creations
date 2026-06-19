@@ -12,8 +12,8 @@
     --color-soft-gray: #666666;
 
     /* Fonts */
-    --font-heading: "Pacifico", "Lobster", "Baloo 2", cursive;
-    --font-body: "Poppins", "Nunito", "Quicksand", sans-serif;
+    --font-heading: "Pacifico", cursive;
+    --font-body: "Poppins", sans-serif;
 }
 
 @layer base {

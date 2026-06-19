@@ -46,8 +46,8 @@
         <div class="border-t border-primary-light/20 pt-8 flex flex-col md:flex-row items-center justify-between text-soft-gray text-sm font-body">
             <p>&copy; {{ date('Y') }} Ashma Creations. All rights reserved.</p>
             <div class="mt-4 md:mt-0 flex space-x-6">
-                <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
+                <a href="{{ url('/privacy-policy') }}" class="hover:text-primary transition-colors">Privacy Policy</a>
+                <a href="{{ url('/terms-and-conditions') }}" class="hover:text-primary transition-colors">Terms of Service</a>
             </div>
         </div>
     </div>

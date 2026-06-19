@@ -14,85 +14,115 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(StaticPageSeeder::class);
+
         // Parent Category
-        $pipeCleaner = Category::create([
-            'name' => 'Pipe Cleaner',
-            'slug' => 'pipe-cleaner',
-            'description' => 'Beautiful handmade creations using premium pipe cleaners.',
-        ]);
+        $pipeCleaner = Category::updateOrCreate(
+            ['slug' => 'pipe-cleaner'],
+            [
+                'name' => 'Pipe Cleaner',
+                'description' => 'Beautiful handmade creations using premium pipe cleaners.',
+                'meta_title' => 'Handmade Pipe Cleaner Crafts - Ashma Creations',
+                'meta_description' => 'Explore our unique collection of handmade pipe cleaner crafts, from bouquets to custom decor.',
+            ]
+        );
 
         // Subcategories
-        $bouquet = Category::create([
-            'name' => 'Bouquets',
-            'slug' => 'bouquets',
-            'description' => 'Stunning pipe cleaner bouquets for every occasion.',
-            'parent_id' => $pipeCleaner->id,
-        ]);
+        $bouquet = Category::updateOrCreate(
+            ['slug' => 'bouquets'],
+            [
+                'name' => 'Bouquets',
+                'description' => 'Stunning pipe cleaner bouquets for every occasion.',
+                'parent_id' => $pipeCleaner->id,
+                'meta_title' => 'Handmade Pipe Cleaner Bouquets - Ashma Creations',
+                'meta_description' => 'Beautifully crafted pipe cleaner bouquets that last forever. Perfect for gifts and decor.',
+            ]
+        );
 
-        $pots = Category::create([
-            'name' => 'Flower Pots',
-            'slug' => 'flower-pots',
-            'description' => 'Cute and colorful pipe cleaner flowers in decorative pots.',
-            'parent_id' => $pipeCleaner->id,
-        ]);
+        $pots = Category::updateOrCreate(
+            ['slug' => 'flower-pots'],
+            [
+                'name' => 'Flower Pots',
+                'description' => 'Cute and colorful pipe cleaner flowers in decorative pots.',
+                'parent_id' => $pipeCleaner->id,
+                'meta_title' => 'Decorative Pipe Cleaner Flower Pots - Ashma Creations',
+                'meta_description' => 'Miniature flower pots with handcrafted pipe cleaner flowers. Perfect for desks and small spaces.',
+            ]
+        );
 
-        $individual = Category::create([
-            'name' => 'Individual Flowers',
-            'slug' => 'individual-flowers',
-            'description' => 'Single handcrafted flowers like Roses, Tulips, and Sunflowers.',
-            'parent_id' => $pipeCleaner->id,
-        ]);
+        $individual = Category::updateOrCreate(
+            ['slug' => 'individual-flowers'],
+            [
+                'name' => 'Individual Flowers',
+                'description' => 'Single handcrafted flowers like Roses, Tulips, and Sunflowers.',
+                'parent_id' => $pipeCleaner->id,
+            ]
+        );
 
-        Category::create([
-            'name' => 'Custom Creations',
-            'slug' => 'custom-creations',
-            'description' => 'Personalized handmade gifts and decorations.',
-        ]);
+        Category::updateOrCreate(
+            ['slug' => 'custom-creations'],
+            [
+                'name' => 'Custom Creations',
+                'description' => 'Personalized handmade gifts and decorations.',
+            ]
+        );
 
         // Products for Bouquets
-        Product::create([
-            'name' => 'Elegant Rose Bouquet',
-            'slug' => 'elegant-rose-bouquet',
-            'description' => 'A beautiful bouquet of 12 handcrafted pipe cleaner roses in various shades of pink.',
-            'details' => "Handmade with premium soft pipe cleaners.\nIncludes decorative wrapping and a ribbon.\nHeight: approx. 35cm.",
-            'category_id' => $bouquet->id,
-            'is_featured' => true,
-        ]);
+        Product::updateOrCreate(
+            ['slug' => 'elegant-rose-bouquet'],
+            [
+                'name' => 'Elegant Rose Bouquet',
+                'description' => 'A beautiful bouquet of 12 handcrafted pipe cleaner roses in various shades of pink.',
+                'details' => "Handmade with premium soft pipe cleaners.\nIncludes decorative wrapping and a ribbon.\nHeight: approx. 35cm.",
+                'category_id' => $bouquet->id,
+                'is_featured' => true,
+                'meta_title' => 'Elegant Rose Bouquet - Handmade Pipe Cleaner Flowers',
+                'meta_description' => 'Buy a beautiful 12-rose handcrafted pipe cleaner bouquet. A perfect everlasting gift.',
+            ]
+        );
 
-        Product::create([
-            'name' => 'Spring Tulip Bouquet',
-            'slug' => 'spring-tulip-bouquet',
-            'description' => 'Vibrant and cheerful tulips made from colorful pipe cleaners.',
-            'details' => "Set of 7 colorful tulips.\nHand-twisted stems for a natural look.",
-            'category_id' => $bouquet->id,
-            'is_featured' => true,
-        ]);
+        Product::updateOrCreate(
+            ['slug' => 'spring-tulip-bouquet'],
+            [
+                'name' => 'Spring Tulip Bouquet',
+                'description' => 'Vibrant and cheerful tulips made from colorful pipe cleaners.',
+                'details' => "Set of 7 colorful tulips.\nHand-twisted stems for a natural look.",
+                'category_id' => $bouquet->id,
+                'is_featured' => true,
+            ]
+        );
 
         // Products for Flower Pots
-        Product::create([
-            'name' => 'Mini Sunflower Pot',
-            'slug' => 'mini-sunflower-pot',
-            'description' => 'A happy little sunflower in a ceramic mini pot.',
-            'details' => "Perfect for office desks or bedside tables.\nHandcrafted with attention to detail.",
-            'category_id' => $pots->id,
-            'is_featured' => true,
-        ]);
+        Product::updateOrCreate(
+            ['slug' => 'mini-sunflower-pot'],
+            [
+                'name' => 'Mini Sunflower Pot',
+                'description' => 'A happy little sunflower in a ceramic mini pot.',
+                'details' => "Perfect for office desks or bedside tables.\nHandcrafted with attention to detail.",
+                'category_id' => $pots->id,
+                'is_featured' => true,
+            ]
+        );
 
-        Product::create([
-            'name' => 'Lavender Dream Pot',
-            'slug' => 'lavender-dream-pot',
-            'description' => 'Elegant pipe cleaner lavender sprigs in a rustic pot.',
-            'details' => "Soothing colors, eternal beauty.\nNo maintenance required.",
-            'category_id' => $pots->id,
-        ]);
+        Product::updateOrCreate(
+            ['slug' => 'lavender-dream-pot'],
+            [
+                'name' => 'Lavender Dream Pot',
+                'description' => 'Elegant pipe cleaner lavender sprigs in a rustic pot.',
+                'details' => "Soothing colors, eternal beauty.\nNo maintenance required.",
+                'category_id' => $pots->id,
+            ]
+        );
 
         // Products for Individual Flowers
-        Product::create([
-            'name' => 'Single Red Rose',
-            'slug' => 'single-red-rose',
-            'description' => 'A classic red rose that never fades.',
-            'details' => "Available in multiple colors upon request.",
-            'category_id' => $individual->id,
-        ]);
+        Product::updateOrCreate(
+            ['slug' => 'single-red-rose'],
+            [
+                'name' => 'Single Red Rose',
+                'description' => 'A classic red rose that never fades.',
+                'details' => "Available in multiple colors upon request.",
+                'category_id' => $individual->id,
+            ]
+        );
     }
 }
