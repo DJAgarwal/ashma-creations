@@ -74,7 +74,7 @@ class AdminAuthTest extends TestCase
         $response = $this->actingAs($admin)->get('/admin');
 
         $response->assertStatus(200);
-        $response->assertSee('Welcome back, Admin!');
+        $response->assertSee('Welcome back, Dheeraj Agarwal!');
         $response->assertSee('Categories');
         $response->assertSee('Products');
     }

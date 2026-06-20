@@ -27,6 +27,14 @@ class Category extends Model
     ];
 
     /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * Get the dynamic JSON-LD schema if not explicitly set.
      */
     public function getJsonLdAttribute($value)

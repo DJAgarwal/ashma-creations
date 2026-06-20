@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+
 @theme {
     /* Colors */
     --color-primary-light: #F8BBD0;
@@ -10,6 +13,9 @@
     --color-gold: #D4AF37;
     --color-charcoal: #333333;
     --color-soft-gray: #666666;
+
+    /* Spacing */
+    --spacing-22: 5.5rem;
 
     /* Fonts */
     --font-heading: "Pacifico", cursive;
@@ -33,3 +39,14 @@
 .animate-duration-3s {
     animation-duration: 3s;
 }
+
+/* Fallback translations for browsers that don't support the native CSS translate property */
+.legacy-translate-x-full {
+    transform: translateX(-100%) !important;
+}
+@media (min-width: 768px) {
+    .legacy-md-translate-x-0 {
+        transform: translateX(0) !important;
+    }
+}
+

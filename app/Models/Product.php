@@ -30,6 +30,14 @@ class Product extends Model
     ];
 
     /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * Get the dynamic JSON-LD schema if not explicitly set.
      */
     public function getJsonLdAttribute($value)
@@ -51,6 +59,15 @@ class Product extends Model
 
         $pos = 2;
         if ($this->category) {
+            if ($this->category->parent) {
+                $breadcrumbs[] = [
+                    '@type' => 'ListItem',
+                    'position' => $pos++,
+                    'name' => $this->category->parent->name,
+                    'item' => route('categories.show', $this->category->parent->slug)
+                ];
+            }
+            
             $breadcrumbs[] = [
                 '@type' => 'ListItem',
                 'position' => $pos++,

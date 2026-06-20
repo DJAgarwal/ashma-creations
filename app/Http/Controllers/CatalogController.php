@@ -42,7 +42,7 @@ class CatalogController extends Controller
      */
     public function productShow($slug)
     {
-        $product = Product::where('slug', $slug)->with('category')->firstOrFail();
+        $product = Product::where('slug', $slug)->with('category.parent')->firstOrFail();
         
         // Use the product model as the 'page' provider for SEO fields
         $page = $product;

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController,CatalogController,PageController,SitemapController};
-use App\Http\Controllers\Admin\{AdminAuthController,AdminController,AdminCategoryController};
+use App\Http\Controllers\Admin\{AdminAuthController,AdminController,AdminCategoryController,AdminProductController};
 
 // Sitemap & Robots
 Route::controller(SitemapController::class)->group(function () {
@@ -35,6 +35,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{category}/edit', 'edit')->name('edit');
             Route::put('/{category}', 'update')->name('update');
             Route::delete('/{category}', 'destroy')->name('destroy');
+        });
+        
+        // Products CRUD Group
+        Route::prefix('products')->name('products.')->controller(AdminProductController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{product}/edit', 'edit')->name('edit');
+            Route::put('/{product}', 'update')->name('update');
+            Route::delete('/{product}', 'destroy')->name('destroy');
         });
         
         // Logout Routes

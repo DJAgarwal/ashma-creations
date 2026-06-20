@@ -11,12 +11,22 @@
                     <li class="inline-flex items-center">
                         <a href="{{ url('/') }}" class="hover:text-primary transition-colors">Home</a>
                     </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                            <a href="{{ route('categories.show', $product->category->slug) }}" class="hover:text-primary transition-colors">{{ $product->category->name }}</a>
-                        </div>
-                    </li>
+                    @if($product->category)
+                        @if($product->category->parent)
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                                    <a href="{{ route('categories.show', $product->category->parent->slug) }}" class="hover:text-primary transition-colors">{{ $product->category->parent->name }}</a>
+                                </div>
+                            </li>
+                        @endif
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                                <a href="{{ route('categories.show', $product->category->slug) }}" class="hover:text-primary transition-colors">{{ $product->category->name }}</a>
+                            </div>
+                        </li>
+                    @endif
                     <li aria-current="page">
                         <div class="flex items-center">
                             <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
