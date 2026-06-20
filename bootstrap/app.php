@@ -13,7 +13,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             \App\Http\Middleware\Cors::class,
-            \App\Http\Middleware\LogVisits::class,
         ]);
         $middleware->redirectTo(function ($request) {
             return $request->expectsJson() ? null : route('admin.login');

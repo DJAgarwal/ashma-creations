@@ -37,8 +37,8 @@ class Cors
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PATCH, OPTIONS, PUT, DELETE');
         $response->headers->set('Content-Security-Policy', 
             "default-src 'self' https://cloudflareinsights.com; " .
-            "script-src 'self' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'strict-dynamic' 'unsafe-inline'; " .
-            "style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline'; " .
+            "script-src 'self' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'strict-dynamic' 'unsafe-inline' 'sha256-rWHhmye/Ntz+VBV+8loOkr8LoNtobYvPd0YKNSmWN7g='; " .
+            "style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline' 'unsafe-hashes' 'sha256-ibLtdECgFxYM3nD7SDhq0hGrJhkAUl5AttSP98l+4mg='; " .
             "font-src 'self' https://fonts.gstatic.com; " .
             "connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com https://www.google.com; " .
             "img-src 'self' https://www.google-analytics.com data: blob:; " .

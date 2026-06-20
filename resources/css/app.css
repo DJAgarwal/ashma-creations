@@ -25,3 +25,11 @@
         @apply font-heading text-primary;
     }
 }
+
+/* Custom animation duration classes to satisfy CSP */
+.animate-duration-4s {
+    animation-duration: 4s;
+}
+.animate-duration-3s {
+    animation-duration: 3s;
+}
