@@ -70,7 +70,7 @@
                                         </svg>
                                     </a>
                                     
-                                    <form method="POST" action="{{ route('admin.categories.destroy', $cat->slug) }}" onsubmit="return confirm('Are you sure you want to delete this category? Subcategories and products inside it will be permanently deleted.');">
+                                    <form method="POST" action="{{ route('admin.categories.destroy', $cat->slug) }}" class="js-confirm-delete" data-confirm="Are you sure you want to delete this category? Subcategories and products inside it will be permanently deleted.">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer" title="Delete">

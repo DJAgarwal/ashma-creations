@@ -117,7 +117,7 @@ class AdminProductController extends Controller
             'details' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'max:2048'],
+            'images.*' => ['image', 'max:5120'],
             'is_featured' => ['nullable', 'boolean'],
         ]);
 

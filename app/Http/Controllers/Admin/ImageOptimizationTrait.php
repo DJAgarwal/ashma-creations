@@ -64,7 +64,20 @@ trait ImageOptimizationTrait
         // Write file
         $image->save($absoluteOutputPath);
 
-        return 'uploads/categories/' . $webpFilename;
+        // Return path relative to public/ (uploads/<type>/<file>.webp)
+        $destinationPath = rtrim(str_replace('\\', '/', $destinationPath), '/');
+        if (str_ends_with($destinationPath, '/uploads/categories')) {
+            return 'uploads/categories/' . $webpFilename;
+        }
+
+        if (str_ends_with($destinationPath, '/uploads/products')) {
+            return 'uploads/products/' . $webpFilename;
+        }
+
+        // Fallback: infer uploads subfolder name from the destinationPath
+        $parts = explode('/', $destinationPath);
+        $folder = $parts ? end($parts) : 'uploads';
+        return 'uploads/' . $folder . '/' . $webpFilename;
     }
 
     protected function saveOptimizedCategoryImage(UploadedFile $file, string $destinationPath, string $originalFilename): string

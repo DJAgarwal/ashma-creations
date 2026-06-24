@@ -78,7 +78,7 @@
                                         </svg>
                                     </a>
                                     
-                                    <form method="POST" action="{{ route('admin.products.destroy', $prod->slug) }}" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                    <form method="POST" action="{{ route('admin.products.destroy', $prod->slug) }}" class="js-confirm-delete" data-confirm="Are you sure you want to delete this product?">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all cursor-pointer" title="Delete">
