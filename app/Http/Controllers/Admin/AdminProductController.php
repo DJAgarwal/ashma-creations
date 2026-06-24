@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 
 class AdminProductController extends Controller
 {
+    use ImageOptimizationTrait;
     /**
      * Display a listing of products.
      */
@@ -40,7 +41,7 @@ class AdminProductController extends Controller
             'details' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'max:2048'], // Max 2MB per image
+            'images.*' => ['image', 'max:5120'], // Max 5MB per image
             'is_featured' => ['nullable', 'boolean'],
         ]);
 
@@ -63,9 +64,9 @@ class AdminProductController extends Controller
             }
 
             foreach ($request->file('images') as $file) {
-                $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
-                $file->move($destinationPath, $filename);
-                $uploadedImages[] = 'uploads/products/' . $filename;
+                $originalFilename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                $filenameBase = $originalFilename;
+                $uploadedImages[] = $this->saveOptimizedProductImage($file, $destinationPath, $filenameBase);
             }
         }
 
@@ -152,9 +153,9 @@ class AdminProductController extends Controller
             }
 
             foreach ($request->file('images') as $file) {
-                $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
-                $file->move($destinationPath, $filename);
-                $uploadedImages[] = 'uploads/products/' . $filename;
+                $originalFilename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+                $filenameBase = $originalFilename;
+                $uploadedImages[] = $this->saveOptimizedProductImage($file, $destinationPath, $filenameBase);
             }
         }
 

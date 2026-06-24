@@ -72,7 +72,7 @@
 
                     <input id="image" type="file" name="image" accept="image/*"
                            class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('image') border-red-500 @enderror">
-                    <p class="text-xs text-soft-gray mt-2">Upload a new image to replace the current one. Recommended: Square format, less than 2MB.</p>
+                    <p class="text-xs text-soft-gray mt-2">Upload a new image to replace the current one. Recommended: Square format, less than 5MB.</p>
                     @error('image')
                         <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
                     @enderror

@@ -72,7 +72,7 @@
                     <label for="images" class="block text-sm font-semibold text-gray-700 mb-2">Product Images</label>
                     <input id="images" type="file" name="images[]" multiple accept="image/*"
                            class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('images') border-red-500 @enderror @error('images.*') border-red-500 @enderror">
-                    <p class="text-xs text-soft-gray mt-2">You can upload multiple files. Recommended: Square format, less than 2MB each.</p>
+                    <p class="text-xs text-soft-gray mt-2">You can upload multiple files. Recommended: Square format, less than 5MB each.</p>
                     @error('images')
                         <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
                     @enderror

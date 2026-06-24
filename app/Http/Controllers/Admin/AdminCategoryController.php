@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 
 class AdminCategoryController extends Controller
 {
+    use ImageOptimizationTrait;
     /**
      * Display a listing of categories.
      */
@@ -37,7 +38,7 @@ class AdminCategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'max:2048'], // Max 2MB
+            'image' => ['nullable', 'image', 'max:5120'], // Max 5MB
         ]);
 
         $name = $request->input('name');
@@ -61,8 +62,7 @@ class AdminCategoryController extends Controller
                 File::makeDirectory($destinationPath, 0755, true);
             }
             
-            $file->move($destinationPath, $filename);
-            $imagePath = 'uploads/categories/' . $filename;
+            $imagePath = $this->saveOptimizedCategoryImage($file, $destinationPath, $filename);
         }
 
         // Auto-generate SEO meta values
@@ -109,7 +109,7 @@ class AdminCategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'exists:categories,id', 'different:id'],
-            'image' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:5120'], // Max 5MB (we compress to WebP)
         ]);
 
         $name = $request->input('name');
@@ -141,8 +141,7 @@ class AdminCategoryController extends Controller
                 File::makeDirectory($destinationPath, 0755, true);
             }
 
-            $file->move($destinationPath, $filename);
-            $imagePath = 'uploads/categories/' . $filename;
+            $imagePath = $this->saveOptimizedCategoryImage($file, $destinationPath, $filename);
         }
 
         // Auto-generate/Update SEO values
