@@ -71,7 +71,7 @@
     <meta name="geo.region" content="IN">
     <meta name="geo.placename" content="India">
     <meta name="distribution" content="global">
-
+    <meta name="msvalidate.01" content="FB8FD81257CABCAAE80C6D28B76A4431" />
     {{-- Canonical URL --}}
     <link rel="canonical" href="{{ request()->url() }}" />
 
