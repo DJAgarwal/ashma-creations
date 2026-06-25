@@ -32,3 +32,67 @@
 .animate-duration-8s {
     animation-duration: 8s !important;
 }
+
+/* Mobile sidebar navigation (in custom.css for reliable cache-busting on phones) */
+.mobile-nav-link {
+    display: block;
+    border-radius: 1rem;
+    padding: 0.875rem 1rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #333333;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .mobile-nav-link:hover {
+        background-color: rgba(248, 187, 208, 0.25);
+        color: #EC407A;
+    }
+}
+
+.mobile-nav-link:active {
+    background-color: rgba(236, 64, 122, 0.15);
+    color: #EC407A;
+    transform: scale(0.98);
+}
+
+.mobile-nav-link-active {
+    background-color: rgba(236, 64, 122, 0.1);
+    color: #EC407A;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(236, 64, 122, 0.2);
+}
+
+.mobile-social-link {
+    display: inline-block;
+    border-radius: 9999px;
+    border: 1px solid rgba(248, 187, 208, 0.4);
+    background-color: rgba(248, 187, 208, 0.1);
+    padding: 0.5rem 1rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #EC407A;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .mobile-social-link:hover {
+        border-color: #EC407A;
+        background-color: #EC407A;
+        color: #ffffff;
+    }
+}
+
+.mobile-social-link:active {
+    border-color: #EC407A;
+    background-color: #EC407A;
+    color: #ffffff;
+    transform: scale(0.95);
+}
