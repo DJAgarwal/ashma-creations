@@ -126,8 +126,8 @@
                 <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
             </div>
         </div>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GT-5R6XN256"></script>
-        <script>
+        <script nonce="{{ $cspNonce ?? '' }}" async src="https://www.googletagmanager.com/gtag/js?id=GT-5R6XN256"></script>
+        <script nonce="{{ $cspNonce ?? '' }}">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());

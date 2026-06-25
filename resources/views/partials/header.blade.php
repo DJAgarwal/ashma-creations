@@ -32,53 +32,61 @@
         </nav>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-primary hover:text-accent focus:outline-none">
+        <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden text-primary hover:text-accent focus:outline-none">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
     </div>
+</header>
 
-    <!-- Mobile Slide-out Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-charcoal/50 backdrop-blur-sm transform translate-x-full transition-transform duration-300 md:hidden">
-        <div class="absolute right-0 top-0 h-full w-64 bg-background shadow-2xl p-6">
-            <div class="flex justify-end">
-                <button id="close-menu-btn" class="text-primary hover:text-accent">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <nav class="mt-8 flex flex-col space-y-6">
-                <a href="{{ url('/') }}" class="text-xl font-heading text-charcoal hover:text-primary">Home</a>
-                <a href="{{ route('categories.index') }}" class="text-xl font-heading text-charcoal hover:text-primary">Categories</a>
-                <a href="{{ url('/about') }}" class="text-xl font-heading text-charcoal hover:text-primary">About</a>
-                <a href="{{ url('/contact') }}" class="text-xl font-heading text-charcoal hover:text-primary">Contact</a>
-            </nav>
-            <div class="mt-auto pt-12">
-                <p class="text-sm font-body text-soft-gray uppercase tracking-widest mb-4 text-center">Follow Us</p>
-                <div class="flex justify-center space-x-6">
-                    <a href="https://www.instagram.com/ashma_creations07" target="_blank" class="text-primary hover:text-accent transition-colors">Instagram</a>
-                    <a href="https://wa.me/917728879509" target="_blank" class="text-primary hover:text-accent transition-colors">WhatsApp</a>
-                </div>
+{{-- Mobile menu lives outside the header so fixed positioning is not clipped by backdrop-blur --}}
+<div id="mobile-menu" class="fixed inset-0 z-[60] invisible pointer-events-none md:hidden" aria-hidden="true">
+    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-charcoal/50 backdrop-blur-sm"></div>
+    <aside id="mobile-menu-panel" class="absolute right-0 top-0 flex h-full w-72 max-w-[85vw] translate-x-full flex-col bg-white p-6 shadow-2xl transition-transform duration-300">
+        <div class="flex justify-end">
+            <button id="close-menu-btn" type="button" class="text-primary hover:text-accent focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="mt-6 flex flex-col gap-2">
+            <a href="{{ url('/') }}" class="mobile-nav-link {{ request()->is('/') ? 'mobile-nav-link-active' : '' }}">Home</a>
+            <a href="{{ route('categories.index') }}" class="mobile-nav-link {{ request()->is('categories*') ? 'mobile-nav-link-active' : '' }}">Categories</a>
+            <a href="{{ url('/about') }}" class="mobile-nav-link {{ request()->is('about') ? 'mobile-nav-link-active' : '' }}">About</a>
+            <a href="{{ url('/contact') }}" class="mobile-nav-link {{ request()->is('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
+        </nav>
+        <div class="mt-auto pt-12">
+            <p class="text-sm font-body text-soft-gray uppercase tracking-widest mb-4 text-center">Follow Us</p>
+            <div class="flex justify-center gap-3">
+                <a href="https://www.instagram.com/ashma_creations07" target="_blank" rel="noopener noreferrer" class="mobile-social-link">Instagram</a>
+                <a href="https://wa.me/917728879509" target="_blank" rel="noopener noreferrer" class="mobile-social-link">WhatsApp</a>
             </div>
         </div>
-    </div>
-</header>
+    </aside>
+</div>
 
 <script nonce="{{ $cspNonce ?? '' }}">
     const btn = document.getElementById('mobile-menu-btn');
     const closeBtn = document.getElementById('close-menu-btn');
     const menu = document.getElementById('mobile-menu');
+    const panel = document.getElementById('mobile-menu-panel');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
 
-    btn.addEventListener('click', () => {
-        menu.classList.remove('translate-x-full');
-    });
+    function openMobileMenu() {
+        menu.classList.remove('invisible', 'pointer-events-none');
+        menu.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('overflow-hidden');
+        panel.classList.remove('translate-x-full');
+    }
 
-    closeBtn.addEventListener('click', () => {
-        menu.classList.add('translate-x-full');
-    });
+    function closeMobileMenu() {
+        panel.classList.add('translate-x-full');
+        menu.classList.add('invisible', 'pointer-events-none');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('overflow-hidden');
+    }
 
-    // Close menu when clicking outside
-    menu.addEventListener('click', (e) => {
-        if (e.target === menu) {
-            menu.classList.add('translate-x-full');
-        }
-    });
+    btn.addEventListener('click', openMobileMenu);
+    closeBtn.addEventListener('click', closeMobileMenu);
+    backdrop.addEventListener('click', closeMobileMenu);
 </script>
