@@ -77,7 +77,7 @@ class AdminProductController extends Controller
             !empty($description) 
                 ? "Explore {$name} at Ashma Creations. Handcrafted flower creations made with care. " . strip_tags($description)
                 : "Handcrafted {$name} by Ashma Creations. Browse our beautiful custom collections.",
-            155
+            155,''
         );
 
         Product::create([
@@ -166,7 +166,7 @@ class AdminProductController extends Controller
             !empty($description) 
                 ? "Explore {$name} at Ashma Creations. Handcrafted flower creations made with care. " . strip_tags($description)
                 : "Handcrafted {$name} by Ashma Creations. Browse our beautiful custom collections.",
-            155
+            155,''
         );
 
         $product->update([

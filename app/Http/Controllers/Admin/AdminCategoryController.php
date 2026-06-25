@@ -72,7 +72,7 @@ class AdminCategoryController extends Controller
             !empty($description) 
                 ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
                 : "Explore our handcrafted {$name} collection at Ashma Creations. Flowers, bouquets, and custom gifts made with love.",
-            155
+            155,''
         );
 
         Category::create([
@@ -151,7 +151,7 @@ class AdminCategoryController extends Controller
             !empty($description) 
                 ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
                 : "Explore our handcrafted {$name} collection at Ashma Creations. Flowers, bouquets, and custom gifts made with love.",
-            155
+            155,''
         );
 
         $category->update([
