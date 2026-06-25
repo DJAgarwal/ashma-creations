@@ -93,11 +93,13 @@
     <meta name="twitter:site" content="{{ $twitter['site'] ?? '@ashma_creations07' }}">
 
     <!-- Favicon and App Icons -->
-    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon"  sizes="32x32" href="{{ url('/favicon-32x32.png') }}" type="image/png">
+    <link rel="icon"  sizes="16x16" href="{{ url('/favicon-16x16.png') }}" type="image/png">
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url('/images/apple-touch-icon.png') }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="{{ asset('manifest.json') }}" crossorigin="anonymous">
 
    
     @stack('styles')
