@@ -58,13 +58,40 @@
 
                 <!-- Image -->
                 <div>
-                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Collection Image</label>
+                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Category Image</label>
                     <input id="image" type="file" name="image" accept="image/*"
                            class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('image') border-red-500 @enderror">
                     <p class="text-xs text-soft-gray mt-2">Recommended: Square format, less than 5MB.</p>
                     @error('image')
                         <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <!-- Display Order & Active status -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="display_order" class="block text-sm font-semibold text-gray-700 mb-2">Display Order</label>
+                        <input id="display_order" type="number" name="display_order" min="0" value="{{ old('display_order', 0) }}"
+                               class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">
+                    </div>
+                    <div class="flex items-center pt-8">
+                        <input id="active" type="checkbox" name="active" value="1" {{ old('active', true) ? 'checked' : '' }}
+                               class="w-4 h-4 text-primary bg-background border-primary-light/20 rounded focus:ring-primary/20">
+                        <label for="active" class="ml-3 text-sm font-semibold text-gray-700 cursor-pointer">Active</label>
+                    </div>
+                </div>
+
+                <!-- SEO Fields -->
+                <div>
+                    <label for="seo_title" class="block text-sm font-semibold text-gray-700 mb-2">SEO Title</label>
+                    <input id="seo_title" type="text" name="seo_title" value="{{ old('seo_title') }}"
+                           class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">
+                </div>
+
+                <div>
+                    <label for="seo_description" class="block text-sm font-semibold text-gray-700 mb-2">SEO Description</label>
+                    <textarea id="seo_description" name="seo_description" rows="3"
+                              class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">{{ old('seo_description') }}</textarea>
                 </div>
 
                 <!-- Submit Button -->

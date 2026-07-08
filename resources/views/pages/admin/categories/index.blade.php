@@ -6,7 +6,7 @@
 @section('admin_content')
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-            <h3 class="text-lg font-bold text-gray-800">All Collections</h3>
+            <h3 class="text-lg font-bold text-gray-800">All Categories</h3>
             <p class="text-sm text-soft-gray">Add, edit, or delete categories for your shop.</p>
         </div>
         <a href="{{ route('admin.categories.create') }}" class="px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-md hover:bg-accent hover:shadow-lg transition-all text-sm flex items-center cursor-pointer">

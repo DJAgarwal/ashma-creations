@@ -74,6 +74,10 @@ trait ImageOptimizationTrait
             return 'uploads/products/' . $webpFilename;
         }
 
+        if (str_ends_with($destinationPath, '/uploads/collections')) {
+            return 'uploads/collections/' . $webpFilename;
+        }
+
         // Fallback: infer uploads subfolder name from the destinationPath
         $parts = explode('/', $destinationPath);
         $folder = $parts ? end($parts) : 'uploads';

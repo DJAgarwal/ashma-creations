@@ -18,6 +18,15 @@
         </url>
     @endforeach
 
+    @foreach($collections as $collection)
+        <url>
+            <loc>{{ route('collections.show', $collection->slug) }}</loc>
+            <lastmod>{{ $collection->updated_at->toAtomString() }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.7</priority>
+        </url>
+    @endforeach
+
     @foreach($products as $product)
         <url>
             <loc>{{ route('products.show', $product->slug) }}</loc>

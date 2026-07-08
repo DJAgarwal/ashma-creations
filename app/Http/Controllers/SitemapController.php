@@ -14,9 +14,10 @@ class SitemapController extends Controller
     {
         $staticPages = StaticPage::all();
         $categories = Category::all();
+        $collections = \App\Models\Collection::active()->get();
         $products = Product::all();
 
-        $xml = view('static.sitemap', compact('staticPages', 'categories', 'products'))->render();
+        $xml = view('static.sitemap', compact('staticPages', 'categories', 'collections', 'products'))->render();
 
         return Response::make($xml, 200, ['Content-Type' => 'application/xml']);
     }

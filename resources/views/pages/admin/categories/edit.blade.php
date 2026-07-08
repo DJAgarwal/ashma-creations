@@ -78,6 +78,33 @@
                     @enderror
                 </div>
 
+                <!-- Display Order & Active status -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="display_order" class="block text-sm font-semibold text-gray-700 mb-2">Display Order</label>
+                        <input id="display_order" type="number" name="display_order" min="0" value="{{ old('display_order', $category->display_order) }}"
+                               class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">
+                    </div>
+                    <div class="flex items-center pt-8">
+                        <input id="active" type="checkbox" name="active" value="1" {{ old('active', $category->active) ? 'checked' : '' }}
+                               class="w-4 h-4 text-primary bg-background border-primary-light/20 rounded focus:ring-primary/20">
+                        <label for="active" class="ml-3 text-sm font-semibold text-gray-700 cursor-pointer">Active</label>
+                    </div>
+                </div>
+
+                <!-- SEO Fields -->
+                <div>
+                    <label for="seo_title" class="block text-sm font-semibold text-gray-700 mb-2">SEO Title</label>
+                    <input id="seo_title" type="text" name="seo_title" value="{{ old('seo_title', $category->meta_title) }}"
+                           class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">
+                </div>
+
+                <div>
+                    <label for="seo_description" class="block text-sm font-semibold text-gray-700 mb-2">SEO Description</label>
+                    <textarea id="seo_description" name="seo_description" rows="3"
+                              class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">{{ old('seo_description', $category->meta_description) }}</textarea>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="pt-4">
                     <button type="submit" class="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-accent hover:shadow-accent/20 transition-all duration-300 cursor-pointer">
