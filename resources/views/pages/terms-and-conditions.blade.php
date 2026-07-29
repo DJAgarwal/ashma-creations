@@ -115,7 +115,7 @@
         </p>
         <p class="text-soft-gray mt-4">
             <strong>Email:</strong> <a href="mailto:ashmacreations07@gmail.com" class="text-primary hover:text-accent font-semibold underline">ashmacreations07@gmail.com</a><br>
-            <strong>Inquiries:</strong> <a href="{{ route('contact') }}" class="text-primary hover:text-accent font-semibold underline">Contact Us Form</a><br>
+            <strong>Inquiries:</strong> <a href="{{ url('/contact') }}" class="text-primary hover:text-accent font-semibold underline">Contact Us Form</a><br>
             <strong>Last Updated:</strong> June 19, 2026
         </p>
     </div>

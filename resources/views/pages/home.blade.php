@@ -22,7 +22,7 @@
                     <a href="{{ route('categories.index') }}" class="px-8 py-4 bg-primary text-white font-body font-bold rounded-full shadow-lg hover:bg-accent transition-all transform hover:-translate-y-1">
                         Explore Collection
                     </a>
-                    <a href="{{ route('contact') }}" class="px-8 py-4 border-2 border-primary text-primary font-body font-bold rounded-full hover:bg-primary/5 transition-all">
+                    <a href="{{ url('/contact') }}" class="px-8 py-4 border-2 border-primary text-primary font-body font-bold rounded-full hover:bg-primary/5 transition-all">
                         Contact Us
                     </a>
                 </div>
@@ -181,7 +181,7 @@
                         <a href="https://wa.me/917728879509" target="_blank" class="px-10 py-4 bg-white text-primary font-body font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                             Chat on WhatsApp
                         </a>
-                        <a href="{{ route('contact') }}" class="px-10 py-4 border-2 border-white/50 text-white font-body font-bold rounded-full hover:bg-white/10 transition-all">
+                        <a href="{{ url('/contact') }}" class="px-10 py-4 border-2 border-white/50 text-white font-body font-bold rounded-full hover:bg-white/10 transition-all">
                             Send an Inquiry
                         </a>
                     </div>
