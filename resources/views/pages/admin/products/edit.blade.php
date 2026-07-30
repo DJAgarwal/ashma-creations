@@ -51,22 +51,8 @@
                     @enderror
                 </div>
 
-                <!-- Category -->
-                <div>
-                    <label for="category_id" class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
-                    <select id="category_id" name="category_id" required
-                            class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('category_id') border-red-500 @enderror">
-                        <option value="">Select a Category</option>
-                        @foreach ($categories as $cat)
-                            <option value="{{ $cat->id }}" {{ old('category_id', $product->category_id) == $cat->id ? 'selected' : '' }}>
-                                {{ $cat->parent ? $cat->parent->name . ' > ' : '' }}{{ $cat->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('category_id')
-                        <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
-                    @enderror
-                </div>
+                <!-- Taxonomy & Discovery -->
+                @include('pages.admin.products._taxonomy-fields')
 
                 <!-- Current Images Preview -->
                 @if($product->images && count($product->images) > 0)
@@ -96,15 +82,6 @@
                     @enderror
                 </div>
 
-                <!-- Featured Switch -->
-                <div class="flex items-center">
-                    <input id="is_featured" type="checkbox" name="is_featured" value="1" {{ old('is_featured', $product->is_featured) ? 'checked' : '' }}
-                           class="w-4 h-4 text-primary bg-background border-primary-light/20 rounded focus:ring-primary/20 focus:outline-none">
-                    <label for="is_featured" class="ml-3 text-sm font-semibold text-gray-700 cursor-pointer">Feature this product on homepage</label>
-                    @error('is_featured')
-                        <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
-                    @enderror
-                </div>
 
                 <!-- Submit Button -->
                 <div class="pt-4">

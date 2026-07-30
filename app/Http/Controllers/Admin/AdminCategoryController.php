@@ -11,69 +11,54 @@ use Illuminate\Support\Facades\File;
 class AdminCategoryController extends Controller
 {
     use ImageOptimizationTrait;
-    /**
-     * Display a listing of categories.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $categories = Category::with(['parent', 'children'])->get();
+        $categories = Category::with(['parent', 'children'])
+            ->withCount('products')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+                $query->where(function ($inner) use ($search) {
+                    $inner->where('name', 'like', "%{$search}%")
+                        ->orWhere('slug', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('active'), fn ($query) => $query->where('active', $request->boolean('active')))
+            ->ordered()
+            ->paginate(15)
+            ->withQueryString();
+
         return view('pages.admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new category.
-     */
     public function create()
     {
-        $parentCategories = Category::all();
+        $parentCategories = Category::ordered()->get();
+
         return view('pages.admin.categories.create', compact('parentCategories'));
     }
 
-    /**
-     * Store a newly created category.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'max:5120'], // Max 5MB
+            'image' => ['nullable', 'image', 'max:5120'],
+            'active' => ['nullable', 'boolean'],
+            'display_order' => ['nullable', 'integer', 'min:0'],
+            'seo_title' => ['nullable', 'string', 'max:255'],
+            'seo_description' => ['nullable', 'string'],
         ]);
 
         $name = $request->input('name');
-        
-        // Generate Unique Slug
-        $slug = Str::slug($name);
-        $originalSlug = $slug;
-        $count = 1;
-        while (Category::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
+        $slug = Category::generateUniqueSlug($name);
+        $description = $request->input('description') ?? '';
 
-        // Handle Image Upload
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
-            
-            $destinationPath = public_path('uploads/categories');
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true);
-            }
-            
-            $imagePath = $this->saveOptimizedCategoryImage($file, $destinationPath, $filename);
+            $imagePath = $this->uploadCategoryImage($request->file('image'));
         }
-
-        // Auto-generate SEO meta values
-        $description = $request->input('description') ?? '';
-        $metaTitle = $name . ' - Ashma Creations';
-        $metaDescription = Str::limit(
-            !empty($description) 
-                ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
-                : "Explore our handcrafted {$name} collection at Ashma Creations. Flowers, bouquets, and custom gifts made with love.",
-            155,''
-        );
 
         Category::create([
             'name' => $name,
@@ -81,78 +66,58 @@ class AdminCategoryController extends Controller
             'description' => $description,
             'parent_id' => $request->input('parent_id'),
             'image_path' => $imagePath,
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
-            'json_ld' => null, // Dynamic model accessor handles this automatically!
+            'display_order' => (int) $request->input('display_order', 0),
+            'active' => $request->boolean('active', true),
+            'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
+            'meta_description' => $request->input('seo_description') ?: Str::limit(
+                !empty($description)
+                    ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
+                    : "Explore our handcrafted {$name} collection at Ashma Creations.",
+                155,
+                ''
+            ),
+            'json_ld' => null,
         ]);
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category created successfully and SEO metadata generated!');
+            ->with('success', 'Category created successfully!');
     }
 
-    /**
-     * Show the form for editing the specified category.
-     */
     public function edit(Category $category)
     {
-        // Exclude the category itself to prevent parenting loops
-        $parentCategories = Category::where('id', '!=', $category->id)->get();
+        $parentCategories = Category::where('id', '!=', $category->id)->ordered()->get();
+
         return view('pages.admin.categories.edit', compact('category', 'parentCategories'));
     }
 
-    /**
-     * Update the specified category.
-     */
     public function update(Request $request, Category $category)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'parent_id' => ['nullable', 'exists:categories,id', 'different:id'],
-            'image' => ['nullable', 'image', 'max:5120'], // Max 5MB (we compress to WebP)
+            'image' => ['nullable', 'image', 'max:5120'],
+            'active' => ['nullable', 'boolean'],
+            'display_order' => ['nullable', 'integer', 'min:0'],
+            'seo_title' => ['nullable', 'string', 'max:255'],
+            'seo_description' => ['nullable', 'string'],
         ]);
 
         $name = $request->input('name');
-
-        // Check if name changed to regenerate slug
         $slug = $category->slug;
         if ($category->name !== $name) {
-            $slug = Str::slug($name);
-            $originalSlug = $slug;
-            $count = 1;
-            while (Category::where('slug', $slug)->where('id', '!=', $category->id)->exists()) {
-                $slug = $originalSlug . '-' . $count++;
-            }
+            $slug = Category::generateUniqueSlug($name, $category->id);
         }
 
-        // Handle Image Upload
+        $description = $request->input('description') ?? '';
         $imagePath = $category->image_path;
+
         if ($request->hasFile('image')) {
-            // Delete old image if it exists in uploads/
             if (!empty($category->image_path) && File::exists(public_path($category->image_path))) {
                 File::delete(public_path($category->image_path));
             }
-
-            $file = $request->file('image');
-            $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
-            
-            $destinationPath = public_path('uploads/categories');
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true);
-            }
-
-            $imagePath = $this->saveOptimizedCategoryImage($file, $destinationPath, $filename);
+            $imagePath = $this->uploadCategoryImage($request->file('image'));
         }
-
-        // Auto-generate/Update SEO values
-        $description = $request->input('description') ?? '';
-        $metaTitle = $name . ' - Ashma Creations';
-        $metaDescription = Str::limit(
-            !empty($description) 
-                ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
-                : "Explore our handcrafted {$name} collection at Ashma Creations. Flowers, bouquets, and custom gifts made with love.",
-            155,''
-        );
 
         $category->update([
             'name' => $name,
@@ -160,28 +125,39 @@ class AdminCategoryController extends Controller
             'description' => $description,
             'parent_id' => $request->input('parent_id'),
             'image_path' => $imagePath,
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
+            'display_order' => (int) $request->input('display_order', 0),
+            'active' => $request->boolean('active', true),
+            'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
+            'meta_description' => $request->input('seo_description') ?: Str::limit(
+                !empty($description)
+                    ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
+                    : "Explore our handcrafted {$name} collection at Ashma Creations.",
+                155,
+                ''
+            ),
         ]);
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category updated successfully and SEO metadata refreshed!');
+            ->with('success', 'Category updated successfully!');
     }
 
-    /**
-     * Remove the specified category.
-     */
     public function destroy(Category $category)
     {
-        // Delete image file if it exists
         if (!empty($category->image_path) && File::exists(public_path($category->image_path))) {
             File::delete(public_path($category->image_path));
         }
 
-        // Delete database record (onDelete('cascade') handles subcategories and products relation cascade in DB)
         $category->delete();
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category and its descendants deleted successfully!');
+            ->with('success', 'Category deleted successfully!');
+    }
+
+    protected function uploadCategoryImage($file): string
+    {
+        $destinationPath = public_path('uploads/categories');
+        $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+
+        return $this->saveOptimizedCategoryImage($file, $destinationPath, $filename);
     }
 }

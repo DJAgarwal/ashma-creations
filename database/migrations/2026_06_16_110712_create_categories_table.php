@@ -18,10 +18,13 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('image_path')->nullable();
+            $table->unsignedInteger('display_order')->default(0);
+            $table->boolean('active')->default(true);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->json('json_ld')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

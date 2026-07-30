@@ -20,10 +20,14 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->boolean('is_featured')->default(false);
+            $table->boolean('is_best_seller')->default(false);
+            $table->boolean('is_new_arrival')->default(false);
+            $table->boolean('is_trending')->default(false);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->json('json_ld')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

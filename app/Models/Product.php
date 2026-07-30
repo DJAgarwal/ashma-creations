@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -18,6 +21,9 @@ class Product extends Model
         'images',
         'category_id',
         'is_featured',
+        'is_best_seller',
+        'is_new_arrival',
+        'is_trending',
         'meta_title',
         'meta_description',
         'json_ld',
@@ -26,20 +32,17 @@ class Product extends Model
     protected $casts = [
         'images' => 'array',
         'is_featured' => 'boolean',
+        'is_best_seller' => 'boolean',
+        'is_new_arrival' => 'boolean',
+        'is_trending' => 'boolean',
         'json_ld' => 'array',
     ];
 
-    /**
-     * Get the route key for the model.
-     */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    /**
-     * Get the dynamic JSON-LD schema if not explicitly set.
-     */
     public function getJsonLdAttribute($value)
     {
         $decoded = is_string($value) ? json_decode($value, true) : $value;
@@ -47,32 +50,31 @@ class Product extends Model
             return $decoded;
         }
 
-        // Generate dynamic JSON-LD for product page
         $breadcrumbs = [
             [
                 '@type' => 'ListItem',
                 'position' => 1,
                 'name' => 'Home',
-                'item' => url('/')
-            ]
+                'item' => url('/'),
+            ],
         ];
 
         $pos = 2;
-        if ($this->category) {
-            if ($this->category->parent) {
+        if ($this->primaryCategory) {
+            if ($this->primaryCategory->parent) {
                 $breadcrumbs[] = [
                     '@type' => 'ListItem',
                     'position' => $pos++,
-                    'name' => $this->category->parent->name,
-                    'item' => route('categories.show', $this->category->parent->slug)
+                    'name' => $this->primaryCategory->parent->name,
+                    'item' => route('categories.show', $this->primaryCategory->parent->slug),
                 ];
             }
-            
+
             $breadcrumbs[] = [
                 '@type' => 'ListItem',
                 'position' => $pos++,
-                'name' => $this->category->name,
-                'item' => route('categories.show', $this->category->slug)
+                'name' => $this->primaryCategory->name,
+                'item' => route('categories.show', $this->primaryCategory->slug),
             ];
         }
 
@@ -80,7 +82,7 @@ class Product extends Model
             '@type' => 'ListItem',
             'position' => $pos,
             'name' => $this->name,
-            'item' => route('products.show', $this->slug)
+            'item' => route('products.show', $this->slug),
         ];
 
         $images = [];
@@ -105,28 +107,56 @@ class Product extends Model
                         '@type' => 'Offer',
                         'url' => route('products.show', $this->slug),
                         'priceCurrency' => 'INR',
-                        'price' => '0.00', // Default/placeholder since price is not tracked in DB
+                        'price' => '0.00',
                         'availability' => 'https://schema.org/InStock',
-                        'priceValidUntil' => date('Y-12-31', strtotime('+1 year'))
+                        'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
                     ],
                     'brand' => [
                         '@type' => 'Brand',
-                        'name' => 'Ashma Creations'
-                    ]
+                        'name' => 'Ashma Creations',
+                    ],
                 ],
                 [
                     '@type' => 'BreadcrumbList',
-                    'itemListElement' => $breadcrumbs
-                ]
-            ]
+                    'itemListElement' => $breadcrumbs,
+                ],
+            ],
         ];
     }
 
-    /**
-     * Get the category that owns the product.
-     */
+    public function primaryCategory(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /** @deprecated Use primaryCategory() — kept for backward compatibility */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->primaryCategory();
+    }
+
+    public function collections(): BelongsToMany
+    {
+        return $this->belongsToMany(Collection::class, 'collection_product')->withTimestamps();
+    }
+
+    public function occasions(): BelongsToMany
+    {
+        return $this->belongsToMany(Occasion::class, 'occasion_product')->withTimestamps();
+    }
+
+    public function recipients(): BelongsToMany
+    {
+        return $this->belongsToMany(Recipient::class, 'recipient_product')->withTimestamps();
+    }
+
+    public function styles(): BelongsToMany
+    {
+        return $this->belongsToMany(Style::class, 'style_product')->withTimestamps();
+    }
+
+    public function materials(): BelongsToMany
+    {
+        return $this->belongsToMany(Material::class, 'material_product')->withTimestamps();
     }
 }

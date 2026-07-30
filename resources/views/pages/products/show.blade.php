@@ -103,7 +103,7 @@
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.533 1.945 1.99-.522c.961.524 2.033.8 3.135.8 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.811-5.766zm3.374 8.203c-.147.412-.752.748-1.033.796-.282.048-.564.072-1.636-.375-1.21-.502-1.966-1.73-2.025-1.812-.06-.082-.486-.644-.486-1.229 0-.584.306-.871.415-.99.11-.119.239-.148.318-.148.079 0 .159 0 .228.004.074.003.174-.028.272.209.1.242.342.833.372.893.03.06.05.128.01.209-.04.082-.06.129-.119.209-.06.079-.125.176-.178.236-.059.066-.122.138-.053.257.069.119.307.507.659.82.454.404.836.53 0.954.59.119.06.189.05.257-.028.069-.079.298-.348.377-.467.079-.119.158-.1.267-.06.11.04 1.144.538 1.144.538.03.01.05.025.07.054.02.03.02.132-.127.54z"/></svg>
                                 Contact on WhatsApp
                             </a>
-                            <a href="{{ route('contact') }}?product={{ $product->slug }}" class="flex-1 flex items-center justify-center px-8 py-4 bg-primary text-white font-body font-bold rounded-full hover:bg-accent transition-all transform hover:-translate-y-1 shadow-lg">
+                            <a href="{{ url('/contact') }}?product={{ $product->slug }}" class="flex-1 flex items-center justify-center px-8 py-4 bg-primary text-white font-body font-bold rounded-full hover:bg-accent transition-all transform hover:-translate-y-1 shadow-lg">
                                 Send Inquiry
                             </a>
                         </div>

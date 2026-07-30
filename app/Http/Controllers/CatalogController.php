@@ -55,4 +55,18 @@ class CatalogController extends Controller
 
         return view('pages.products.show', compact('page', 'product', 'relatedProducts'));
     }
+
+    /**
+     * Show products in a specific collection.
+     */
+    public function collectionShow($slug)
+    {
+        $collection = \App\Models\Collection::where('slug', $slug)->firstOrFail();
+        
+        $page = $collection;
+        
+        $products = $collection->products()->paginate(12);
+
+        return view('pages.collections.show', compact('page', 'collection', 'products'));
+    }
 }
