@@ -21,7 +21,7 @@ trait GeneratesUniqueSlug
 
     protected static function slugExists(string $slug, ?int $ignoreId = null): bool
     {
-        $query = static::where('slug', $slug);
+        $query = static::withTrashed()->where('slug', $slug);
 
         if ($ignoreId !== null) {
             $query->where('id', '!=', $ignoreId);

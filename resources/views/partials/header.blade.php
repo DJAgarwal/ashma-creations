@@ -21,7 +21,7 @@
                 <!-- Dropdown (Simplified for now) -->
                 <div class="absolute left-0 mt-2 w-48 bg-white border border-primary-light/20 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div class="py-2">
-                        @foreach(App\Models\Category::whereNull('parent_id')->get() as $category)
+                        @foreach(App\Models\Category::whereNull('parent_id')->active()->ordered()->get() as $category)
                             <a href="{{ route('categories.show', $category->slug) }}" class="block px-4 py-2 text-sm text-charcoal hover:bg-primary-light/10 hover:text-primary">{{ $category->name }}</a>
                         @endforeach
                     </div>

@@ -15,7 +15,11 @@ class CatalogController extends Controller
     public function categoryIndex()
     {
         $page = StaticPage::where('page_name', 'categories')->first();
-        $categories = Category::whereNull('parent_id')->get();
+        $categories = Category::whereNull('parent_id')
+            ->active()
+            ->ordered()
+            ->with(['children' => fn ($q) => $q->active()->ordered()])
+            ->get();
 
         return view('pages.categories.index', compact('page', 'categories'));
     }
@@ -25,14 +29,17 @@ class CatalogController extends Controller
      */
     public function categoryShow($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', $slug)->active()->firstOrFail();
         
         // Use the category model as the 'page' provider for SEO fields
         $page = $category;
         
-        // Get products from this category and its subcategories
-        $categoryIds = $category->children->pluck('id')->push($category->id);
-        $products = Product::whereIn('category_id', $categoryIds)->paginate(12);
+        // Get products from this category and its active subcategories
+        $categoryIds = $category->children()->active()->pluck('id')->push($category->id);
+        $products = Product::whereIn('category_id', $categoryIds)
+            ->with('primaryCategory')
+            ->latest()
+            ->paginate(12);
 
         return view('pages.categories.show', compact('page', 'category', 'products'));
     }
@@ -42,7 +49,9 @@ class CatalogController extends Controller
      */
     public function productShow($slug)
     {
-        $product = Product::where('slug', $slug)->with('category.parent')->firstOrFail();
+        $product = Product::where('slug', $slug)
+            ->with(['primaryCategory.parent', 'collections', 'occasions', 'recipients', 'styles', 'materials'])
+            ->firstOrFail();
         
         // Use the product model as the 'page' provider for SEO fields
         $page = $product;
@@ -50,6 +59,8 @@ class CatalogController extends Controller
         // Related products (from same category, excluding current)
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
+            ->with('primaryCategory')
+            ->latest()
             ->take(4)
             ->get();
 
@@ -61,11 +72,14 @@ class CatalogController extends Controller
      */
     public function collectionShow($slug)
     {
-        $collection = \App\Models\Collection::where('slug', $slug)->firstOrFail();
+        $collection = \App\Models\Collection::where('slug', $slug)->active()->firstOrFail();
         
         $page = $collection;
         
-        $products = $collection->products()->paginate(12);
+        $products = $collection->products()
+            ->with('primaryCategory')
+            ->latest()
+            ->paginate(12);
 
         return view('pages.collections.show', compact('page', 'collection', 'products'));
     }

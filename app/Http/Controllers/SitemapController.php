@@ -13,9 +13,9 @@ class SitemapController extends Controller
     public function index()
     {
         $staticPages = StaticPage::all();
-        $categories = Category::all();
-        $collections = \App\Models\Collection::active()->get();
-        $products = Product::all();
+        $categories = Category::active()->ordered()->get();
+        $collections = \App\Models\Collection::active()->ordered()->get();
+        $products = Product::latest()->get();
 
         $xml = view('static.sitemap', compact('staticPages', 'categories', 'collections', 'products'))->render();
 
