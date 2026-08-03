@@ -78,6 +78,14 @@ trait ImageOptimizationTrait
             return 'uploads/collections/' . $webpFilename;
         }
 
+        if (str_ends_with($destinationPath, '/uploads/recipients')) {
+            return 'uploads/recipients/' . $webpFilename;
+        }
+
+        if (str_ends_with($destinationPath, '/uploads/occasions')) {
+            return 'uploads/occasions/' . $webpFilename;
+        }
+
         // Fallback: infer uploads subfolder name from the destinationPath
         $parts = explode('/', $destinationPath);
         $folder = $parts ? end($parts) : 'uploads';
@@ -99,5 +107,14 @@ trait ImageOptimizationTrait
         return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 1600, 80);
     }
 
+    protected function saveOptimizedRecipientImage(UploadedFile $file, string $destinationPath, string $originalFilename): string
+    {
+        return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 1000, 85);
+    }
+
+    protected function saveOptimizedOccasionImage(UploadedFile $file, string $destinationPath, string $originalFilename): string
+    {
+        return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 1000, 85);
+    }
 }
 

@@ -14,7 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(StaticPageSeeder::class);
+        $this->call([
+            StaticPageSeeder::class,
+            RecipientSeeder::class,
+            OccasionSeeder::class,
+        ]);
 
         // Create Admin User
         \App\Models\User::updateOrCreate(

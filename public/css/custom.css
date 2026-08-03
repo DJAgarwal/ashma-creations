@@ -96,3 +96,66 @@
     color: #ffffff;
     transform: scale(0.95);
 }
+
+/* Horizontal scroll styling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Recipient & Occasion Card Fixed Sizing */
+.recipient-card,
+.occasion-card {
+    width: 160px !important;
+    height: 192px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    min-height: 192px !important;
+    max-height: 192px !important;
+    flex-shrink: 0 !important;
+}
+
+@media (min-width: 640px) {
+    .recipient-card,
+    .occasion-card {
+        width: 180px !important;
+        height: 216px !important;
+        min-width: 180px !important;
+        max-width: 180px !important;
+        min-height: 216px !important;
+        max-height: 216px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .recipient-card,
+    .occasion-card {
+        width: 200px !important;
+        height: 240px !important;
+        min-width: 200px !important;
+        max-width: 200px !important;
+        min-height: 240px !important;
+        max-height: 240px !important;
+    }
+}
+
+.w-30 {
+    width: 120px !important;
+}
+.h-30 {
+    height: 120px !important;
+}
+
+.w-40 {
+    width: 130px !important;
+}
+.h-40 {
+    height: 130px !important;
+}
+
+.rounded-half {
+    border-radius: 45px !important;
+}
