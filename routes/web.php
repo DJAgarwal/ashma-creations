@@ -71,11 +71,44 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::middleware(\App\Http\Middleware\LogVisits::class)->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/home', fn () => redirect()->route('home'));
+
     Route::controller(CatalogController::class)->group(function () {
+        // Main Shop Catalog
+        Route::get('/products', 'productIndex')->name('products.index');
+        Route::get('/shop', fn () => redirect()->route('products.index'));
+
+        // Categories Taxonomy
         Route::get('/categories', 'categoryIndex')->name('categories.index');
         Route::get('/category/{slug}', 'categoryShow')->where('slug', '[a-z0-9\-]+')->name('categories.show');
+
+        // Collections Taxonomy
+        Route::get('/collections', 'collectionIndex')->name('collections.index');
         Route::get('/collection/{slug}', 'collectionShow')->where('slug', '[a-z0-9\-]+')->name('collections.show');
+        Route::get('/collections/{slug}', fn ($slug) => redirect()->route('collections.show', $slug));
+
+        // Occasions Taxonomy
+        Route::get('/occasions', 'occasionIndex')->name('occasions.index');
+        Route::get('/occasion/{slug}', 'occasionShow')->where('slug', '[a-z0-9\-]+')->name('occasions.show');
+        Route::get('/occasions/{slug}', fn ($slug) => redirect()->route('occasions.show', $slug));
+
+        // Recipients Taxonomy
+        Route::get('/recipients', 'recipientIndex')->name('recipients.index');
+        Route::get('/recipient/{slug}', 'recipientShow')->where('slug', '[a-z0-9\-]+')->name('recipients.show');
+        Route::get('/recipients/{slug}', fn ($slug) => redirect()->route('recipients.show', $slug));
+
+        // Styles & Materials Landing Pages
+        Route::get('/style/{slug}', 'styleShow')->where('slug', '[a-z0-9\-]+')->name('styles.show');
+        Route::get('/styles/{slug}', fn ($slug) => redirect()->route('styles.show', $slug));
+        Route::get('/material/{slug}', 'materialShow')->where('slug', '[a-z0-9\-]+')->name('materials.show');
+        Route::get('/materials/{slug}', fn ($slug) => redirect()->route('materials.show', $slug));
+
+        // Single Product Canonical Page
         Route::get('/product/{slug}', 'productShow')->where('slug', '[a-z0-9\-]+')->name('products.show');
+
+        // Global Search
+        Route::get('/search', 'search')->name('search');
     });
+
+    // Static Pages fallback
     Route::get('/{slug}', [PageController::class, 'show'])->where('slug', '[a-z0-9\-]+')->name('page.show');
 });

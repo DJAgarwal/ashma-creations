@@ -28,7 +28,7 @@ return new class extends Migration
             $table->json('json_ld')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['is_featured', 'is_best_seller', 'is_new_arrival', 'is_trending']);
+            $table->index(['is_featured', 'is_best_seller', 'is_new_arrival', 'is_trending'], 'products_flags_index');
         });
     }
 

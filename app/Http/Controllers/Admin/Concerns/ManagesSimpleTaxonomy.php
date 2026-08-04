@@ -39,6 +39,16 @@ trait ManagesSimpleTaxonomy
             $rules['icon'] = ['nullable', 'string', 'max:255'];
         }
 
+        if (!empty($config['fields']['image'])) {
+            $imageRules = ['image', 'mimes:jpeg,jpg,png,webp', 'max:5120'];
+            if (!$item || empty($item->image_path)) {
+                array_unshift($imageRules, 'required');
+            } else {
+                array_unshift($imageRules, 'nullable');
+            }
+            $rules['image'] = $imageRules;
+        }
+
         return $rules;
     }
 

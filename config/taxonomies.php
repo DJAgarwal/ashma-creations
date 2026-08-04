@@ -16,14 +16,14 @@ return [
         'label' => 'Occasions',
         'label_singular' => 'Occasion',
         'model' => App\Models\Occasion::class,
-        'fields' => ['icon' => true],
+        'fields' => ['icon' => true, 'image' => true],
     ],
 
     'recipients' => [
         'label' => 'Recipients',
         'label_singular' => 'Recipient',
         'model' => App\Models\Recipient::class,
-        'fields' => [],
+        'fields' => ['image' => true],
     ],
 
     'styles' => [

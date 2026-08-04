@@ -14,6 +14,7 @@ class Product extends Model
     use GeneratesUniqueSlug;
     use HasFactory;
     use SoftDeletes;
+    use \App\Models\Concerns\FlushesHomeCache;
 
     protected $fillable = [
         'name',

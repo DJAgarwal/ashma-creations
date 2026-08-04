@@ -16,6 +16,7 @@ class Category extends Model
     use HasActiveOrdering;
     use HasFactory;
     use SoftDeletes;
+    use \App\Models\Concerns\FlushesHomeCache;
 
     protected $fillable = [
         'name',
