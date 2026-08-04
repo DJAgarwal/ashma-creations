@@ -27,6 +27,24 @@
         </url>
     @endforeach
 
+    @foreach($occasions as $occ)
+        <url>
+            <loc>{{ route('occasions.show', $occ->slug) }}</loc>
+            <lastmod>{{ $occ->updated_at->toAtomString() }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.7</priority>
+        </url>
+    @endforeach
+
+    @foreach($recipients as $rec)
+        <url>
+            <loc>{{ route('recipients.show', $rec->slug) }}</loc>
+            <lastmod>{{ $rec->updated_at->toAtomString() }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.7</priority>
+        </url>
+    @endforeach
+
     @foreach($products as $product)
         <url>
             <loc>{{ route('products.show', $product->slug) }}</loc>
