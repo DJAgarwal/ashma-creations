@@ -1,74 +1,67 @@
 @extends('layouts.app')
 
-@section('title', 'All Collections')
+@section('title', 'Product Categories - Ashma Creations')
 
 @section('content')
-    <div class="bg-background py-16">
-        <div class="container mx-auto px-4">
-            <!-- Breadcrumbs -->
-            <nav class="flex text-sm font-body text-soft-gray mb-8 justify-start" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <a href="{{ url('/') }}" class="hover:text-primary transition-colors">Home</a>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg class="w-3 h-3 text-primary-light mx-2" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-                            <span class="text-primary font-bold">Categories</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+<div class="bg-background py-10">
+    <div class="container mx-auto px-4">
+        <!-- Breadcrumbs -->
+        <x-breadcrumbs :items="[
+            ['label' => 'Categories']
+        ]" />
 
-            <!-- Header -->
-            <div class="text-center mb-16">
-                <h1 class="text-5xl font-heading text-primary mb-4">Our Collections</h1>
-                <p class="text-soft-gray font-body text-lg max-w-2xl mx-auto">
-                    Explore our diverse range of handcrafted pipe cleaner creations. Each category is a world of its own, filled with unique pieces made with love.
+        <!-- Header -->
+        <div class="bg-white rounded-3xl p-8 md:p-12 mb-12 border border-primary-light/20 shadow-sm relative overflow-hidden">
+            <div class="max-w-3xl relative z-10">
+                <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Category Taxonomy</span>
+                <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">All Categories</h1>
+                <p class="text-sm font-body text-soft-gray leading-relaxed">
+                    Browse our structured primary category classifications, subcategories, and handcrafted offerings.
                 </p>
-                <div class="w-24 h-1 bg-primary-light mx-auto mt-8 rounded-full"></div>
             </div>
+        </div>
 
-            <!-- Categories Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                @foreach($categories as $category)
-                <div class="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                    <div class="aspect-[4/3] bg-primary-light/10 relative overflow-hidden">
-                        @if($category->image_path)
-                            <img src="{{ asset($category->image_path) }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center text-primary-light/40 group-hover:scale-110 transition-transform duration-700">
-                                <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-12h2v2h-2zm0 4h2v6h-2z"/></svg>
-                            </div>
-                        @endif
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <a href="{{ route('categories.show', $category->slug) }}" class="px-8 py-3 bg-white text-primary font-body font-bold rounded-full transform scale-90 group-hover:scale-100 transition-transform">
-                                Explore
+        <!-- Categories Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($categories as $category)
+                <div class="bg-white rounded-3xl p-8 border border-primary-light/20 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-heading text-primary">
+                            <a href="{{ route('categories.show', $category->slug) }}" class="hover:text-accent transition-colors">
+                                {{ $category->name }}
                             </a>
-                        </div>
+                        </h2>
+                        <span class="text-xs font-body font-bold px-3 py-1 bg-primary-light/15 text-primary rounded-full">
+                            {{ $category->products_count ?? 0 }} Items
+                        </span>
                     </div>
-                    <div class="p-10 text-center">
-                        <h3 class="text-3xl font-heading text-primary mb-4">{{ $category->name }}</h3>
-                        <p class="text-soft-gray font-body leading-relaxed mb-8">{{ $category->description }}</p>
-                        
-                        @if($category->children->count() > 0)
-                            <div class="flex flex-wrap justify-center gap-2 mb-8">
+
+                    <p class="text-xs font-body text-soft-gray mb-6 line-clamp-2 leading-relaxed">
+                        {{ $category->description ?? 'Explore handcrafted items under ' . $category->name }}
+                    </p>
+
+                    @if($category->children && $category->children->count() > 0)
+                        <div class="mb-6 pt-4 border-t border-primary-light/15">
+                            <span class="text-[10px] font-body text-soft-gray uppercase tracking-wider block mb-2 font-bold">Subcategories</span>
+                            <div class="flex flex-wrap gap-2">
                                 @foreach($category->children as $child)
-                                    <a href="{{ route('categories.show', $child->slug) }}" class="px-4 py-1.5 bg-background text-primary-light hover:bg-primary-light/20 text-xs font-bold font-body rounded-full transition-colors">
+                                    <a href="{{ route('categories.show', $child->slug) }}" class="text-xs font-body px-3 py-1 bg-background hover:bg-primary-light/20 text-charcoal hover:text-primary rounded-lg transition-colors">
                                         {{ $child->name }}
                                     </a>
                                 @endforeach
                             </div>
-                        @endif
+                        </div>
+                    @endif
 
-                        <a href="{{ route('categories.show', $category->slug) }}" class="font-body font-bold text-primary group-hover:text-accent flex items-center justify-center gap-2">
-                            View All Items
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="mt-auto pt-4 border-t border-primary-light/15">
+                        <a href="{{ route('categories.show', $category->slug) }}" class="text-xs font-body font-bold text-primary hover:text-accent flex items-center justify-between">
+                            <span>Browse Landing Page</span>
+                            <span>&rarr;</span>
                         </a>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
     </div>
+</div>
 @endsection

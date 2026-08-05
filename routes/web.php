@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController,CatalogController,PageController,SitemapController};
-use App\Http\Controllers\Admin\{AdminAuthController,AdminController,AdminCategoryController,AdminCollectionController,AdminProductController,AdminTaxonomyController,};
+use App\Http\Controllers\Admin\{AdminAuthController,AdminController,AdminCategoryController,AdminCollectionController,AdminHeroBannerController,AdminProductController,AdminTaxonomyController,};
 use App\Support\TaxonomyRegistry;
 
 // Sitemap & Robots
@@ -61,6 +61,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{product}/edit', 'edit')->name('edit');
             Route::put('/{product}', 'update')->name('update');
             Route::delete('/{product}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('homepage')->name('homepage.')->group(function () {
+            Route::prefix('hero-banners')->name('hero-banners.')->controller(AdminHeroBannerController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/{id}/edit', 'edit')->name('edit');
+                Route::put('/{id}', 'update')->name('update');
+                Route::delete('/{id}', 'destroy')->name('destroy');
+                Route::post('/{id}/restore', 'restore')->name('restore');
+            });
         });
         Route::controller(AdminAuthController::class)->group(function () {
             Route::post('/logout', 'logout')->name('logout');
