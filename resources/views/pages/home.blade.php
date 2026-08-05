@@ -5,7 +5,7 @@
 @section('content')
 <!-- 2. SHOP FOR LOVED ONES -->
     @if(!empty($recipients) && $recipients->count() > 0)
-    <section class="py-16 md:py-20 bg-gradient-to-b from-white to-background">
+    <section class="py-10 md:py-20 bg-gradient-to-b from-white to-background">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between mb-8 md:mb-10">
                 <div>
@@ -59,7 +59,7 @@
     
     <!-- 1. DYNAMIC BANNERS SLIDER (TOP HERO SECTION) -->
     @if(!empty($heroBanners) && $heroBanners->count() > 0)
-    <section class="relative pt-4 pb-2 sm:pt-6 sm:pb-3 bg-background">
+    <section class="py-10 relative pt-4 pb-2 sm:pt-6 sm:pb-3 bg-background">
         <div class="container mx-auto px-0 sm:px-4 lg:px-6">
             <div class="hero-slider-shell">
                 <div id="hero-slider-container" class="hero-slider-box">
@@ -109,7 +109,7 @@
 
     <!-- 3. SHOP BY CATEGORY -->
     @if(!empty($featuredCategories) && $featuredCategories->count() > 0)
-    <section class="py-20 bg-background">
+    <section class="py-10 bg-background">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
@@ -161,7 +161,7 @@
 
     <!-- 4. FEATURED PRODUCTS GRID -->
     @if(!empty($featuredProducts) && $featuredProducts->count() > 0)
-    <section class="py-20 bg-white">
+    <section class="py-10 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
@@ -180,7 +180,7 @@
 
     <!-- 5. SHOP BY OCCASION -->
     @if(!empty($occasions) && $occasions->count() > 0)
-    <section class="py-16 md:py-20 bg-gradient-to-b from-white to-background">
+    <section class="py-10 md:py-20 bg-background">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between mb-8 md:mb-10">
                 <div>
@@ -233,7 +233,7 @@
     @endif
 
     <!-- 6. CUSTOM ORDER CTA -->
-    <section class="py-20 bg-white">
+    <section class="py-10 bg-white">
         <div class="container mx-auto px-4">
             <div class="bg-gradient-to-r from-primary to-accent rounded-[3rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
                 <div class="relative z-10 max-w-3xl mx-auto">

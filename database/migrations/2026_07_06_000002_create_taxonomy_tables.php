@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('icon')->nullable();
+            $table->string('image_path')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedInteger('display_order')->default(0);
             $table->timestamps();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('image_path')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedInteger('display_order')->default(0);
             $table->timestamps();

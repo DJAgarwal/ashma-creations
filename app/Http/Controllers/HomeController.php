@@ -8,6 +8,7 @@ use App\Models\Occasion;
 use App\Models\Product;
 use App\Models\Recipient;
 use App\Models\StaticPage;
+use App\Services\HeroBannerService;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
@@ -15,6 +16,9 @@ class HomeController extends Controller
     public function index()
     {
         $page = StaticPage::where('page_name', 'home')->first();
+
+        // 0. Hero Banners via HeroBannerService
+        $heroBanners = HeroBannerService::getHomepageBanners();
 
         // 1. Featured Collections with product counts
         $featuredCollections = Cache::remember('home_featured_collections_v1', 3600, function () {
@@ -74,6 +78,7 @@ class HomeController extends Controller
 
         return view('pages.home', compact(
             'page',
+            'heroBanners',
             'featuredCollections',
             'featuredCategories',
             'featuredProducts',

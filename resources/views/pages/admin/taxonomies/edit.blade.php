@@ -14,7 +14,7 @@
     </div>
 
     <div class="max-w-2xl bg-white rounded-[2rem] p-8 shadow-sm border border-primary-light/10">
-        <form method="POST" action="{{ route('admin.taxonomies.update', [$type, $item->slug]) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.taxonomies.update', [$type, $item->slug]) }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
             @include('pages.admin.taxonomies._form', ['item' => $item])

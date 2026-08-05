@@ -38,6 +38,9 @@
                         @if(!empty($config['fields']['icon']))
                             <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Icon</th>
                         @endif
+                        @if(!empty($config['fields']['image']))
+                            <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Image</th>
+                        @endif
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Order</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider text-right">Actions</th>
@@ -52,6 +55,15 @@
                             <td class="px-6 py-4 text-sm text-gray-600 font-mono">{{ $item->slug }}</td>
                             @if(!empty($config['fields']['icon']))
                                 <td class="px-6 py-4 text-sm">{{ $item->icon ?: '—' }}</td>
+                            @endif
+                            @if(!empty($config['fields']['image']))
+                                <td class="px-6 py-4">
+                                    @if(!empty($item->image_path))
+                                        <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" class="w-10 h-12 object-cover rounded-lg border border-primary-light/20 shadow-sm" />
+                                    @else
+                                        <span class="text-xs text-soft-gray">—</span>
+                                    @endif
+                                </td>
                             @endif
                             <td class="px-6 py-4 text-sm">{{ $item->display_order }}</td>
                             <td class="px-6 py-4">

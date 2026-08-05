@@ -14,7 +14,7 @@
     </div>
 
     <div class="max-w-2xl bg-white rounded-[2rem] p-8 shadow-sm border border-primary-light/10">
-        <form method="POST" action="{{ route('admin.taxonomies.store', $type) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.taxonomies.store', $type) }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @include('pages.admin.taxonomies._form', ['item' => null])
             <button type="submit" class="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-accent transition-all cursor-pointer">

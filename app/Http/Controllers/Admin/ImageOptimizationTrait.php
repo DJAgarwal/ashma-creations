@@ -50,12 +50,17 @@ trait ImageOptimizationTrait
         }
 
 
-        // Resize while preserving aspect ratio.
-        // fit() with aspect ratio best preserves image quality for typical admin thumbnails.
-        $image->resize($maxWidth, $maxWidth, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
+        // Scale down while preserving aspect ratio without distortion.
+        if (method_exists($image, 'scaleDown')) {
+            $image->scaleDown(width: $maxWidth);
+        } elseif (method_exists($image, 'scale')) {
+            $image->scale(width: $maxWidth);
+        } else {
+            $image->resize($maxWidth, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+        }
 
         // Encode to WebP with target quality (Intervention Image v3 expects an EncoderInterface, not a string).
         $image->encode(new \Intervention\Image\Encoders\WebpEncoder($quality));
@@ -115,6 +120,16 @@ trait ImageOptimizationTrait
     protected function saveOptimizedOccasionImage(UploadedFile $file, string $destinationPath, string $originalFilename): string
     {
         return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 1000, 85);
+    }
+
+    protected function saveOptimizedHeroBannerDesktopImage(UploadedFile $file, string $destinationPath, string $originalFilename): string
+    {
+        return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 1920, 85);
+    }
+
+    protected function saveOptimizedHeroBannerMobileImage(UploadedFile $file, string $destinationPath, string $originalFilename): string
+    {
+        return $this->saveOptimizedImage($file, $destinationPath, $originalFilename, 800, 85);
     }
 }
 

@@ -117,6 +117,11 @@
             @include('partials.footer')
         </div>
 
+        <!-- Permanent Floating WhatsApp Button (Bottom Right Corner) -->
+        <a href="https://wa.me/917728879509" target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" aria-label="Chat with us on WhatsApp">
+            <img src="{{ asset('images/whatsapp.png') }}" alt="WhatsApp Chat" class="whatsapp-float-img">
+        </a>
+
         <!-- Tasteful Floating Elements (Optional/Placeholder) -->
         <div class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10 opacity-20">
             <div class="absolute top-10 left-10 text-primary-light animate-bounce animate-duration-10s">
@@ -132,6 +137,25 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'GT-5R6XN256');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(e) {
+                const wishlistBtn = e.target.closest('.js-wishlist-btn');
+                if (wishlistBtn) {
+                    e.preventDefault();
+                    alert('Wishlist feature coming soon! Click product for details.');
+                    return;
+                }
+
+                const galleryThumb = e.target.closest('.js-gallery-thumb');
+                if (galleryThumb) {
+                    const mainImg = document.getElementById('main-product-image');
+                    if (mainImg && galleryThumb.dataset.gallerySrc) {
+                        mainImg.src = galleryThumb.dataset.gallerySrc;
+                    }
+                }
+            });
+        });
         </script>
     </body>
 </html>
