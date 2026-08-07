@@ -43,59 +43,6 @@ class SimpleTaxonomy extends Model
 
     public function getJsonLdAttribute()
     {
-        $type = strtolower(class_basename(static::class));
-        $pluralType = \Illuminate\Support\Str::plural($type);
-        $showRoute = \Illuminate\Support\Facades\Route::has("{$pluralType}.show") ? route("{$pluralType}.show", $this->slug) : url("/{$type}/{$this->slug}");
-        $indexRoute = \Illuminate\Support\Facades\Route::has("{$pluralType}.index") ? route("{$pluralType}.index") : url('/');
-
-        $breadcrumbs = [
-            [
-                '@type' => 'ListItem',
-                'position' => 1,
-                'name' => 'Home',
-                'item' => url('/'),
-            ],
-        ];
-
-        if (\Illuminate\Support\Facades\Route::has("{$pluralType}.index")) {
-            $breadcrumbs[] = [
-                '@type' => 'ListItem',
-                'position' => 2,
-                'name' => ucfirst($pluralType),
-                'item' => $indexRoute,
-            ];
-            $breadcrumbs[] = [
-                '@type' => 'ListItem',
-                'position' => 3,
-                'name' => $this->name,
-                'item' => $showRoute,
-            ];
-        } else {
-            $breadcrumbs[] = [
-                '@type' => 'ListItem',
-                'position' => 2,
-                'name' => $this->name,
-                'item' => $showRoute,
-            ];
-        }
-
-        return [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'CollectionPage',
-                    '@id' => $showRoute,
-                    'url' => $showRoute,
-                    'name' => $this->meta_title,
-                    'description' => $this->meta_description,
-                    'inLanguage' => 'en',
-                    'mainEntityOfPage' => $showRoute,
-                ],
-                [
-                    '@type' => 'BreadcrumbList',
-                    'itemListElement' => $breadcrumbs,
-                ],
-            ],
-        ];
+        return \App\Services\SchemaGenerator::forTaxonomy($this);
     }
 }

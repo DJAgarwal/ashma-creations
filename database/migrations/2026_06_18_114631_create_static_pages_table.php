@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('static_pages', function (Blueprint $table) {
             $table->id();
             $table->string('page_name')->unique();
+            $table->string('schema_type')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->json('json_ld')->nullable();

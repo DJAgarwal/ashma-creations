@@ -51,38 +51,6 @@ class Collection extends Model
 
     public function getJsonLdAttribute()
     {
-        $breadcrumbs = [
-            [
-                '@type' => 'ListItem',
-                'position' => 1,
-                'name' => 'Home',
-                'item' => url('/'),
-            ],
-            [
-                '@type' => 'ListItem',
-                'position' => 2,
-                'name' => $this->name,
-                'item' => route('collections.show', $this->slug),
-            ],
-        ];
-
-        return [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'CollectionPage',
-                    '@id' => route('collections.show', $this->slug),
-                    'url' => route('collections.show', $this->slug),
-                    'name' => $this->seo_title ?? ($this->name . ' - Ashma Creations'),
-                    'description' => $this->seo_description ?? ($this->description ?? 'Explore our ' . $this->name . ' collection at Ashma Creations.'),
-                    'inLanguage' => 'en',
-                    'mainEntityOfPage' => route('collections.show', $this->slug),
-                ],
-                [
-                    '@type' => 'BreadcrumbList',
-                    'itemListElement' => $breadcrumbs,
-                ],
-            ],
-        ];
+        return \App\Services\SchemaGenerator::forCollection($this);
     }
 }

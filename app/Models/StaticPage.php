@@ -8,6 +8,7 @@ class StaticPage extends Model
 {
     protected $fillable = [
         'page_name',
+        'schema_type',
         'meta_title',
         'meta_description',
         'json_ld',

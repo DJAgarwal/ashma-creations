@@ -53,78 +53,7 @@ class Product extends Model
             return $decoded;
         }
 
-        $breadcrumbs = [
-            [
-                '@type' => 'ListItem',
-                'position' => 1,
-                'name' => 'Home',
-                'item' => url('/'),
-            ],
-        ];
-
-        $pos = 2;
-        if ($this->primaryCategory) {
-            if ($this->primaryCategory->parent) {
-                $breadcrumbs[] = [
-                    '@type' => 'ListItem',
-                    'position' => $pos++,
-                    'name' => $this->primaryCategory->parent->name,
-                    'item' => route('categories.show', $this->primaryCategory->parent->slug),
-                ];
-            }
-
-            $breadcrumbs[] = [
-                '@type' => 'ListItem',
-                'position' => $pos++,
-                'name' => $this->primaryCategory->name,
-                'item' => route('categories.show', $this->primaryCategory->slug),
-            ];
-        }
-
-        $breadcrumbs[] = [
-            '@type' => 'ListItem',
-            'position' => $pos,
-            'name' => $this->name,
-            'item' => route('products.show', $this->slug),
-        ];
-
-        $images = [];
-        if (!empty($this->images)) {
-            foreach ($this->images as $img) {
-                $images[] = filter_var($img, FILTER_VALIDATE_URL) ? $img : asset($img);
-            }
-        } else {
-            $images[] = url('/images/logo.webp');
-        }
-
-        return [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                [
-                    '@type' => 'Product',
-                    '@id' => route('products.show', $this->slug),
-                    'name' => $this->name,
-                    'description' => $this->meta_description ?? ($this->description ?? 'Handcrafted ' . $this->name . ' by Ashma Creations.'),
-                    'image' => $images,
-                    'offers' => [
-                        '@type' => 'Offer',
-                        'url' => route('products.show', $this->slug),
-                        'priceCurrency' => 'INR',
-                        'price' => '0.00',
-                        'availability' => 'https://schema.org/InStock',
-                        'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
-                    ],
-                    'brand' => [
-                        '@type' => 'Brand',
-                        'name' => 'Ashma Creations',
-                    ],
-                ],
-                [
-                    '@type' => 'BreadcrumbList',
-                    'itemListElement' => $breadcrumbs,
-                ],
-            ],
-        ];
+        return \App\Services\SchemaGenerator::forProduct($this);
     }
 
     public function primaryCategory(): BelongsTo

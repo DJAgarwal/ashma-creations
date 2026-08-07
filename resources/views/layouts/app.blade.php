@@ -8,18 +8,38 @@
         <link rel="preconnect" href="https://static.cloudflareinsights.com">
         <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
-        {{-- Dynamic JSON-LD Schema Injection --}}
-        @if (!empty($page) && !empty($page->json_ld))
+        {{-- Dynamic JSON-LD Schema Injection via Centralized SchemaGenerator --}}
+        @php
+            $jsonldPayload = null;
+            if (isset($jsonld) && !empty($jsonld)) {
+                $jsonldPayload = $jsonld;
+            } elseif (isset($product)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forProduct($product);
+            } elseif (isset($category)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCategory($category, $products ?? null);
+            } elseif (isset($collection)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCollection($collection, $products ?? null);
+            } elseif (isset($occasion)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forOccasion($occasion, $products ?? null);
+            } elseif (isset($recipient)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forRecipient($recipient, $products ?? null);
+            } elseif (isset($style)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forStyle($style, $products ?? null);
+            } elseif (isset($material)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forMaterial($material, $products ?? null);
+            } elseif (isset($page) && $page instanceof \App\Models\StaticPage) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forStaticPage($page);
+            }
+        @endphp
+        @if (!empty($jsonldPayload))
             @php
-                $jsonldString = is_array($page->json_ld) 
-                    ? json_encode($page->json_ld, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) 
-                    : $page->json_ld;
+                $jsonldString = is_array($jsonldPayload) 
+                    ? json_encode($jsonldPayload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) 
+                    : $jsonldPayload;
             @endphp
             @if (!empty($jsonldString))
                 <script nonce="{{ $cspNonce ?? '' }}" type="application/ld+json">{!! $jsonldString !!}</script>
             @endif
-        @elseif (!empty($jsonld))
-            <script nonce="{{ $cspNonce ?? '' }}" type="application/ld+json">{!! $jsonld !!}</script>
         @endif
 
         {{-- Custom Styles --}}
@@ -65,7 +85,9 @@
         <!-- SEO Meta Tags -->
         <title>{{ $metaTitle }}</title>
         <meta name="description" content="{{ $metaDescription }}">
-        <meta name="keywords" content="{{ $page->meta_keywords ?? 'handmade, crafts, pipe cleaner, bouquets, flower pots, custom gifts, Ashma Creations' }}">
+        @if (!empty($page) && !empty($page->meta_keywords))
+        <meta name="keywords" content="{{ $page->meta_keywords }}">
+        @endif
         <meta name="author" content="Ashma Creations">
         <meta http-equiv="content-language" content="en">
         <meta name="geo.region" content="IN">
