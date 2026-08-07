@@ -23,7 +23,7 @@
                 </nav>
 
                 <div class="text-center">
-                    <h4 class="text-accent font-body font-bold uppercase tracking-widest mb-4">Handmade With Love</h4>
+                    <!-- <h4 class="text-accent font-body font-bold uppercase tracking-widest mb-4">Handmade With Love</h4> -->
                     <h1 class="text-5xl md:text-7xl font-heading text-primary mb-8">The Heart Behind <br>Ashma Creations</h1>
                     <div class="w-24 h-1 bg-primary-light mx-auto rounded-full"></div>
                 </div>
@@ -46,8 +46,8 @@
                         </div>
                         <div class="md:w-1/2">
                             <div class="bg-white p-4 rounded-[3rem] shadow-xl rotate-3">
-                                <div class="aspect-square bg-primary-light/20 rounded-[2.5rem] flex items-center justify-center">
-                                    <svg class="w-32 h-32 text-primary/50" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <div class="aspect-square bg-primary-light/20 rounded-[2.5rem] flex items-center justify-center overflow-hidden">
+                                    <img src="{{ asset('ashima.png') }}" alt="Founder of Ashma Creations" class="w-full h-full object-cover rounded-[2.5rem]" />
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,7 @@
                     <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -translate-x-1/3 translate-y-1/3"></div>
                     <div class="relative z-10">
                         <span class="text-xs font-body text-white/80 tracking-widest uppercase mb-3 block">Get in Touch</span>
-                        <h1 class="text-4xl md:text-5xl font-heading mb-6">Let's Create Something Beautiful</h1>
+                        <h1 class="text-4xl md:text-5xl font-heading mb-6 text-white">Let's Create Something Beautiful</h1>
                         <p class="text-white/95 font-body text-lg leading-relaxed max-w-xl mx-auto">
                             If there's a custom bouquet, a specific color scheme, or a personalized flower arrangement you'd like us to craft, we're all ears! Simply let us know what you have in mind, and we'll pour our passion into bringing it to life for you.
                         </p>

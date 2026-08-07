@@ -477,10 +477,10 @@ class SchemaGenerator
             ],
             [
                 '@type' => 'Question',
-                'name' => 'How long does it take to create and deliver my order?',
+                'name' => 'Are pipe cleaner flowers suitable for allergies or eco-conscious gifting?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
-                    'text' => 'Creation time typically takes 2 to 4 business days because each piece is handcrafted individually with care. Once ready and securely packaged, shipping within India usually takes 3 to 7 business days, and we share tracking info with you directly.',
+                    'text' => 'Yes! Unlike natural cut flowers that produce pollen and wither quickly, our handmade pipe cleaner flowers are 100% hypoallergenic, pollen-free, durable, and reusable for years as beautiful room decor.',
                 ],
             ],
             [
@@ -493,10 +493,90 @@ class SchemaGenerator
             ],
             [
                 '@type' => 'Question',
+                'name' => 'Will the colors fade or the pipe cleaners shed over time?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'No! We use premium high-density, color-fast plush chenille fibers. As long as they are kept away from direct prolonged soaking water, the colors stay vibrant and plush fibers remain firmly bound to the wire core.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'How long does it take to create and deliver my order?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Creation time typically takes 2 to 4 business days because each piece is handcrafted individually with care. Once ready and securely packaged, shipping within India usually takes 3 to 7 business days, and we share tracking info with you directly.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'How are fragile handmade flower pots and bouquets packaged for shipping?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Every creation is securely wrapped in multiple protective layers of bubble wrap, cushioned with eco-friendly filler, and placed in sturdy corrugated shipping boxes to ensure safe transit across India.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Do you accept urgent or bulk orders for events and weddings?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Yes! We accommodate bulk orders for wedding favors, return gifts, birthdays, and corporate events. Please contact us on WhatsApp (+91 7728879509) at least 1 to 2 weeks in advance so we can plan creation timelines.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
                 'name' => 'What is your return and cancellation policy for handmade items?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
                     'text' => 'Because our products are made-to-order and handcrafted, standard returns for buyer change-of-mind are not available. However, if an item arrives damaged during transit, contact us via WhatsApp or Email within 24 hours of delivery with photos/videos for a prompt replacement or solution.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'What payment methods do you accept for custom orders?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'We accept all major Indian payment options including UPI (GPay, PhonePe, Paytm), Net Banking, Credit/Debit Cards, and direct WhatsApp invoice payments.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Can I send an order directly as a gift with a custom handwritten message?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Yes! We offer special gift wrapping and can enclose a beautifully handwritten card with your personalized message directly to the recipient\'s address.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Do you ship internationally outside India?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Currently, we primarily ship across India. If you require international shipping, please contact us on WhatsApp (+91 7728879509) to check custom shipping rates and delivery estimates for your destination.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Are pipe cleaner bouquets heavy or fragile to hold?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Not at all! Our bouquets are surprisingly lightweight because pipe cleaners and floral wire are easy to hold for long durations during photoshoots, graduations, or weddings without causing fatigue.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'How do I track my dispatched order?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Once your order is dispatched, we send your tracking number and courier link via SMS, Email, or WhatsApp so you can track your delivery step-by-step.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Can I order matching accessories like mini flower pots or hair pins?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Yes! In addition to full-sized bouquets and pots, we craft mini desk pots, flower keychains, hair accessories, and table arrangements upon request.',
                 ],
             ],
         ];
