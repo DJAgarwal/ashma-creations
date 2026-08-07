@@ -1,4 +1,19 @@
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary-light/30 shadow-sm">
+    <!-- Top Announcement Bar -->
+    <div id="announcement-bar" class="bg-primary text-white text-sm sm:text-sm font-semibold py-2 px-4 shadow-sm relative z-50">
+        <div class="container mx-auto flex items-center justify-center relative text-center">
+            <div class="flex items-center justify-center gap-2 tracking-wider uppercase">
+                <svg class="w-4 h-4 text-white/90 animate-bounce hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                </svg>
+                <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                <svg class="w-4 h-4 text-white/90 animate-bounce hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
     <div class="container mx-auto px-4 py-3.5 flex items-center justify-between">
         <!-- Logo Area -->
         <a href="{{ url('/') }}" class="flex flex-col group">
@@ -21,7 +36,7 @@
             <!-- Shop (All Products Catalog) -->
             <a href="{{ route('products.index') }}" 
                class="font-body text-sm font-semibold text-charcoal hover:text-primary transition-colors py-1 {{ request()->is('products*') || request()->is('shop') ? 'text-primary border-b-2 border-primary' : '' }}">
-                Shop
+                Browse Gifts
             </a>
 
             <!-- Collections Dropdown -->
@@ -50,15 +65,22 @@
                     <span>Occasions</span>
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
-                <div class="absolute left-0 mt-2 w-56 bg-white border border-primary-light/20 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
-                    <a href="{{ route('occasions.index') }}" class="block px-3 py-2 text-xs font-bold font-body text-primary uppercase tracking-wider border-b border-primary-light/10 hover:bg-primary-light/10 rounded-xl mb-1">
-                        All Occasions &rarr;
-                    </a>
-                    @foreach(App\Models\Occasion::active()->ordered()->take(6)->get() as $navOcc)
-                        <a href="{{ route('occasions.show', $navOcc->slug) }}" class="block px-3 py-2 text-xs font-body text-charcoal hover:bg-primary-light/10 hover:text-primary rounded-xl transition-colors">
-                            {{ $navOcc->name }}
+                <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 occasions-mega-menu">
+                    {{--
+                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-primary-light/15">
+                        <span class="text-xs font-bold font-heading text-primary uppercase tracking-wider">Shop By Occasion</span>
+                        <a href="{{ route('occasions.index') }}" class="text-[11px] font-body font-bold text-accent hover:underline flex items-center gap-1">
+                            All Occasions &rarr;
                         </a>
-                    @endforeach
+                    </div>
+                    --}}
+                    <div class="occasions-grid">
+                        @foreach(App\Models\Occasion::active()->ordered()->get() as $navOcc)
+                            <a href="{{ route('occasions.show', $navOcc->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                                {{ $navOcc->name }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
@@ -66,7 +88,7 @@
             <div class="relative group py-1">
                 <a href="{{ route('categories.index') }}" 
                    class="font-body text-sm font-semibold text-charcoal hover:text-primary transition-colors flex items-center gap-1 {{ request()->is('categor*') ? 'text-primary border-b-2 border-primary' : '' }}">
-                    <span>Categories</span>
+                    <span>Products</span>
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
                 <div class="absolute left-0 mt-2 w-56 bg-white border border-primary-light/20 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
@@ -84,7 +106,7 @@
             <!-- About -->
             <a href="{{ url('/about') }}" 
                class="font-body text-sm font-semibold text-charcoal hover:text-primary transition-colors py-1 {{ request()->is('about') ? 'text-primary border-b-2 border-primary' : '' }}">
-                About
+                Our Story
             </a>
 
             <!-- Contact -->
@@ -100,7 +122,7 @@
             <form action="{{ route('search') }}" method="GET" class="hidden lg:flex items-center relative">
                 <input type="text" 
                        name="q" 
-                       placeholder="Search products..." 
+                       placeholder="Search bouquets, gifts..." 
                        value="{{ request('q') }}"
                        class="w-48 bg-background border border-primary-light/30 rounded-full pl-8 pr-3 py-1.5 text-xs font-body focus:w-60 focus:border-primary transition-all focus:outline-none">
                 <svg class="w-4 h-4 text-soft-gray absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

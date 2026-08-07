@@ -74,14 +74,14 @@
                                 <div class="flex items-center gap-3">
                                     <div class="relative w-24 h-12 rounded-xl overflow-hidden bg-background border border-primary-light/10 shadow-sm" title="Desktop Banner">
                                         @if ($banner->desktop_image)
-                                            <img src="{{ asset($banner->desktop_image) }}" alt="{{ $banner->alt_text }}" class="w-full h-full object-cover">
+                                            <img src="{{ asset($banner->desktop_image) }}" alt="Desktop Banner for Handmade Gifts" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full flex items-center justify-center text-xs text-gray-400">No Image</div>
                                         @endif
                                     </div>
                                     @if ($banner->mobile_image)
                                         <div class="relative w-8 h-12 rounded-lg overflow-hidden bg-background border border-primary-light/10 shadow-sm hidden sm:block" title="Mobile Banner Uploaded">
-                                            <img src="{{ asset($banner->mobile_image) }}" alt="Mobile Banner" class="w-full h-full object-cover">
+                                            <img src="{{ asset($banner->mobile_image) }}" alt="Mobile Banner for Handmade Gifts" class="w-full h-full object-cover">
                                         </div>
                                     @endif
                                 </div>

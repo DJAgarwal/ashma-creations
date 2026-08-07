@@ -209,7 +209,7 @@
                         <div class="relative w-40 h-40 sm:w-30 sm:h-30 md:w-30 md:h-30 rounded-half overflow-hidden bg-transparent flex items-center justify-center mb-3">
                             @if($occImg)
                                 <img src="{{ $occImg }}" 
-                                     alt="{{ $occ->name }}" 
+                                     alt="Handmade Gifts for {{ $occ->name }}" 
                                      loading="lazy" 
                                      class="w-full h-full object-cover" />
                             @else

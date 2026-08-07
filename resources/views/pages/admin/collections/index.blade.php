@@ -47,7 +47,7 @@
                             <td class="px-6 py-4">
                                 <div class="w-12 h-12 rounded-xl overflow-hidden bg-background border border-primary-light/10">
                                     @if ($collection->banner_image)
-                                        <img src="{{ asset($collection->banner_image) }}" alt="" class="w-full h-full object-cover">
+                                        <img src="{{ asset($collection->banner_image) }}" alt="Collection Banner" class="w-full h-full object-cover">
                                     @endif
                                 </div>
                             </td>

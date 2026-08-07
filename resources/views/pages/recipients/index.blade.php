@@ -27,7 +27,7 @@
                 <a href="{{ route('recipients.show', $rec->slug) }}" class="group bg-white rounded-3xl overflow-hidden border border-primary-light/20 shadow-sm hover:shadow-xl hover:border-primary transition-all duration-300 flex flex-col">
                     @if(!empty($rec->image_path))
                         <div class="w-full aspect-[5/6] overflow-hidden bg-rose-50/50 relative">
-                            <img src="{{ asset($rec->image_path) }}" alt="{{ $rec->name }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <img src="{{ asset($rec->image_path) }}" alt="Handmade Gifts for {{ $rec->name }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                         </div>
                     @else
                         <div class="p-8 pb-0">

@@ -15,7 +15,7 @@
     <label for="banner_image" class="block text-sm font-semibold text-gray-700 mb-2">Banner Image</label>
     @if(!empty($item?->banner_image))
         <div class="mb-3 w-32 h-20 rounded-xl overflow-hidden border border-primary-light/10">
-            <img src="{{ asset($item->banner_image) }}" alt="" class="w-full h-full object-cover">
+            <img src="{{ asset($item->banner_image) }}" alt="Collection Banner" class="w-full h-full object-cover">
         </div>
     @endif
     <input id="banner_image" type="file" name="banner_image" accept="image/*"

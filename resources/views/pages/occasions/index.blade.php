@@ -27,7 +27,7 @@
                 <a href="{{ route('occasions.show', $occ->slug) }}" class="group bg-white rounded-3xl overflow-hidden border border-primary-light/20 shadow-sm hover:shadow-xl hover:border-primary transition-all duration-300 flex flex-col">
                     @if(!empty($occ->image_path))
                         <div class="w-full aspect-[5/6] overflow-hidden bg-amber-50/50 relative">
-                            <img src="{{ filter_var($occ->image_path, FILTER_VALIDATE_URL) ? $occ->image_path : asset($occ->image_path) }}" alt="{{ $occ->name }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <img src="{{ filter_var($occ->image_path, FILTER_VALIDATE_URL) ? $occ->image_path : asset($occ->image_path) }}" alt="Handmade Gifts for {{ $occ->name }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                         </div>
                     @else
                         <div class="p-8 pb-0">
