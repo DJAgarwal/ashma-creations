@@ -27,7 +27,7 @@ class Cors
                 ->header('X-XSS-Protection', '1; mode=block')
                 ->header('Referrer-Policy', 'strict-origin-when-cross-origin')
                 ->header('Permissions-Policy', 'geolocation=(self), microphone=()')
-                ->header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none';");
+                ->header('Content-Security-Policy', "default-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'unsafe-inline'; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none';");
             }
 
         $response = $next($request);
@@ -36,11 +36,11 @@ class Cors
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Authorization, Origin');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PATCH, OPTIONS, PUT, DELETE');
         $response->headers->set('Content-Security-Policy', 
-            "default-src 'self' https://cloudflareinsights.com; " .
-            "script-src 'self' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'strict-dynamic' 'unsafe-inline' 'sha256-rWHhmye/Ntz+VBV+8loOkr8LoNtobYvPd0YKNSmWN7g='; " .
+            "default-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; " .
+            "script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'unsafe-inline' 'sha256-rWHhmye/Ntz+VBV+8loOkr8LoNtobYvPd0YKNSmWN7g='; " .
             "style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline' 'unsafe-hashes' 'sha256-ibLtdECgFxYM3nD7SDhq0hGrJhkAUl5AttSP98l+4mg='; " .
             "font-src 'self' https://fonts.gstatic.com; " .
-            "connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com https://www.google.com; " .
+            "connect-src 'self' https://www.google-analytics.com https://static.cloudflareinsights.com https://cloudflareinsights.com https://www.google.com; " .
             "img-src 'self' https://www.google-analytics.com data: blob:; " .
             "object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
         );
