@@ -159,7 +159,6 @@
            target="_blank" 
            rel="noopener noreferrer" 
            class="whatsapp-float-btn fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[99999] flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300" 
-           style="position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 99999 !important;"
            aria-label="Chat with us on WhatsApp">
             <img src="{{ asset('images/whatsapp.png') }}" alt="WhatsApp Chat" class="whatsapp-float-img w-full h-full object-cover">
         </a>
