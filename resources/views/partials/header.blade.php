@@ -46,15 +46,14 @@
                     <span>Collections</span>
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
-                <div class="absolute left-0 mt-2 w-56 bg-white border border-primary-light/20 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
-                    <a href="{{ route('collections.index') }}" class="block px-3 py-2 text-xs font-bold font-body text-primary uppercase tracking-wider border-b border-primary-light/10 hover:bg-primary-light/10 rounded-xl mb-1">
-                        All Collections &rarr;
-                    </a>
-                    @foreach(App\Models\Collection::active()->ordered()->take(6)->get() as $navCol)
-                        <a href="{{ route('collections.show', $navCol->slug) }}" class="block px-3 py-2 text-xs font-body text-charcoal hover:bg-primary-light/10 hover:text-primary rounded-xl transition-colors">
-                            {{ $navCol->name }}
-                        </a>
-                    @endforeach
+                <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 collections-mega-menu">
+                    <div class="collections-grid">
+                        @foreach(App\Models\Collection::active()->ordered()->get() as $navCol)
+                            <a href="{{ route('collections.show', $navCol->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                                {{ $navCol->name }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
@@ -66,14 +65,6 @@
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
                 <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 occasions-mega-menu">
-                    {{--
-                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-primary-light/15">
-                        <span class="text-xs font-bold font-heading text-primary uppercase tracking-wider">Shop By Occasion</span>
-                        <a href="{{ route('occasions.index') }}" class="text-[11px] font-body font-bold text-accent hover:underline flex items-center gap-1">
-                            All Occasions &rarr;
-                        </a>
-                    </div>
-                    --}}
                     <div class="occasions-grid">
                         @foreach(App\Models\Occasion::active()->ordered()->get() as $navOcc)
                             <a href="{{ route('occasions.show', $navOcc->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
@@ -84,22 +75,21 @@
                 </div>
             </div>
 
-            <!-- Categories Dropdown (Supplemental) -->
+            <!-- Categories Dropdown (Products) -->
             <div class="relative group py-1">
                 <a href="{{ route('categories.index') }}" 
                    class="font-body text-sm font-semibold text-charcoal hover:text-primary transition-colors flex items-center gap-1 {{ request()->is('categor*') ? 'text-primary border-b-2 border-primary' : '' }}">
-                    <span>Products</span>
+                    <span>Categories</span>
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </a>
-                <div class="absolute left-0 mt-2 w-56 bg-white border border-primary-light/20 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
-                    <a href="{{ route('categories.index') }}" class="block px-3 py-2 text-xs font-bold font-body text-primary uppercase tracking-wider border-b border-primary-light/10 hover:bg-primary-light/10 rounded-xl mb-1">
-                        All Categories &rarr;
-                    </a>
-                    @foreach(App\Models\Category::whereNull('parent_id')->active()->ordered()->take(6)->get() as $navCat)
-                        <a href="{{ route('categories.show', $navCat->slug) }}" class="block px-3 py-2 text-xs font-body text-charcoal hover:bg-primary-light/10 hover:text-primary rounded-xl transition-colors">
-                            {{ $navCat->name }}
-                        </a>
-                    @endforeach
+                <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 categories-mega-menu">
+                    <div class="categories-grid">
+                        @foreach(App\Models\Category::active()->ordered()->get() as $navCat)
+                            <a href="{{ route('categories.show', $navCat->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                                {{ $navCat->name }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 

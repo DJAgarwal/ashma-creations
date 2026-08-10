@@ -13,7 +13,7 @@
         <!-- Header -->
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-12 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="max-w-3xl relative z-10">
-                <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Curated Selection</span>
+                <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Curated Selection</span> -->
                 <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">All Collections</h1>
                 <p class="text-sm font-body text-soft-gray leading-relaxed">
                     Explore our themed collections curated for special moments, holidays, gifting goals, and aesthetic trends.

@@ -24,14 +24,14 @@
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-10 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div class="lg:col-span-8">
-                    <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Category Landing Page</span>
+                    <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Category Landing Page</span> -->
                     <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">{{ $category->name }}</h1>
                     <p class="text-sm font-body text-soft-gray leading-relaxed mb-6">
                         {{ $category->description ?? 'Explore our curated collection of ' . $category->name . ' at Ashma Creations. Handcrafted everlasting pipe cleaner creations made with love.' }}
                     </p>
 
                     <!-- Subcategories Chips -->
-                    @if(!empty($subcategories) && $subcategories->count() > 0)
+                    <!-- @if(!empty($subcategories) && $subcategories->count() > 0)
                         <div class="pt-4 border-t border-primary-light/15">
                             <span class="text-xs font-body font-bold text-charcoal uppercase tracking-wider block mb-3">Subcategories in {{ $category->name }}</span>
                             <div class="flex flex-wrap gap-2">
@@ -42,16 +42,16 @@
                                 @endforeach
                             </div>
                         </div>
-                    @endif
+                    @endif -->
                 </div>
 
-                @if($category->image_path)
+                <!-- @if($category->image_path)
                     <div class="lg:col-span-4 hidden lg:block">
                         <div class="aspect-square rounded-2xl overflow-hidden border border-primary-light/30 shadow-md">
                             <img src="{{ filter_var($category->image_path, FILTER_VALIDATE_URL) ? $category->image_path : asset($category->image_path) }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
                         </div>
                     </div>
-                @endif
+                @endif -->
             </div>
         </div>
 
@@ -93,7 +93,7 @@
         </div>
 
         <!-- SEO Intro & FAQ Placeholder -->
-        <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm space-y-8">
+        <!-- <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm space-y-8">
             <div>
                 <h3 class="text-2xl font-heading text-primary mb-3">About Our {{ $category->name }}</h3>
                 <p class="text-xs md:text-sm font-body text-soft-gray leading-relaxed">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection

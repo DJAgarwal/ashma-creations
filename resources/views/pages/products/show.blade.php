@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($product->meta_title ?? $product->name) . ' - Ashma Creations')
+@section('title', $product->meta_title ?? $product->name)
 
 @section('content')
 <div class="bg-background py-10">
@@ -46,18 +46,18 @@
 
                             <!-- Badges Overlay -->
                             <div class="absolute top-4 left-4 flex flex-col gap-2">
-                                @if($product->is_featured)
+                                <!-- @if($product->is_featured)
                                     <span class="px-3 py-1 text-xs font-body font-extrabold uppercase rounded-full bg-amber-500 text-white shadow-md">Featured</span>
                                 @endif
                                 @if($product->is_best_seller)
                                     <span class="px-3 py-1 text-xs font-body font-extrabold uppercase rounded-full bg-rose-500 text-white shadow-md">Best Seller</span>
-                                @endif
-                                @if($product->is_new_arrival)
+                                @endif -->
+                                <!-- @if($product->is_new_arrival)
                                     <span class="px-3 py-1 text-xs font-body font-extrabold uppercase rounded-full bg-emerald-500 text-white shadow-md">New Arrival</span>
                                 @endif
                                 @if($product->is_trending)
                                     <span class="px-3 py-1 text-xs font-body font-extrabold uppercase rounded-full bg-purple-600 text-white shadow-md">Trending</span>
-                                @endif
+                                @endif -->
                             </div>
                         </div>
 
@@ -93,11 +93,11 @@
                     <div class="mb-6 p-4 rounded-2xl bg-background border border-primary-light/20 flex items-center justify-between">
                         <div>
                             <span class="text-xs font-body text-soft-gray uppercase tracking-wider block">Price & Availability</span>
-                            <span class="text-xl font-heading text-primary">Custom Pricing Available</span>
+                            <span class="text-xl font-heading text-primary">In Stock / Custom Made Available</span>
                         </div>
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-body font-bold rounded-full">
+                        <!-- <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-body font-bold rounded-full">
                             In Stock / Custom Made
-                        </span>
+                        </span> -->
                     </div>
 
                     <!-- Description -->
@@ -120,21 +120,21 @@
                     <!-- COMPLETE TAXONOMY INFORMATION BADGES SECTION -->
                     <div class="mb-8 p-6 rounded-3xl bg-background border border-primary-light/20 space-y-4">
                         <h3 class="text-xs font-body font-bold text-primary uppercase tracking-widest border-b border-primary-light/20 pb-2">
-                            Product Discovery Taxonomy
+                            Perfect For
                         </h3>
 
                         <!-- Category -->
-                        @if($product->primaryCategory)
+                        <!-- @if($product->primaryCategory)
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="text-xs font-body font-bold text-charcoal w-24">Category:</span>
                                 <a href="{{ route('categories.show', $product->primaryCategory->slug) }}" class="px-3 py-1 rounded-full bg-white border border-primary-light/30 text-primary text-xs font-body font-semibold hover:bg-primary hover:text-white transition-colors">
                                     {{ $product->primaryCategory->name }}
                                 </a>
                             </div>
-                        @endif
+                        @endif -->
 
                         <!-- Collections -->
-                        @if($product->collections && $product->collections->count() > 0)
+                        <!-- @if($product->collections && $product->collections->count() > 0)
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="text-xs font-body font-bold text-charcoal w-24">Collections:</span>
                                 <div class="flex flex-wrap gap-1.5">
@@ -145,7 +145,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                        @endif
+                        @endif -->
 
                         <!-- Occasions -->
                         @if($product->occasions && $product->occasions->count() > 0)
@@ -164,7 +164,7 @@
                         <!-- Recipients -->
                         @if($product->recipients && $product->recipients->count() > 0)
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-xs font-body font-bold text-charcoal w-24">Recipient:</span>
+                                <span class="text-xs font-body font-bold text-charcoal w-24">For:</span>
                                 <div class="flex flex-wrap gap-1.5">
                                     @foreach($product->recipients as $rec)
                                         <a href="{{ route('recipients.show', $rec->slug) }}" class="px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-xs font-body font-semibold hover:bg-rose-500 hover:text-white transition-colors">
@@ -176,7 +176,7 @@
                         @endif
 
                         <!-- Styles -->
-                        @if($product->styles && $product->styles->count() > 0)
+                        <!-- @if($product->styles && $product->styles->count() > 0)
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="text-xs font-body font-bold text-charcoal w-24">Styles:</span>
                                 <div class="flex flex-wrap gap-1.5">
@@ -187,10 +187,10 @@
                                     @endforeach
                                 </div>
                             </div>
-                        @endif
+                        @endif -->
 
                         <!-- Materials -->
-                        @if($product->materials && $product->materials->count() > 0)
+                        <!-- @if($product->materials && $product->materials->count() > 0)
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="text-xs font-body font-bold text-charcoal w-24">Materials:</span>
                                 <div class="flex flex-wrap gap-1.5">
@@ -201,7 +201,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                        @endif
+                        @endif -->
                     </div>
 
                     <!-- Call to Actions -->
@@ -213,10 +213,10 @@
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.533 1.945 1.99-.522c.961.524 2.033.8 3.135.8 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.811-5.766zm3.374 8.203c-.147.412-.752.748-1.033.796-.282.048-.564.072-1.636-.375-1.21-.502-1.966-1.73-2.025-1.812-.06-.082-.486-.644-.486-1.229 0-.584.306-.871.415-.99.11-.119.239-.148.318-.148.079 0 .159 0 .228.004.074.003.174-.028.272.209.1.242.342.833.372.893.03.06.05.128.01.209-.04.082-.06.129-.119.209-.06.079-.125.176-.178.236-.059.066-.122.138-.053.257.069.119.307.507.659.82.454.404.836.53 0.954.59.119.06.189.05.257-.028.069-.079.298-.348.377-.467.079-.119.158-.1.267-.06.11.04 1.144.538 1.144.538.03.01.05.025.07.054.02.03.02.132-.127.54z"/></svg>
                             Order / Inquire via WhatsApp
                         </a>
-                        <a href="{{ url('/contact') }}" 
+                        <!-- <a href="{{ url('/contact') }}" 
                            class="w-full py-3.5 bg-white border border-primary-light/40 text-primary font-body font-bold text-sm rounded-2xl hover:bg-primary-light/10 text-center block transition-colors">
                             Send General Inquiry
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

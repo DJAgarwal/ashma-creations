@@ -34,7 +34,7 @@ class HomeController extends Controller
             return Category::whereNull('parent_id')
                 ->active()
                 ->ordered()
-                ->with(['children' => fn ($q) => $q->active()->ordered()])
+                ->with(['children' => fn ($q) => $q->active()->ordered()->withCount(['products' => fn ($p) => $p->whereNull('deleted_at')])])
                 ->withCount(['products' => fn ($q) => $q->whereNull('deleted_at')])
                 ->take(6)
                 ->get();

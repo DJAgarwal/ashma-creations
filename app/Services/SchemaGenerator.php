@@ -683,7 +683,86 @@ class SchemaGenerator
     }
 
     /**
-     * Generate Product Page JSON-LD: Product + Offer + ImageObject + BreadcrumbList.
+     * Generate Products Catalog Page (/products) JSON-LD:
+     * CollectionPage + ItemList + BreadcrumbList + Organization + WebSite + ImageObject.
+     */
+    public static function forCatalog($products = null, ?string $pageTitle = null, ?string $metaDescription = null): array
+    {
+        $canonicalUrl = route('products.index');
+
+        $name = $pageTitle ?? 'All Handcrafted Products - Ashma Creations';
+        $description = $metaDescription ?? 'Shop handmade pipe cleaner flowers, bouquets, flower pots and personalized gifts from Ashma Creations. Discover unique handcrafted gifts for every occasion.';
+
+        // 1. CollectionPage Entity
+        $collectionPageEntity = [
+            '@type' => 'CollectionPage',
+            '@id' => $canonicalUrl . '#webpage',
+            'url' => $canonicalUrl,
+            'name' => $name,
+            'description' => $description,
+            'inLanguage' => 'en',
+            'isPartOf' => [
+                '@id' => url('/') . '#website',
+            ],
+            'publisher' => [
+                '@id' => url('/') . '#organization',
+            ],
+            'primaryImageOfPage' => [
+                '@id' => url('/') . '#logo',
+            ],
+            'breadcrumb' => [
+                '@id' => $canonicalUrl . '#breadcrumb',
+            ],
+            'mainEntity' => [
+                '@id' => $canonicalUrl . '#itemlist',
+            ],
+            'mainEntityOfPage' => $canonicalUrl,
+        ];
+
+        // 2. ItemList Entity (Dynamically generated from current paginated products)
+        $itemListElement = [];
+        if (!empty($products)) {
+            $items = is_array($products) ? $products : ($products instanceof \Illuminate\Support\Collection ? $products : $products->items());
+            foreach ($items as $index => $prod) {
+                if ($prod instanceof Product) {
+                    $itemListElement[] = [
+                        '@type' => 'ListItem',
+                        'position' => $index + 1,
+                        'url' => route('products.show', $prod->slug),
+                        'name' => $prod->name,
+                    ];
+                }
+            }
+        }
+
+        $itemListEntity = [
+            '@type' => 'ItemList',
+            '@id' => $canonicalUrl . '#itemlist',
+            'name' => 'Ashma Creations Products',
+            'numberOfItems' => count($itemListElement),
+            'itemListElement' => $itemListElement,
+        ];
+
+        // 3. BreadcrumbList Entity
+        $breadcrumbItems = [
+            ['name' => 'Home', 'url' => url('/')],
+            ['name' => 'All Products', 'url' => $canonicalUrl],
+        ];
+
+        $breadcrumbsEntity = static::breadcrumbListEntity($breadcrumbItems, $canonicalUrl);
+
+        return static::wrapInGraph([
+            $collectionPageEntity,
+            $itemListEntity,
+            $breadcrumbsEntity,
+            static::logoImageEntity(),
+            static::organizationEntity(),
+            static::websiteEntity(),
+        ]);
+    }
+
+    /**
+     * Generate Product Page JSON-LD: Product + Offer (when valid) + ImageObject + BreadcrumbList.
      */
     public static function forProduct(Product $product): array
     {
@@ -731,7 +810,7 @@ class SchemaGenerator
             '@type' => 'WebPage',
             '@id' => $canonicalUrl,
             'url' => $canonicalUrl,
-            'name' => $product->name . ' - Ashma Creations',
+            'name' => ($product->meta_title ?? $product->name) . ' - Ashma Creations',
             'description' => $product->meta_description ?? ($product->description ?? 'Handcrafted ' . $product->name . ' by Ashma Creations.'),
             'inLanguage' => 'en',
             'isPartOf' => [
@@ -760,15 +839,19 @@ class SchemaGenerator
                 '@type' => 'Brand',
                 'name' => 'Ashma Creations',
             ],
-            'offers' => [
+        ];
+
+        // Only include Offer when valid price exists (Never invent 0.00 price)
+        if (isset($product->price) && (float)$product->price > 0) {
+            $productEntity['offers'] = [
                 '@type' => 'Offer',
                 'url' => $canonicalUrl,
-                'priceCurrency' => 'INR',
-                'price' => '0.00',
+                'priceCurrency' => $product->currency ?? 'INR',
+                'price' => number_format((float)$product->price, 2, '.', ''),
                 'availability' => 'https://schema.org/InStock',
                 'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
-            ],
-        ];
+            ];
+        }
 
         // 3. ImageObject Entity (describing primary image)
         $imageObjectEntity = [
@@ -789,6 +872,9 @@ class SchemaGenerator
             $productEntity,
             $imageObjectEntity,
             $breadcrumbsEntity,
+            static::logoImageEntity(),
+            static::organizationEntity(),
+            static::websiteEntity(),
         ]);
     }
 

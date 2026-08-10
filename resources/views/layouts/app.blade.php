@@ -13,7 +13,9 @@
             $jsonldPayload = null;
             if (isset($jsonld) && !empty($jsonld)) {
                 $jsonldPayload = $jsonld;
-            } elseif (isset($product)) {
+            } elseif (request()->routeIs('products.index')) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCatalog($products ?? null, $pageTitle ?? null, $metaDescription ?? null);
+            } elseif (request()->routeIs('products.show') && isset($product)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forProduct($product);
             } elseif (isset($category)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forCategory($category, $products ?? null);
@@ -49,30 +51,43 @@
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+        @php
+            $robotsContent = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+            if (request()->hasAny(['sort', 'q', 'search', 'category', 'occasion', 'recipient', 'style', 'material', 'featured', 'best_seller', 'new_arrival', 'trending'])) {
+                $robotsContent = 'noindex, follow';
+            }
+        @endphp
+        <meta name="robots" content="{{ $robotsContent }}">
         <meta name="theme-color" content="#EC407A">
         <meta name="referrer" content="strict-origin-when-cross-origin">
 
         {{-- SEO Meta --}}
         @php
             $metaTitle = 'Ashma Creations - Handmade With Love';
-            if (!empty($page) && !empty($page->meta_title)) {
+            if (!empty($pageTitle)) {
+                $metaTitle = $pageTitle . ' - Ashma Creations';
+            } elseif (!empty($page) && !empty($page->meta_title)) {
                 $metaTitle = $page->meta_title;
             } elseif (View::hasSection('title')) {
-                $metaTitle = View::yieldContent('title') . ' - Ashma Creations';
+                $metaTitle = View::yieldContent('title');
+                if (!str_contains($metaTitle, 'Ashma Creations')) {
+                    $metaTitle .= ' - Ashma Creations';
+                }
             }
 
-            $metaDescription = 'Ashma Creations crafts beautiful, everlasting handmade pipe cleaner flowers, custom bouquets, and flower pots.';
-            if (!empty($page)) {
-                if (!empty($page->meta_description)) {
-                    $metaDescription = $page->meta_description;
-                } elseif (!empty($page->description)) {
-                    $metaDescription = \Illuminate\Support\Str::limit(strip_tags($page->description), 160, '');
+            if (!isset($metaDescription) || empty($metaDescription)) {
+                $metaDescription = 'Shop handmade pipe cleaner flowers, bouquets, flower pots and personalized gifts from Ashma Creations. Discover unique handcrafted gifts for every occasion.';
+                if (!empty($page)) {
+                    if (!empty($page->meta_description)) {
+                        $metaDescription = $page->meta_description;
+                    } elseif (!empty($page->description)) {
+                        $metaDescription = \Illuminate\Support\Str::limit(strip_tags($page->description), 160, '');
+                    }
                 }
             }
 
             $metaImage = url('/images/logo.webp');
-            if (isset($product) && !empty($product->images)) {
+            if (request()->routeIs('products.show') && isset($product) && !empty($product->images)) {
                 $images = is_array($product->images) ? $product->images : json_decode($product->images, true);
                 if (!empty($images) && isset($images[0])) {
                     $metaImage = filter_var($images[0], FILTER_VALIDATE_URL) ? $images[0] : asset($images[0]);

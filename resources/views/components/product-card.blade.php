@@ -1,4 +1,4 @@
-@props(['product', 'showBadges' => true])
+@props(['product', 'showBadges' => true, 'isFirst' => false])
 
 <a href="{{ route('products.show', $product->slug) }}" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-primary-light/20 flex flex-col h-full relative block">
     <!-- Image Area -->
@@ -7,7 +7,8 @@
             @if(!empty($product->images) && is_array($product->images) && count($product->images) > 0)
                 <img src="{{ filter_var($product->images[0], FILTER_VALIDATE_URL) ? $product->images[0] : asset($product->images[0]) }}" 
                      alt="{{ $product->name }}" 
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                     @if($isFirst) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
             @else
                 <div class="w-full h-full flex items-center justify-center text-primary-light/40">
                     <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">

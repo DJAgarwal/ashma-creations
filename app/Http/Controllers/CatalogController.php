@@ -33,8 +33,10 @@ class CatalogController extends Controller
         $products = $query->paginate(12)->withQueryString();
         $filterData = $this->getFilterData();
 
-        $pageTitle = 'All Handcrafted Products';
-        $metaDescription = 'Explore our complete catalog of handcrafted pipe cleaner flowers, bouquets, pots, and custom decorative gifts.';
+        $pageTitle = 'Browse All Gifts';
+        $metaDescription = 'Shop handmade pipe cleaner flowers, bouquets, flower pots and personalized gifts from Ashma Creations. Discover unique handcrafted gifts for every occasion.';
+
+        $jsonldPayload = \App\Services\SchemaGenerator::forCatalog($products, $pageTitle, $metaDescription);
 
         return view('pages.products.index', [
             'products' => $products,
@@ -42,6 +44,7 @@ class CatalogController extends Controller
             'currentFilters' => $request->all(),
             'pageTitle' => $pageTitle,
             'metaDescription' => $metaDescription,
+            'jsonld' => $jsonldPayload,
         ]);
     }
 
@@ -54,7 +57,7 @@ class CatalogController extends Controller
         $categories = Category::whereNull('parent_id')
             ->active()
             ->ordered()
-            ->with(['children' => fn ($q) => $q->active()->ordered()])
+            ->with(['children' => fn ($q) => $q->active()->ordered()->withCount(['products' => fn ($p) => $p->whereNull('deleted_at')])])
             ->withCount(['products' => fn ($q) => $q->whereNull('deleted_at')])
             ->get();
 

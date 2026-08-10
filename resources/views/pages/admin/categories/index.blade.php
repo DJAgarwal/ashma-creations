@@ -36,7 +36,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="w-12 h-12 rounded-xl overflow-hidden bg-background border border-primary-light/10 flex items-center justify-center text-primary-light">
                                     @if ($cat->image_path)
-                                        <img src="{{ asset($cat->image_path) }}" alt="{{ $cat->name }}" class="w-full h-full object-cover">
+                                        <img src="{{ filter_var($cat->image_path, FILTER_VALIDATE_URL) ? $cat->image_path : asset($cat->image_path) }}" alt="{{ $cat->name }}" class="w-full h-full object-cover">
                                     @else
                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/>

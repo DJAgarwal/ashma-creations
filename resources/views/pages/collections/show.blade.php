@@ -15,20 +15,20 @@
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-10 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div class="lg:col-span-8">
-                    <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Curated Collection</span>
+                    <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold">Curated Collection</span> -->
                     <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">{{ $collection->name }}</h1>
                     <p class="text-sm font-body text-soft-gray leading-relaxed">
                         {{ $collection->description ?? 'Discover our handpicked ' . $collection->name . ' collection at Ashma Creations. Everlasting pipe cleaner bouquets and custom gifts.' }}
                     </p>
                 </div>
 
-                @if($collection->banner_image)
+                <!-- @if($collection->banner_image)
                     <div class="lg:col-span-4 hidden lg:block">
                         <div class="aspect-[16/10] rounded-2xl overflow-hidden border border-primary-light/30 shadow-md">
                             <img src="{{ filter_var($collection->banner_image, FILTER_VALIDATE_URL) ? $collection->banner_image : asset($collection->banner_image) }}" alt="{{ $collection->name }}" class="w-full h-full object-cover">
                         </div>
                     </div>
-                @endif
+                @endif -->
             </div>
         </div>
 
@@ -70,12 +70,12 @@
         </div>
 
         <!-- SEO Intro Content -->
-        <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm">
+        <!-- <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm">
             <h3 class="text-2xl font-heading text-primary mb-3">About The {{ $collection->name }} Collection</h3>
             <p class="text-xs md:text-sm font-body text-soft-gray leading-relaxed">
                 The {{ $collection->name }} collection brings together handcrafted pipe cleaner bouquets and artisanal crafts specially styled for this theme. Each product keeps its unique canonical URL while benefiting from curated discovery.
             </p>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection

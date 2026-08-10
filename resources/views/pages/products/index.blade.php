@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', $pageTitle ?? 'All Handcrafted Products - Ashma Creations')
+@section('title', $pageTitle ?? 'Browse All Gifts - Ashma Creations')
 
 @section('content')
 <div class="bg-background py-10">
     <div class="container mx-auto px-4">
         <!-- Breadcrumbs -->
         <x-breadcrumbs :items="[
-            ['label' => 'Shop Catalog']
+            ['label' => 'Browse Gifts']
         ]" />
 
         <!-- Header -->
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-10 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="max-w-3xl relative z-10">
-                <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2">Complete Handcrafted Catalog</span>
-                <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">{{ $pageTitle ?? 'Shop All Products' }}</h1>
+                <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2">Complete Handcrafted Catalog</span> -->
+                <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">{{ $pageTitle ?? 'Browse All Gifts' }}</h1>
                 <p class="text-sm font-body text-soft-gray leading-relaxed">
                     {{ $metaDescription ?? 'Explore our complete collection of handcrafted pipe cleaner flowers, bouquets, pots, and custom decorative gifts.' }}
                 </p>
@@ -41,7 +41,7 @@
                     <!-- Products Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                         @foreach($products as $product)
-                            <x-product-card :product="$product" />
+                            <x-product-card :product="$product" :isFirst="$loop->first" />
                         @endforeach
                     </div>
 

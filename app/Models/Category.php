@@ -76,4 +76,55 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+
+    /**
+     * Recursively retrieve all descendant category IDs (including self).
+     */
+    public function getAllDescendantCategoryIds(array &$visited = []): array
+    {
+        if (in_array($this->id, $visited)) {
+            return [];
+        }
+        $visited[] = $this->id;
+
+        $ids = [$this->id];
+        $children = $this->relationLoaded('children') ? $this->children : $this->children()->get();
+        foreach ($children as $child) {
+            $ids = array_merge($ids, $child->getAllDescendantCategoryIds($visited));
+        }
+
+        return array_unique($ids);
+    }
+
+    /**
+     * Accessor for products_count.
+     * Includes products from subcategories if parent has subcategories.
+     */
+    public function getProductsCountAttribute(?int $value = null): int
+    {
+        $directCount = $value ?? (isset($this->attributes['products_count'])
+            ? (int) $this->attributes['products_count']
+            : null);
+
+        if ($this->relationLoaded('children')) {
+            $baseCount = $directCount ?? $this->products()->whereNull('deleted_at')->count();
+            if ($this->children->isEmpty()) {
+                return $baseCount;
+            }
+
+            $childrenCount = $this->children->sum(function ($child) {
+                return $child->products_count;
+            });
+
+            return $baseCount + $childrenCount;
+        }
+
+        if ($directCount !== null && !$this->children()->exists()) {
+            return $directCount;
+        }
+
+        $ids = $this->getAllDescendantCategoryIds();
+
+        return Product::whereIn('category_id', $ids)->whereNull('deleted_at')->count();
+    }
 }

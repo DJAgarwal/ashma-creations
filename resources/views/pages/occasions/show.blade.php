@@ -15,10 +15,10 @@
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-10 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="max-w-3xl">
                 <div class="flex items-center gap-3 mb-3">
-                    <span class="p-2.5 bg-amber-50 text-amber-600 rounded-2xl text-xl">
+                    <!-- <span class="p-2.5 bg-amber-50 text-amber-600 rounded-2xl text-xl">
                         {{ $occasion->icon ?? '🎁' }}
-                    </span>
-                    <span class="text-xs font-body font-bold text-accent uppercase tracking-widest">Occasion Landing Page</span>
+                    </span> -->
+                    <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest">Occasion Landing Page</span> -->
                 </div>
                 <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">Gifts For {{ $occasion->name }}</h1>
                 <p class="text-sm font-body text-soft-gray leading-relaxed">
@@ -65,7 +65,7 @@
         </div>
 
         <!-- SEO Intro & FAQ Placeholder -->
-        <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm space-y-8">
+        <!-- <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm space-y-8">
             <div>
                 <h3 class="text-2xl font-heading text-primary mb-3">Why Choose Handcrafted Gifts For {{ $occasion->name }}?</h3>
                 <p class="text-xs md:text-sm font-body text-soft-gray leading-relaxed">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection
