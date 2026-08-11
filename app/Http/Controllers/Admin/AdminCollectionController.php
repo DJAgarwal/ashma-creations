@@ -62,7 +62,7 @@ class AdminCollectionController extends Controller
             'slug' => $slug,
             'description' => $description,
             'banner_image' => $bannerPath,
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
             'seo_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
             'seo_description' => $request->input('seo_description') ?: Str::limit(
@@ -114,7 +114,7 @@ class AdminCollectionController extends Controller
             'slug' => $slug,
             'description' => $description,
             'banner_image' => $bannerPath,
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
             'seo_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
             'seo_description' => $request->input('seo_description') ?: Str::limit(

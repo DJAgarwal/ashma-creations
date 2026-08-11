@@ -65,7 +65,7 @@ trait ManagesSimpleTaxonomy
         $attributes = [
             'name' => $name,
             'slug' => $slug,
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
         ];
 

@@ -85,7 +85,7 @@ class AdminHeroBannerController extends Controller
             'custom_url' => $request->input('custom_url'),
             'desktop_image' => $desktopPath,
             'mobile_image' => $mobilePath,
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
         ]);
 
@@ -141,7 +141,7 @@ class AdminHeroBannerController extends Controller
             'custom_url' => $request->input('custom_url'),
             'desktop_image' => $desktopPath,
             'mobile_image' => $mobilePath,
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
         ]);
 

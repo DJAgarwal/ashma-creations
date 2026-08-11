@@ -67,7 +67,7 @@ class AdminCategoryController extends Controller
             'parent_id' => $request->input('parent_id'),
             'image_path' => $imagePath,
             'display_order' => (int) $request->input('display_order', 0),
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
             'meta_description' => $request->input('seo_description') ?: Str::limit(
                 !empty($description)
@@ -126,7 +126,7 @@ class AdminCategoryController extends Controller
             'parent_id' => $request->input('parent_id'),
             'image_path' => $imagePath,
             'display_order' => (int) $request->input('display_order', 0),
-            'active' => $request->boolean('active', true),
+            'active' => $request->boolean('active'),
             'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
             'meta_description' => $request->input('seo_description') ?: Str::limit(
                 !empty($description)
