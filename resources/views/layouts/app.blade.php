@@ -75,8 +75,12 @@
                 }
             }
 
-            if (!isset($metaDescription) || empty($metaDescription)) {
-                $metaDescription = 'Shop handmade pipe cleaner flowers, bouquets, flower pots and personalized gifts from Ashma Creations. Discover unique handcrafted gifts for every occasion.';
+            if (View::hasSection('meta_description')) {
+                $metaDescription = View::yieldContent('meta_description');
+            } elseif (View::hasSection('description')) {
+                $metaDescription = View::yieldContent('description');
+            } elseif (!isset($metaDescription) || empty($metaDescription)) {
+                $metaDescription = 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.';
                 if (!empty($page)) {
                     if (!empty($page->meta_description)) {
                         $metaDescription = $page->meta_description;

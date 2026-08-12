@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Handcrafted Pipe Cleaner Flowers, Bouquets & Unique Gifts')
+@section('title', 'Handmade Gifts, Crafts & Personalized Creations | Ashma Creations')
+@section('meta_description', 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.')
 
 @section('content')
 <!-- 2. SHOP FOR LOVED ONES -->
@@ -151,6 +152,9 @@
                             <h3 class="text-2xl font-heading text-charcoal mb-2 transition-colors line-clamp-1 group-hover:text-primary" title="{{ $cat->name }}">
                                 {{ $cat->name }}
                             </h3>
+                            <p class="text-xs font-body text-soft-gray line-clamp-2 leading-relaxed flex-grow">
+                                {{ $cat->description ?? 'Explore handcrafted items under ' . $cat->name }}
+                            </p>
                         </div>
                     </a>
                 @endforeach
