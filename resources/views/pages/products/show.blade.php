@@ -228,7 +228,7 @@
         <div>
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-1">Taxonomy Match</span>
+                    <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-1">Taxonomy Match</span> -->
                     <h2 class="text-2xl md:text-3xl font-heading text-primary">Related Handcrafted Items</h2>
                 </div>
                 <a href="{{ route('products.index') }}" class="text-xs font-body font-bold text-primary hover:underline">
