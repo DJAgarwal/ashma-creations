@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $product->meta_title ?? $product->name)
+@section('title', !empty($product->meta_title) ? $product->meta_title : $product->name)
+@section('meta_description', !empty($product->meta_description) ? $product->meta_description : (!empty($product->description) ? strip_tags($product->description) : ''))
 
 @section('content')
 <div class="bg-background py-10">

@@ -69,12 +69,10 @@ class AdminCategoryController extends Controller
             'display_order' => (int) $request->input('display_order', 0),
             'active' => $request->boolean('active'),
             'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
-            'meta_description' => $request->input('seo_description') ?: Str::limit(
+            'meta_description' => $request->input('seo_description') ?: (
                 !empty($description)
                     ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
-                    : "Explore our handcrafted {$name} collection at Ashma Creations.",
-                155,
-                ''
+                    : "Explore our handcrafted {$name} collection at Ashma Creations."
             ),
             'json_ld' => null,
         ]);
@@ -128,12 +126,10 @@ class AdminCategoryController extends Controller
             'display_order' => (int) $request->input('display_order', 0),
             'active' => $request->boolean('active'),
             'meta_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
-            'meta_description' => $request->input('seo_description') ?: Str::limit(
+            'meta_description' => $request->input('seo_description') ?: (
                 !empty($description)
                     ? "Discover beautiful, handcrafted {$name} creations by Ashma Creations. " . strip_tags($description)
-                    : "Explore our handcrafted {$name} collection at Ashma Creations.",
-                155,
-                ''
+                    : "Explore our handcrafted {$name} collection at Ashma Creations."
             ),
         ]);
 

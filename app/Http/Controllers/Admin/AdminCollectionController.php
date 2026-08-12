@@ -65,12 +65,10 @@ class AdminCollectionController extends Controller
             'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
             'seo_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
-            'seo_description' => $request->input('seo_description') ?: Str::limit(
+            'seo_description' => $request->input('seo_description') ?: (
                 !empty($description)
                     ? "Discover {$name} at Ashma Creations. " . strip_tags($description)
-                    : "Shop our {$name} collection at Ashma Creations.",
-                155,
-                ''
+                    : "Shop our {$name} collection at Ashma Creations."
             ),
         ]);
 
@@ -117,12 +115,10 @@ class AdminCollectionController extends Controller
             'active' => $request->boolean('active'),
             'display_order' => (int) $request->input('display_order', 0),
             'seo_title' => $request->input('seo_title') ?: ($name . ' - Ashma Creations'),
-            'seo_description' => $request->input('seo_description') ?: Str::limit(
+            'seo_description' => $request->input('seo_description') ?: (
                 !empty($description)
                     ? "Discover {$name} at Ashma Creations. " . strip_tags($description)
-                    : "Shop our {$name} collection at Ashma Creations.",
-                155,
-                ''
+                    : "Shop our {$name} collection at Ashma Creations."
             ),
         ]);
 

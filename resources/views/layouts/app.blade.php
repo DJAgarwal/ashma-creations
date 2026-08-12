@@ -71,6 +71,26 @@
                 }
             } elseif (!empty($pageTitle)) {
                 $metaTitle = $pageTitle . ' - Ashma Creations';
+            } elseif (isset($product) && !empty($product->meta_title)) {
+                $metaTitle = $product->meta_title . ' - Ashma Creations';
+            } elseif (isset($product) && !empty($product->name)) {
+                $metaTitle = $product->name . ' - Ashma Creations';
+            } elseif (isset($category) && !empty($category->meta_title)) {
+                $metaTitle = $category->meta_title;
+            } elseif (isset($category) && !empty($category->name)) {
+                $metaTitle = $category->name . ' - Ashma Creations';
+            } elseif (isset($collection) && !empty($collection->meta_title)) {
+                $metaTitle = $collection->meta_title;
+            } elseif (isset($collection) && !empty($collection->name)) {
+                $metaTitle = $collection->name . ' - Ashma Creations';
+            } elseif (isset($occasion) && !empty($occasion->meta_title)) {
+                $metaTitle = $occasion->meta_title;
+            } elseif (isset($occasion) && !empty($occasion->name)) {
+                $metaTitle = $occasion->name . ' - Ashma Creations';
+            } elseif (isset($recipient) && !empty($recipient->meta_title)) {
+                $metaTitle = $recipient->meta_title;
+            } elseif (isset($recipient) && !empty($recipient->name)) {
+                $metaTitle = $recipient->name . ' - Ashma Creations';
             } elseif (!empty($page) && !empty($page->meta_title)) {
                 $metaTitle = $page->meta_title;
             }
@@ -79,13 +99,33 @@
                 $metaDescription = View::yieldContent('meta_description');
             } elseif (View::hasSection('description')) {
                 $metaDescription = View::yieldContent('description');
+            } elseif (isset($product) && !empty($product->meta_description)) {
+                $metaDescription = $product->meta_description;
+            } elseif (isset($product) && !empty($product->description)) {
+                $metaDescription = strip_tags($product->description);
+            } elseif (isset($category) && !empty($category->meta_description)) {
+                $metaDescription = $category->meta_description;
+            } elseif (isset($category) && !empty($category->description)) {
+                $metaDescription = strip_tags($category->description);
+            } elseif (isset($collection) && !empty($collection->meta_description)) {
+                $metaDescription = $collection->meta_description;
+            } elseif (isset($collection) && !empty($collection->description)) {
+                $metaDescription = strip_tags($collection->description);
+            } elseif (isset($occasion) && !empty($occasion->meta_description)) {
+                $metaDescription = $occasion->meta_description;
+            } elseif (isset($occasion) && !empty($occasion->description)) {
+                $metaDescription = strip_tags($occasion->description);
+            } elseif (isset($recipient) && !empty($recipient->meta_description)) {
+                $metaDescription = $recipient->meta_description;
+            } elseif (isset($recipient) && !empty($recipient->description)) {
+                $metaDescription = strip_tags($recipient->description);
             } elseif (!isset($metaDescription) || empty($metaDescription)) {
                 $metaDescription = 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.';
                 if (!empty($page)) {
                     if (!empty($page->meta_description)) {
                         $metaDescription = $page->meta_description;
                     } elseif (!empty($page->description)) {
-                        $metaDescription = \Illuminate\Support\Str::limit(strip_tags($page->description), 160, '');
+                        $metaDescription = strip_tags($page->description);
                     }
                 }
             }
@@ -98,6 +138,11 @@
                 }
             } elseif (isset($category) && !empty($category->image_path)) {
                 $metaImage = filter_var($category->image_path, FILTER_VALIDATE_URL) ? $category->image_path : asset($category->image_path);
+            }
+
+            $ogType = 'website';
+            if (request()->routeIs('products.show') || isset($product)) {
+                $ogType = 'product';
             }
         @endphp
 
@@ -120,7 +165,7 @@
         <meta property="og:title" content="{{ $metaTitle }}">
         <meta property="og:description" content="{{ $metaDescription }}">
         <meta property="og:url" content="{{ request()->url() }}">
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="{{ $ogType }}">
         <meta property="og:image" content="{{ $metaImage }}">
         <meta property="og:locale" content="en_US">
         <meta property="og:site_name" content="Ashma Creations">

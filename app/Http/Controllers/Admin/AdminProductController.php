@@ -229,13 +229,9 @@ class AdminProductController extends Controller
 
     protected function buildMetaDescription(string $name, ?string $description): string
     {
-        return Str::limit(
-            !empty($description)
-                ? "Explore {$name} at Ashma Creations. Handcrafted creations made with care. " . strip_tags($description)
-                : "Handcrafted {$name} by Ashma Creations. Browse our beautiful custom collections.",
-            155,
-            ''
-        );
+        return !empty($description)
+            ? "Explore {$name} at Ashma Creations. Handcrafted creations made with care. " . strip_tags($description)
+            : "Handcrafted {$name} by Ashma Creations. Browse our beautiful custom collections.";
     }
 
     protected function handleImageUploads(Request $request, array $existingImages): array

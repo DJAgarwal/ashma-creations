@@ -62,12 +62,14 @@ class SchemaGenerator
             'inLanguage' => 'en',
             'knowsAbout' => [
                 'Handmade Gifts',
-                'Pipe Cleaner Bouquets',
-                'Flower Pots',
                 'Personalized Gifts',
+                'Handcrafted Creations',
+                'Handmade Home Decor',
+                'Keepsakes',
+                'Custom Gifts',
+                'Floral Decor',
+                'Pipe Cleaner Flowers',
                 'Custom Floral Arrangements',
-                'Home Decor',
-                'Handcrafted Bouquets',
             ],
             'sameAs' => [
                 'https://www.instagram.com/ashma_creations07',
@@ -80,7 +82,7 @@ class SchemaGenerator
                 'areaServed' => 'IN',
                 'availableLanguage' => 'en',
             ],
-            'description' => 'Ashma Creations offers beautiful, high-quality handmade pipe cleaner bouquets, flower pots, and customized gifts.',
+            'description' => 'Ashma Creations creates thoughtful handmade gifts, personalized creations, home decor and unique keepsakes, handcrafted with care for special moments.',
         ];
 
         if ($includeHasOfferCatalog) {
@@ -841,17 +843,24 @@ class SchemaGenerator
             ],
         ];
 
-        // Only include Offer when valid price exists (Never invent 0.00 price)
+        $offerData = [
+            '@type' => 'Offer',
+            'url' => $canonicalUrl,
+            'availability' => 'https://schema.org/InStock',
+            'itemCondition' => 'https://schema.org/NewCondition',
+            'seller' => [
+                '@type' => 'Organization',
+                'name' => 'Ashma Creations',
+            ],
+        ];
+
         if (isset($product->price) && (float)$product->price > 0) {
-            $productEntity['offers'] = [
-                '@type' => 'Offer',
-                'url' => $canonicalUrl,
-                'priceCurrency' => $product->currency ?? 'INR',
-                'price' => number_format((float)$product->price, 2, '.', ''),
-                'availability' => 'https://schema.org/InStock',
-                'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
-            ];
+            $offerData['priceCurrency'] = $product->currency ?? 'INR';
+            $offerData['price'] = number_format((float)$product->price, 2, '.', '');
+            $offerData['priceValidUntil'] = date('Y-12-31', strtotime('+1 year'));
         }
+
+        $productEntity['offers'] = $offerData;
 
         // 3. ImageObject Entity (describing primary image)
         $imageObjectEntity = [
