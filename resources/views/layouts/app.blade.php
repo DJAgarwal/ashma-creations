@@ -17,17 +17,25 @@
                 $jsonldPayload = \App\Services\SchemaGenerator::forCatalog($products ?? null, $pageTitle ?? null, $metaDescription ?? null);
             } elseif (request()->routeIs('products.show') && isset($product)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forProduct($product);
-            } elseif (isset($category)) {
-                $jsonldPayload = \App\Services\SchemaGenerator::forCategory($category, $products ?? null);
-            } elseif (isset($collection)) {
+            } elseif (request()->routeIs('collections.index')) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCollectionIndex($collections ?? null);
+            } elseif (request()->routeIs('collections.show') && isset($collection)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forCollection($collection, $products ?? null);
-            } elseif (isset($occasion)) {
+            } elseif (request()->routeIs('categories.index')) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCategoryIndex($categories ?? null);
+            } elseif (request()->routeIs('categories.show') && isset($category)) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forCategory($category, $products ?? null);
+            } elseif (request()->routeIs('occasions.index')) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forOccasionIndex($occasions ?? null);
+            } elseif (request()->routeIs('occasions.show') && isset($occasion)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forOccasion($occasion, $products ?? null);
-            } elseif (isset($recipient)) {
+            } elseif (request()->routeIs('recipients.index')) {
+                $jsonldPayload = \App\Services\SchemaGenerator::forRecipientIndex($recipients ?? null);
+            } elseif (request()->routeIs('recipients.show') && isset($recipient)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forRecipient($recipient, $products ?? null);
-            } elseif (isset($style)) {
+            } elseif (request()->routeIs('styles.show') && isset($style)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forStyle($style, $products ?? null);
-            } elseif (isset($material)) {
+            } elseif (request()->routeIs('materials.show') && isset($material)) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forMaterial($material, $products ?? null);
             } elseif (isset($page) && $page instanceof \App\Models\StaticPage) {
                 $jsonldPayload = \App\Services\SchemaGenerator::forStaticPage($page);

@@ -1036,6 +1036,152 @@ class SchemaGenerator
     }
 
     /**
+     * Generate Taxonomy Index Page JSON-LD (Collections, Categories, Occasions, Recipients).
+     */
+    public static function forTaxonomyIndex(string $type, $items = null): array
+    {
+        $canonicalUrl = match ($type) {
+            'collection' => route('collections.index'),
+            'category' => route('categories.index'),
+            'occasion' => route('occasions.index'),
+            'recipient' => route('recipients.index'),
+            default => url('/' . Str::plural($type)),
+        };
+
+        $pageTitle = match ($type) {
+            'collection' => 'Featured Collections - Ashma Creations',
+            'category' => 'Explore All Categories - Ashma Creations',
+            'occasion' => 'Celebrate Every Occasion - Ashma Creations',
+            'recipient' => 'Shop for Loved Ones - Ashma Creations',
+            default => ucfirst(Str::plural($type)) . ' - Ashma Creations',
+        };
+
+        $pageDescription = match ($type) {
+            'collection' => 'Explore our curated handmade gift collections for every season and celebration at Ashma Creations.',
+            'category' => 'Browse our handcrafted categories at Ashma Creations.',
+            'occasion' => 'Find handcrafted gifts for every special occasion at Ashma Creations.',
+            'recipient' => 'Discover thoughtful handmade gifts for your loved ones at Ashma Creations.',
+            default => 'Explore our handcrafted ' . Str::plural($type) . ' at Ashma Creations.',
+        };
+
+        if (empty($items)) {
+            try {
+                $items = match ($type) {
+                    'collection' => Collection::active()->ordered()->get(),
+                    'category' => Category::whereNull('parent_id')->active()->ordered()->get(),
+                    'occasion' => \App\Models\Occasion::active()->ordered()->get(),
+                    'recipient' => \App\Models\Recipient::active()->ordered()->get(),
+                    default => [],
+                };
+            } catch (\Throwable $e) {}
+        }
+
+        // 1. CollectionPage Entity
+        $collectionPageEntity = [
+            '@type' => 'CollectionPage',
+            '@id' => $canonicalUrl,
+            'url' => $canonicalUrl,
+            'name' => $pageTitle,
+            'description' => $pageDescription,
+            'inLanguage' => 'en',
+            'isPartOf' => [
+                '@id' => url('/') . '#website',
+            ],
+            'publisher' => [
+                '@id' => url('/') . '#organization',
+            ],
+            'primaryImageOfPage' => [
+                '@id' => url('/') . '#logo',
+            ],
+            'breadcrumb' => [
+                '@id' => $canonicalUrl . '#breadcrumb',
+            ],
+            'mainEntityOfPage' => $canonicalUrl,
+        ];
+
+        // 2. ItemList Entity (containing the taxonomy entities on the listing page)
+        $itemListElement = [];
+        if (!empty($items)) {
+            $itemList = is_array($items) ? $items : ($items instanceof \Illuminate\Support\Collection ? $items : $items->items());
+            foreach ($itemList as $index => $item) {
+                $itemUrl = match ($type) {
+                    'collection' => route('collections.show', $item->slug),
+                    'category' => route('categories.show', $item->slug),
+                    'occasion' => route('occasions.show', $item->slug),
+                    'recipient' => route('recipients.show', $item->slug),
+                    default => url("/{$type}/{$item->slug}"),
+                };
+
+                $itemListElement[] = [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'url' => $itemUrl,
+                    'name' => $item->name,
+                    'description' => $item->seo_description ?? ($item->meta_description ?? ($item->description ?? "Explore {$item->name}.")),
+                ];
+            }
+        }
+
+        $itemListEntity = [
+            '@type' => 'ItemList',
+            '@id' => $canonicalUrl . '#itemlist',
+            'name' => match ($type) {
+                'collection' => 'Featured Collections',
+                'category' => 'Categories',
+                'occasion' => 'Occasions',
+                'recipient' => 'Recipients',
+                default => ucfirst(Str::plural($type)),
+            },
+            'numberOfItems' => count($itemListElement),
+            'itemListElement' => $itemListElement,
+        ];
+
+        // 3. BreadcrumbList Entity
+        $breadcrumbItems = [
+            ['name' => 'Home', 'url' => url('/')],
+            [
+                'name' => match ($type) {
+                    'collection' => 'Collections',
+                    'category' => 'Categories',
+                    'occasion' => 'Occasions',
+                    'recipient' => 'Recipients',
+                    default => ucfirst(Str::plural($type)),
+                },
+                'url' => $canonicalUrl,
+            ],
+        ];
+
+        $breadcrumbsEntity = static::breadcrumbListEntity($breadcrumbItems, $canonicalUrl);
+
+        return static::wrapInGraph([
+            $collectionPageEntity,
+            $itemListEntity,
+            $breadcrumbsEntity,
+            static::logoImageEntity(),
+        ]);
+    }
+
+    public static function forCollectionIndex($collections = null): array
+    {
+        return static::forTaxonomyIndex('collection', $collections);
+    }
+
+    public static function forCategoryIndex($categories = null): array
+    {
+        return static::forTaxonomyIndex('category', $categories);
+    }
+
+    public static function forOccasionIndex($occasions = null): array
+    {
+        return static::forTaxonomyIndex('occasion', $occasions);
+    }
+
+    public static function forRecipientIndex($recipients = null): array
+    {
+        return static::forTaxonomyIndex('recipient', $recipients);
+    }
+
+    /**
      * Future Blog / Article JSON-LD: Article + BreadcrumbList + ImageObject.
      */
     public static function forArticle(object $article): array
