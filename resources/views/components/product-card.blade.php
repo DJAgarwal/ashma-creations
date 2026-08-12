@@ -1,4 +1,4 @@
-@props(['product', 'showBadges' => true, 'isFirst' => false])
+@props(['product', 'showBadges' => true, 'showDescription' => true, 'isFirst' => false])
 
 <a href="{{ route('products.show', $product->slug) }}" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-primary-light/20 flex flex-col h-full relative block">
     <!-- Image Area -->
@@ -77,9 +77,11 @@
         </h3>
 
         <!-- Description Snippet -->
-        <!-- <p class="text-xs font-body text-soft-gray mb-4 line-clamp-2 leading-relaxed flex-grow">
-            {{ Str::limit(strip_tags($product->description ?? 'Handcrafted everlasting pipe cleaner creation.'), 90) }}
-        </p> -->
+        @if($showDescription && !empty($product->description))
+            <p class="text-xs font-body text-soft-gray mb-4 line-clamp-2 leading-relaxed flex-grow">
+                {{ Str::limit(strip_tags($product->description), 90) }}
+            </p>
+        @endif
 
         <!-- Taxonomy Tags Snippet -->
         <!-- <div class="flex flex-wrap gap-1 mb-5 min-h-[26px]">
