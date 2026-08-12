@@ -121,7 +121,7 @@
             }
 
             $ogType = 'website';
-            if (request()->routeIs('products.show') || isset($product)) {
+            if (request()->routeIs('products.show')) {
                 $ogType = 'product';
             }
         @endphp
