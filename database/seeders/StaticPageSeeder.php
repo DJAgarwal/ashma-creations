@@ -14,8 +14,8 @@ class StaticPageSeeder extends Seeder
             [
                 'page_name' => 'home',
                 'schema_type' => 'homepage',
-                'meta_title' => 'Handmade Pipe Cleaner Bouquets, Flower Pots & Personalized Gifts | Ashma Creations',
-                'meta_description' => 'Discover handmade pipe cleaner bouquets, flower pots, personalized gifts, custom bouquets, wedding gifts, birthday gifts and unique handcrafted creations made with love.',
+                'meta_title' => 'Handmade Gifts, Crafts & Personalized Creations | Ashma Creations',
+                'meta_description' => 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.',
             ],
             [
                 'page_name' => 'about',

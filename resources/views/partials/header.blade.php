@@ -248,8 +248,6 @@
             <a href="{{ url('/about') }}" class="mobile-nav-link {{ request()->is('about') ? 'mobile-nav-link-active' : '' }}">Our Story</a>
             <a href="{{ url('/contact') }}" class="mobile-nav-link {{ request()->is('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
         </nav>
-            <a href="{{ url('/contact') }}" class="mobile-nav-link {{ request()->is('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
-        </nav>
 
         <div class="mt-auto pt-8 border-t border-primary-light/20">
             <p class="text-xs font-body text-soft-gray uppercase tracking-widest mb-3 text-center">Get in Touch</p>

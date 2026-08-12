@@ -64,15 +64,15 @@
         {{-- SEO Meta --}}
         @php
             $metaTitle = 'Ashma Creations - Handmade With Love';
-            if (!empty($pageTitle)) {
-                $metaTitle = $pageTitle . ' - Ashma Creations';
-            } elseif (!empty($page) && !empty($page->meta_title)) {
-                $metaTitle = $page->meta_title;
-            } elseif (View::hasSection('title')) {
+            if (View::hasSection('title')) {
                 $metaTitle = View::yieldContent('title');
                 if (!str_contains($metaTitle, 'Ashma Creations')) {
                     $metaTitle .= ' - Ashma Creations';
                 }
+            } elseif (!empty($pageTitle)) {
+                $metaTitle = $pageTitle . ' - Ashma Creations';
+            } elseif (!empty($page) && !empty($page->meta_title)) {
+                $metaTitle = $page->meta_title;
             }
 
             if (View::hasSection('meta_description')) {
