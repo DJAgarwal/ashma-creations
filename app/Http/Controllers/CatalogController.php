@@ -34,7 +34,7 @@ class CatalogController extends Controller
         $filterData = $this->getFilterData();
 
         $pageTitle = 'Browse All Gifts';
-        $metaDescription = 'Shop handmade pipe cleaner flowers, bouquets, flower pots and personalized gifts from Ashma Creations. Discover unique handcrafted gifts for every occasion.';
+        $metaDescription = 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.';
 
         $jsonldPayload = \App\Services\SchemaGenerator::forCatalog($products, $pageTitle, $metaDescription);
 

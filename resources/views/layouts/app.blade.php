@@ -71,26 +71,16 @@
                 }
             } elseif (!empty($pageTitle)) {
                 $metaTitle = $pageTitle . ' - Ashma Creations';
-            } elseif (isset($product) && !empty($product->meta_title)) {
-                $metaTitle = $product->meta_title . ' - Ashma Creations';
-            } elseif (isset($product) && !empty($product->name)) {
-                $metaTitle = $product->name . ' - Ashma Creations';
-            } elseif (isset($category) && !empty($category->meta_title)) {
-                $metaTitle = $category->meta_title;
-            } elseif (isset($category) && !empty($category->name)) {
-                $metaTitle = $category->name . ' - Ashma Creations';
-            } elseif (isset($collection) && !empty($collection->meta_title)) {
-                $metaTitle = $collection->meta_title;
-            } elseif (isset($collection) && !empty($collection->name)) {
-                $metaTitle = $collection->name . ' - Ashma Creations';
-            } elseif (isset($occasion) && !empty($occasion->meta_title)) {
-                $metaTitle = $occasion->meta_title;
-            } elseif (isset($occasion) && !empty($occasion->name)) {
-                $metaTitle = $occasion->name . ' - Ashma Creations';
-            } elseif (isset($recipient) && !empty($recipient->meta_title)) {
-                $metaTitle = $recipient->meta_title;
-            } elseif (isset($recipient) && !empty($recipient->name)) {
-                $metaTitle = $recipient->name . ' - Ashma Creations';
+            } elseif (request()->routeIs('products.show') && isset($product)) {
+                $metaTitle = (!empty($product->meta_title) ? $product->meta_title : $product->name) . ' - Ashma Creations';
+            } elseif (request()->routeIs('categories.show') && isset($category)) {
+                $metaTitle = !empty($category->meta_title) ? $category->meta_title : ($category->name . ' - Ashma Creations');
+            } elseif (request()->routeIs('collections.show') && isset($collection)) {
+                $metaTitle = !empty($collection->meta_title) ? $collection->meta_title : ($collection->name . ' - Ashma Creations');
+            } elseif (request()->routeIs('occasions.show') && isset($occasion)) {
+                $metaTitle = !empty($occasion->meta_title) ? $occasion->meta_title : ($occasion->name . ' - Ashma Creations');
+            } elseif (request()->routeIs('recipients.show') && isset($recipient)) {
+                $metaTitle = !empty($recipient->meta_title) ? $recipient->meta_title : ($recipient->name . ' - Ashma Creations');
             } elseif (!empty($page) && !empty($page->meta_title)) {
                 $metaTitle = $page->meta_title;
             }
@@ -99,26 +89,16 @@
                 $metaDescription = View::yieldContent('meta_description');
             } elseif (View::hasSection('description')) {
                 $metaDescription = View::yieldContent('description');
-            } elseif (isset($product) && !empty($product->meta_description)) {
-                $metaDescription = $product->meta_description;
-            } elseif (isset($product) && !empty($product->description)) {
-                $metaDescription = strip_tags($product->description);
-            } elseif (isset($category) && !empty($category->meta_description)) {
-                $metaDescription = $category->meta_description;
-            } elseif (isset($category) && !empty($category->description)) {
-                $metaDescription = strip_tags($category->description);
-            } elseif (isset($collection) && !empty($collection->meta_description)) {
-                $metaDescription = $collection->meta_description;
-            } elseif (isset($collection) && !empty($collection->description)) {
-                $metaDescription = strip_tags($collection->description);
-            } elseif (isset($occasion) && !empty($occasion->meta_description)) {
-                $metaDescription = $occasion->meta_description;
-            } elseif (isset($occasion) && !empty($occasion->description)) {
-                $metaDescription = strip_tags($occasion->description);
-            } elseif (isset($recipient) && !empty($recipient->meta_description)) {
-                $metaDescription = $recipient->meta_description;
-            } elseif (isset($recipient) && !empty($recipient->description)) {
-                $metaDescription = strip_tags($recipient->description);
+            } elseif (request()->routeIs('products.show') && isset($product)) {
+                $metaDescription = !empty($product->meta_description) ? $product->meta_description : strip_tags($product->description);
+            } elseif (request()->routeIs('categories.show') && isset($category)) {
+                $metaDescription = !empty($category->meta_description) ? $category->meta_description : strip_tags($category->description);
+            } elseif (request()->routeIs('collections.show') && isset($collection)) {
+                $metaDescription = !empty($collection->meta_description) ? $collection->meta_description : strip_tags($collection->description);
+            } elseif (request()->routeIs('occasions.show') && isset($occasion)) {
+                $metaDescription = !empty($occasion->meta_description) ? $occasion->meta_description : strip_tags($occasion->description);
+            } elseif (request()->routeIs('recipients.show') && isset($recipient)) {
+                $metaDescription = !empty($recipient->meta_description) ? $recipient->meta_description : strip_tags($recipient->description);
             } elseif (!isset($metaDescription) || empty($metaDescription)) {
                 $metaDescription = 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.';
                 if (!empty($page)) {

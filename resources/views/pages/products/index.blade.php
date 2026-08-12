@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $pageTitle ?? 'Browse All Gifts - Ashma Creations')
+@section('meta_description', $metaDescription ?? 'Discover unique handmade gifts, personalized creations, home decor and thoughtful keepsakes at Ashma Creations. Beautifully handcrafted with creativity and care for every special moment.')
 
 @section('content')
 <div class="bg-background py-10">
