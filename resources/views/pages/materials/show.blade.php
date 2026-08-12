@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($material->meta_title ?? 'Creations Crafted With ' . $material->name) . ' - Ashma Creations')
+@section('title', $material->seo_title ?? ($material->meta_title ?? ('Creations Crafted With ' . $material->name)))
 
 @section('content')
 <div class="bg-background py-10">

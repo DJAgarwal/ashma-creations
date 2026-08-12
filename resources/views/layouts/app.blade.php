@@ -74,23 +74,28 @@
             $metaTitle = 'Ashma Creations - Handmade With Love';
             if (View::hasSection('title')) {
                 $metaTitle = View::yieldContent('title');
-                if (!str_contains($metaTitle, 'Ashma Creations')) {
-                    $metaTitle .= ' - Ashma Creations';
-                }
             } elseif (!empty($pageTitle)) {
-                $metaTitle = $pageTitle . ' - Ashma Creations';
+                $metaTitle = $pageTitle;
             } elseif (request()->routeIs('products.show') && isset($product)) {
-                $metaTitle = (!empty($product->meta_title) ? $product->meta_title : $product->name) . ' - Ashma Creations';
+                $metaTitle = !empty($product->meta_title) ? $product->meta_title : $product->name;
             } elseif (request()->routeIs('categories.show') && isset($category)) {
-                $metaTitle = !empty($category->meta_title) ? $category->meta_title : ($category->name . ' - Ashma Creations');
+                $metaTitle = !empty($category->seo_title) ? $category->seo_title : (!empty($category->meta_title) ? $category->meta_title : $category->name);
             } elseif (request()->routeIs('collections.show') && isset($collection)) {
-                $metaTitle = !empty($collection->meta_title) ? $collection->meta_title : ($collection->name . ' - Ashma Creations');
+                $metaTitle = !empty($collection->seo_title) ? $collection->seo_title : (!empty($collection->meta_title) ? $collection->meta_title : ($collection->name . ' Collection'));
             } elseif (request()->routeIs('occasions.show') && isset($occasion)) {
-                $metaTitle = !empty($occasion->meta_title) ? $occasion->meta_title : ($occasion->name . ' - Ashma Creations');
+                $metaTitle = !empty($occasion->seo_title) ? $occasion->seo_title : (!empty($occasion->meta_title) ? $occasion->meta_title : $occasion->name);
             } elseif (request()->routeIs('recipients.show') && isset($recipient)) {
-                $metaTitle = !empty($recipient->meta_title) ? $recipient->meta_title : ($recipient->name . ' - Ashma Creations');
+                $metaTitle = !empty($recipient->seo_title) ? $recipient->seo_title : (!empty($recipient->meta_title) ? $recipient->meta_title : $recipient->name);
+            } elseif (request()->routeIs('styles.show') && isset($style)) {
+                $metaTitle = !empty($style->seo_title) ? $style->seo_title : (!empty($style->meta_title) ? $style->meta_title : $style->name);
+            } elseif (request()->routeIs('materials.show') && isset($material)) {
+                $metaTitle = !empty($material->seo_title) ? $material->seo_title : (!empty($material->meta_title) ? $material->meta_title : $material->name);
             } elseif (!empty($page) && !empty($page->meta_title)) {
                 $metaTitle = $page->meta_title;
+            }
+
+            if (!empty($metaTitle) && !str_contains($metaTitle, 'Ashma Creations')) {
+                $metaTitle .= ' - Ashma Creations';
             }
 
             if (View::hasSection('meta_description')) {

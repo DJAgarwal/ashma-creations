@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($recipient->meta_title ?? 'Handcrafted Gifts ' . $recipient->name) . ' - Ashma Creations')
+@section('title', $recipient->seo_title ?? ($recipient->meta_title ?? ('Handcrafted Gifts ' . $recipient->name)))
 
 @section('content')
 <div class="bg-background py-10">

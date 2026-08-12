@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($category->meta_title ?? $category->name . ' - Handcrafted Flowers & Gifts') . ' - Ashma Creations')
+@section('title', $category->seo_title ?? ($category->meta_title ?? ($category->name . ' - Handcrafted Flowers & Gifts')))
 
 @section('content')
 <div class="bg-background py-10">
