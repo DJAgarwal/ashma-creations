@@ -748,7 +748,7 @@ class SchemaGenerator
         // 3. BreadcrumbList Entity
         $breadcrumbItems = [
             ['name' => 'Home', 'url' => url('/')],
-            ['name' => 'All Products', 'url' => $canonicalUrl],
+            ['name' => 'Browse Gifts', 'url' => $canonicalUrl],
         ];
 
         $breadcrumbsEntity = static::breadcrumbListEntity($breadcrumbItems, $canonicalUrl);
@@ -807,12 +807,17 @@ class SchemaGenerator
             'url' => $canonicalUrl,
         ];
 
+        $webPageName = !empty($product->meta_title) ? $product->meta_title : $product->name;
+        if (!str_contains($webPageName, 'Ashma Creations')) {
+            $webPageName .= ' - Ashma Creations';
+        }
+
         // 1. WebPage Entity
         $webPageEntity = [
             '@type' => 'WebPage',
             '@id' => $canonicalUrl,
             'url' => $canonicalUrl,
-            'name' => ($product->meta_title ?? $product->name) . ' - Ashma Creations',
+            'name' => $webPageName,
             'description' => $product->meta_description ?? ($product->description ?? 'Handcrafted ' . $product->name . ' by Ashma Creations.'),
             'inLanguage' => 'en',
             'isPartOf' => [
@@ -914,7 +919,8 @@ class SchemaGenerator
             default => url('/'),
         };
 
-        $name = $taxonomy->meta_title ?? ($taxonomy->seo_title ?? ($taxonomy->name . ' - Ashma Creations'));
+        $rawName = $taxonomy->meta_title ?? ($taxonomy->seo_title ?? $taxonomy->name);
+        $name = str_contains($rawName, 'Ashma Creations') ? $rawName : ($rawName . ' - Ashma Creations');
         $description = $taxonomy->meta_description ?? ($taxonomy->seo_description ?? ($taxonomy->description ?? 'Explore our ' . $taxonomy->name . ' collection at Ashma Creations.'));
 
         // 1. CollectionPage Entity
