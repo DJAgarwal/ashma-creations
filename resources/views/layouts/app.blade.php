@@ -94,8 +94,11 @@
                 $metaTitle = $page->meta_title;
             }
 
-            if (!empty($metaTitle) && !str_contains($metaTitle, 'Ashma Creations')) {
-                $metaTitle .= ' - Ashma Creations';
+            if (!empty($metaTitle)) {
+                $metaTitle = html_entity_decode($metaTitle, ENT_QUOTES, 'UTF-8');
+                if (!str_contains($metaTitle, 'Ashma Creations')) {
+                    $metaTitle .= ' - Ashma Creations';
+                }
             }
 
             if (View::hasSection('meta_description')) {

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Shop By Occasion - Ashma Creations')
+@section('meta_description', 'Shop handmade gifts for every occasion at Ashma Creations. Discover handcrafted bouquets, flowers and thoughtful gifts for birthdays, anniversaries, weddings, Rakhi, Diwali and more.')
 
 @section('content')
 <div class="bg-background py-10">

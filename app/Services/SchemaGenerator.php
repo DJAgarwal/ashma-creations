@@ -1059,7 +1059,7 @@ class SchemaGenerator
         $pageDescription = match ($type) {
             'collection' => 'Explore our curated handmade gift collections for every season and celebration at Ashma Creations.',
             'category' => 'Browse our handcrafted categories at Ashma Creations.',
-            'occasion' => 'Find handcrafted gifts for every special occasion at Ashma Creations.',
+            'occasion' => 'Shop handmade gifts for every occasion at Ashma Creations. Discover handcrafted bouquets, flowers and thoughtful gifts for birthdays, anniversaries, weddings, Rakhi, Diwali and more.',
             'recipient' => 'Discover thoughtful handmade gifts for your loved ones at Ashma Creations.',
             default => 'Explore our handcrafted ' . Str::plural($type) . ' at Ashma Creations.',
         };
