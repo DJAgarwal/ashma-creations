@@ -30,8 +30,8 @@
                             ? (filter_var($rec->image_path, FILTER_VALIDATE_URL) ? $rec->image_path : asset($rec->image_path)) 
                             : null;
                     @endphp
-                    <a href="{{ route('recipients.show', $rec->slug) }}" class="group flex flex-col items-center flex-shrink-0 snap-start w-32 sm:w-36 md:w-36 text-center transition-all cursor-pointer">
-                        <div class="relative w-40 h-40 sm:w-30 sm:h-30 md:w-30 md:h-30 rounded-half overflow-hidden bg-transparent flex items-center justify-center mb-3">
+                    <a href="{{ route('recipients.show', $rec->slug) }}" class="group flex flex-col items-center flex-shrink-0 snap-start home-carousel-item text-center transition-all cursor-pointer">
+                        <div class="relative home-carousel-img rounded-half overflow-hidden bg-transparent flex items-center justify-center mb-3">
                             @if($recImg)
                                 <img src="{{ $recImg }}" 
                                      alt="{{ $rec->name }}" 
@@ -205,8 +205,8 @@
                             ? (filter_var($occ->image_path, FILTER_VALIDATE_URL) ? $occ->image_path : asset($occ->image_path)) 
                             : null;
                     @endphp
-                    <a href="{{ route('occasions.show', $occ->slug) }}" class="group flex flex-col items-center flex-shrink-0 snap-start w-32 sm:w-36 md:w-36 text-center transition-all cursor-pointer">
-                        <div class="relative w-40 h-40 sm:w-30 sm:h-30 md:w-30 md:h-30 rounded-half overflow-hidden bg-transparent flex items-center justify-center mb-3">
+                    <a href="{{ route('occasions.show', $occ->slug) }}" class="group flex flex-col items-center flex-shrink-0 snap-start home-carousel-item text-center transition-all cursor-pointer">
+                        <div class="relative home-carousel-img rounded-half overflow-hidden bg-transparent flex items-center justify-center mb-3">
                             @if($occImg)
                                 <img src="{{ $occImg }}" 
                                      alt="Handmade Gifts for {{ $occ->name }}" 

@@ -160,6 +160,27 @@
     border-radius: 45px !important;
 }
 
+/* Homepage Shop for Loved Ones & Occasions Image Sizing */
+.home-carousel-item {
+    width: 108px !important;
+}
+
+.home-carousel-img {
+    width: 86px !important;
+    height: 86px !important;
+}
+
+@media (min-width: 640px) {
+    .home-carousel-item {
+        width: 144px !important;
+    }
+
+    .home-carousel-img {
+        width: 130px !important;
+        height: 130px !important;
+    }
+}
+
 /* Hero Banner Centered Peeking Slider Container & 1920x700 Aspect Ratio */
 .hero-slider-box {
     position: relative;
