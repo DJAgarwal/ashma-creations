@@ -14,10 +14,22 @@
 @endphp
 
 <div class="admin-multi-select" data-multi-select>
-    <label for="{{ $name }}" class="block text-sm font-semibold text-gray-700 mb-2">
-        {{ $label }}
-        @if($required)<span class="text-red-500">*</span>@endif
-    </label>
+    <div class="flex items-center justify-between mb-2">
+        <label for="{{ $name }}" class="text-sm font-semibold text-gray-700">
+            {{ $label }}
+            @if($required)<span class="text-red-500">*</span>@endif
+        </label>
+        @if(count($options) > 0)
+            <button type="button" 
+                    class="text-xs font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1 px-2.5 py-1 bg-primary-light/15 hover:bg-primary-light/30 rounded-lg cursor-pointer select-none"
+                    data-multi-select-toggle>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span data-multi-select-toggle-text>Select All</span>
+            </button>
+        @endif
+    </div>
 
     <input type="search"
            placeholder="Search {{ strtolower($label) }}..."
@@ -59,18 +71,62 @@
                 document.querySelectorAll('[data-multi-select]').forEach(function (wrapper) {
                     const search = wrapper.querySelector('[data-multi-select-search]');
                     const items = wrapper.querySelectorAll('[data-multi-select-item]');
+                    const toggleBtn = wrapper.querySelector('[data-multi-select-toggle]');
+                    const toggleText = wrapper.querySelector('[data-multi-select-toggle-text]');
 
-                    if (!search) return;
+                    function getVisibleCheckboxes() {
+                        const visibleItems = Array.from(items).filter(item => !item.classList.contains('hidden'));
+                        return visibleItems.map(item => item.querySelector('input[type="checkbox"]')).filter(Boolean);
+                    }
 
-                    search.addEventListener('input', function () {
-                        const query = this.value.trim().toLowerCase();
-                        items.forEach(function (item) {
-                            const label = item.getAttribute('data-multi-select-item') || '';
-                            item.classList.toggle('hidden', query !== '' && !label.includes(query));
+                    function updateToggleText() {
+                        if (!toggleText) return;
+                        const checkboxes = getVisibleCheckboxes();
+                        if (checkboxes.length === 0) {
+                            toggleText.textContent = 'Select All';
+                            return;
+                        }
+                        const allChecked = checkboxes.every(cb => cb.checked);
+                        toggleText.textContent = allChecked ? 'Deselect All' : 'Select All';
+                    }
+
+                    if (toggleBtn) {
+                        toggleBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const checkboxes = getVisibleCheckboxes();
+                            if (checkboxes.length === 0) return;
+
+                            const allChecked = checkboxes.every(cb => cb.checked);
+                            const targetState = !allChecked;
+
+                            checkboxes.forEach(cb => {
+                                cb.checked = targetState;
+                                cb.dispatchEvent(new Event('change', { bubbles: true }));
+                            });
+
+                            updateToggleText();
                         });
+                    }
+
+                    wrapper.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                        cb.addEventListener('change', updateToggleText);
                     });
+
+                    if (search) {
+                        search.addEventListener('input', function () {
+                            const query = this.value.trim().toLowerCase();
+                            items.forEach(function (item) {
+                                const label = item.getAttribute('data-multi-select-item') || '';
+                                item.classList.toggle('hidden', query !== '' && !label.includes(query));
+                            });
+                            updateToggleText();
+                        });
+                    }
+
+                    updateToggleText();
                 });
             });
         </script>
     @endpush
 @endonce
+

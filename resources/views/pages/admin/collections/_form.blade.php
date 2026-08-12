@@ -12,7 +12,9 @@
 </div>
 
 <div>
-    <label for="banner_image" class="block text-sm font-semibold text-gray-700 mb-2">Banner Image</label>
+    <label for="banner_image" class="block text-sm font-semibold text-gray-700 mb-2">
+        Banner Image <span class="text-xs font-normal text-soft-gray">(16:9 Landscape Ratio)</span>
+    </label>
     @if(!empty($item?->banner_image))
         <div class="mb-3 w-32 h-20 rounded-xl overflow-hidden border border-primary-light/10">
             <img src="{{ asset($item->banner_image) }}" alt="Collection Banner" class="w-full h-full object-cover">
@@ -20,6 +22,7 @@
     @endif
     <input id="banner_image" type="file" name="banner_image" accept="image/*"
            class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-sm">
+    <p class="text-xs text-soft-gray mt-2">Recommended: 16:9 Landscape ratio (e.g., 1600×900 px or 1200×675 px), less than 5MB.</p>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

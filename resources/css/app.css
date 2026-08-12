@@ -16,6 +16,7 @@
 
     /* Spacing */
     --spacing-22: 5.5rem;
+    --spacing-30: 7.5rem;
 
     /* Fonts */
     --font-heading: "Pacifico", cursive;
@@ -113,11 +114,39 @@
     transform: scale(0.94) !important;
 }
 
-.whatsapp-float-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+
+
+/* News Ticker Marquee for Top Announcement Bar */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
 }
+
+.ticker-content {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: news-ticker-scroll 35s linear infinite;
+    will-change: transform;
+}
+
+.ticker-wrap:hover .ticker-content {
+    animation-play-state: paused;
+}
+
+@keyframes news-ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-33.333333%);
+    }
+}
+
+
+
 
 
 

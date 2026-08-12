@@ -1,15 +1,85 @@
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary-light/30 shadow-sm">
-    <!-- Top Announcement Bar -->
-    <div id="announcement-bar" class="bg-primary text-white text-sm sm:text-sm font-semibold py-2 px-4 shadow-sm relative z-50">
-        <div class="container mx-auto flex items-center justify-center relative text-center">
-            <div class="flex items-center justify-center gap-2 tracking-wider uppercase">
-                <svg class="w-4 h-4 text-white/90 animate-bounce hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                </svg>
-                <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
-                <svg class="w-4 h-4 text-white/90 animate-bounce hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                </svg>
+    <!-- Top Announcement Bar (News Ticker) -->
+    <div id="announcement-bar" class="bg-primary text-white text-xs sm:text-sm font-semibold py-2 shadow-sm relative z-50 overflow-hidden">
+        <div class="ticker-wrap w-full">
+            <div class="ticker-content flex items-center whitespace-nowrap">
+                <!-- Loop Group 1 -->
+                <div class="flex items-center gap-6 sm:gap-10 px-4">
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
+                        </svg>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>OUR PRODUCT PHOTOS ARE 100% REAL, AI IS USED ONLY FOR BANNERS & PROMOTIONAL GRAPHICS</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                </div>
+
+                <!-- Loop Group 2 -->
+                <div class="flex items-center gap-6 sm:gap-10 px-4">
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
+                        </svg>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>OUR PRODUCT PHOTOS ARE 100% REAL, AI IS USED ONLY FOR BANNERS & PROMOTIONAL GRAPHICS</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                </div>
+
+                <!-- Loop Group 3 -->
+                <div class="flex items-center gap-6 sm:gap-10 px-4">
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
+                        </svg>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                    <span class="flex items-center gap-2 tracking-wider uppercase">
+                        <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>OUR PRODUCT PHOTOS ARE 100% REAL, AI IS USED ONLY FOR BANNERS & PROMOTIONAL GRAPHICS</span>
+                    </span>
+                    <span class="text-white/50 text-xs">✦</span>
+                </div>
             </div>
         </div>
     </div>
@@ -74,6 +144,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Shop for Loved Ones Dropdown (Recipients) -->
+            <!-- <div class="relative group py-1">
+                <a href="{{ route('recipients.index') }}" 
+                   class="font-body text-sm font-semibold text-charcoal hover:text-primary transition-colors flex items-center gap-1 {{ request()->is('recipient*') ? 'text-primary border-b-2 border-primary' : '' }}">
+                    <span>Shop for Loved Ones</span>
+                    <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-soft-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
+                <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 occasions-mega-menu">
+                    <div class="occasions-grid">
+                        @foreach(App\Models\Recipient::active()->ordered()->get() as $navRec)
+                            <a href="{{ route('recipients.show', $navRec->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                                {{ $navRec->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div> -->
 
             <!-- Categories Dropdown (Products) -->
             <div class="relative group py-1">
@@ -152,12 +240,14 @@
 
         <nav class="mt-6 flex flex-col gap-2 font-body text-sm">
             <a href="{{ url('/') }}" class="mobile-nav-link {{ request()->is('/') ? 'mobile-nav-link-active' : '' }}">Home</a>
-            <a href="{{ route('products.index') }}" class="mobile-nav-link {{ request()->is('products*') || request()->is('shop') ? 'mobile-nav-link-active' : '' }}">Shop Catalog</a>
+            <a href="{{ route('products.index') }}" class="mobile-nav-link {{ request()->is('products*') || request()->is('shop') ? 'mobile-nav-link-active' : '' }}">Browse Gifts</a>
             <a href="{{ route('collections.index') }}" class="mobile-nav-link {{ request()->is('collection*') ? 'mobile-nav-link-active' : '' }}">Collections</a>
             <a href="{{ route('occasions.index') }}" class="mobile-nav-link {{ request()->is('occasion*') ? 'mobile-nav-link-active' : '' }}">Occasions</a>
-            <a href="{{ route('recipients.index') }}" class="mobile-nav-link {{ request()->is('recipient*') ? 'mobile-nav-link-active' : '' }}">Shop for Loved Ones</a>
+            <!-- <a href="{{ route('recipients.index') }}" class="mobile-nav-link {{ request()->is('recipient*') ? 'mobile-nav-link-active' : '' }}">Shop for Loved Ones</a> -->
             <a href="{{ route('categories.index') }}" class="mobile-nav-link {{ request()->is('categor*') ? 'mobile-nav-link-active' : '' }}">Categories</a>
-            <a href="{{ url('/about') }}" class="mobile-nav-link {{ request()->is('about') ? 'mobile-nav-link-active' : '' }}">About Us</a>
+            <a href="{{ url('/about') }}" class="mobile-nav-link {{ request()->is('about') ? 'mobile-nav-link-active' : '' }}">Our Story</a>
+            <a href="{{ url('/contact') }}" class="mobile-nav-link {{ request()->is('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
+        </nav>
             <a href="{{ url('/contact') }}" class="mobile-nav-link {{ request()->is('contact') ? 'mobile-nav-link-active' : '' }}">Contact</a>
         </nav>
 
