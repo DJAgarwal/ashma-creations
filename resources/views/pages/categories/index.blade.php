@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Product Categories - Ashma Creations')
+@section('meta_description', 'Discover handcrafted gift categories from Ashma Creations, including flower pots, photo frames, festive creations, and personalized wall hangings.')
 
 @section('content')
 <div class="bg-background py-10">
