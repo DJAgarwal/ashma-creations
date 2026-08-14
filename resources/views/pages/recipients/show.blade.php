@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $recipient->seo_title ?? ($recipient->meta_title ?? ('Handcrafted Gifts ' . $recipient->name)))
+@section('title', $recipient->seo_title ?? ($recipient->meta_title ?? ('Handcrafted Gifts & Products for ' . $recipient->name)))
 
 @section('content')
 <div class="bg-background py-10">
@@ -14,8 +14,8 @@
         <!-- Recipient Hero Banner -->
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-10 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="max-w-3xl">
-                <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2">Recipient Landing Page</span>
-                <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">Gifts {{ $recipient->name }}</h1>
+                <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2">Recipient Gifts</span> -->
+                <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">Handcrafted Gifts for {{ $recipient->name }}</h1>
                 <p class="text-sm font-body text-soft-gray leading-relaxed">
                     Surprise {{ $recipient->name }} with unique, everlasting handcrafted pipe cleaner bouquets, flower pots, and customized decorative pieces made with love.
                 </p>
@@ -60,12 +60,12 @@
         </div>
 
         <!-- SEO Intro Content -->
-        <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm">
+        <!-- <div class="bg-white rounded-3xl p-8 md:p-12 border border-primary-light/20 shadow-sm">
             <h3 class="text-2xl font-heading text-primary mb-3">Meaningful Everlasting Gifts {{ $recipient->name }}</h3>
             <p class="text-xs md:text-sm font-body text-soft-gray leading-relaxed">
                 When shopping {{ $recipient->name }}, you want a gift that stays beautiful and heartwarming for years to come. Every piece in our {{ $recipient->name }} selection is hand-crafted with intricate attention to detail.
             </p>
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection

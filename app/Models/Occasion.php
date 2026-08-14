@@ -12,4 +12,14 @@ class Occasion extends SimpleTaxonomy
         'active',
         'display_order',
     ];
+
+    public function getMetaTitleAttribute(): string
+    {
+        return "Handcrafted Gifts & Bouquets for {$this->name} - Ashma Creations";
+    }
+
+    public function getMetaDescriptionAttribute(): string
+    {
+        return "Celebrate {$this->name} with unique everlasting handcrafted pipe cleaner bouquets, flower pots, and customized gifts by Ashma Creations.";
+    }
 }

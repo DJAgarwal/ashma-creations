@@ -33,7 +33,7 @@ class SimpleTaxonomy extends Model
 
     public function getMetaTitleAttribute(): string
     {
-        return "{$this->name} Handcrafted Gifts & Products - Ashma Creations";
+        return "Handcrafted Gifts & Products for {$this->name} - Ashma Creations";
     }
 
     public function getMetaDescriptionAttribute(): string

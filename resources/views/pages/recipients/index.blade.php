@@ -13,7 +13,7 @@
         <!-- Header -->
         <div class="bg-white rounded-3xl p-8 md:p-12 mb-12 border border-primary-light/20 shadow-sm relative overflow-hidden">
             <div class="max-w-3xl relative z-10">
-                <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2 font-bold font-bold font-bold">Recipient Taxonomy</span>
+                <!-- <span class="text-xs font-body font-bold text-accent uppercase tracking-widest block mb-2">Recipient Taxonomy</span> -->
                 <h1 class="text-3xl md:text-5xl font-heading text-primary mb-4">Shop for Loved Ones</h1>
                 <p class="text-sm font-body text-soft-gray leading-relaxed">
                     Discover personalized handcrafted floral gifts tailored for Wife, Mom, Girlfriend, Friends, Teachers, and loved ones.
@@ -38,7 +38,7 @@
                     @endif
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-2xl font-heading text-charcoal group-hover:text-primary transition-colors mb-2">
-                            Gifts {{ $rec->name }}
+                            Gifts for {{ $rec->name }}
                         </h3>
                         <p class="text-xs font-body text-soft-gray mb-6 flex-grow leading-relaxed">
                             Everlasting handcrafted pipe cleaner bouquets, flower pots, and decorative gifts tailored for {{ $rec->name }}.
