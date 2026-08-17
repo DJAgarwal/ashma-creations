@@ -9,27 +9,13 @@ use Illuminate\Support\Facades\Log;
 class GoogleReviewService
 {
     /**
-     * Get Google Reviews data with 1-hour caching.
+     * Get latest Google Reviews data without caching.
      *
      * @return array
      */
     public static function getReviewsData(): array
     {
-        return Cache::remember('google_places_reviews_live_v3', 3600, function () {
-            return self::fetchFromGoogle();
-        });
-    }
-
-    /**
-     * Clear cached Google reviews data.
-     *
-     * @return void
-     */
-    public static function clearCache(): void
-    {
-        Cache::forget('google_places_reviews_live_v3');
-        Cache::forget('google_places_reviews_live_v2');
-        Cache::forget('google_places_reviews_data_v1');
+        return self::fetchFromGoogle();
     }
 
     /**
