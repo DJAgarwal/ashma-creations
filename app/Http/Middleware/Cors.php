@@ -19,6 +19,14 @@ class Cors
         $nonce = base64_encode(random_bytes(16));
         \Illuminate\Support\Facades\Vite::useCspNonce($nonce);
         view()->share('cspNonce', $nonce);
+        $csp = "default-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; " .
+            "script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com 'nonce-{$nonce}' 'unsafe-inline' 'sha256-rWHhmye/Ntz+VBV+8loOkr8LoNtobYvPd0YKNSmWN7g=' 'sha256-GgulrWXpXXhfAvGHryBIQqOqpdv0yyrfQBsMRT8pnfQ='; " .
+            "style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline' 'unsafe-hashes' 'sha256-ibLtdECgFxYM3nD7SDhq0hGrJhkAUl5AttSP98l+4mg='; " .
+            "font-src 'self' https://fonts.gstatic.com; " .
+            "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://*.googletagmanager.com https://*.g.doubleclick.net https://static.cloudflareinsights.com https://cloudflareinsights.com https://www.google.com https://*.google.com; " .
+            "img-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://*.googletagmanager.com https://*.googleusercontent.com https://*.ggpht.com https://*.google.com https://maps.gstatic.com https://*.gstatic.com data: blob:; " .
+            "object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';";
+
         if ($request->isMethod('OPTIONS')) {
             return response('', 204)
                 ->header('Access-Control-Allow-Origin', env('ORIGIN_BASE_PATH'))
@@ -27,7 +35,7 @@ class Cors
                 ->header('X-XSS-Protection', '1; mode=block')
                 ->header('Referrer-Policy', 'strict-origin-when-cross-origin')
                 ->header('Permissions-Policy', 'geolocation=(self), microphone=()')
-                ->header('Content-Security-Policy', "default-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'unsafe-inline' 'sha256-GgulrWXpXXhfAvGHryBIQqOqpdv0yyrfQBsMRT8pnfQ='; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline'; img-src 'self' https://www.google-analytics.com https://*.googleusercontent.com https://*.ggpht.com https://*.google.com https://maps.gstatic.com data: blob:; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none';");
+                ->header('Content-Security-Policy', $csp);
             }
 
         $response = $next($request);
@@ -35,15 +43,7 @@ class Cors
         $response->headers->set('Access-Control-Allow-Origin', env('ORIGIN_BASE_PATH'));
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Authorization, Origin');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PATCH, OPTIONS, PUT, DELETE');
-        $response->headers->set('Content-Security-Policy', 
-            "default-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; " .
-            "script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com 'nonce-{$nonce}' 'unsafe-inline' 'sha256-rWHhmye/Ntz+VBV+8loOkr8LoNtobYvPd0YKNSmWN7g=' 'sha256-GgulrWXpXXhfAvGHryBIQqOqpdv0yyrfQBsMRT8pnfQ='; " .
-            "style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'nonce-{$nonce}' 'unsafe-inline' 'unsafe-hashes' 'sha256-ibLtdECgFxYM3nD7SDhq0hGrJhkAUl5AttSP98l+4mg='; " .
-            "font-src 'self' https://fonts.gstatic.com; " .
-            "connect-src 'self' https://www.google-analytics.com https://static.cloudflareinsights.com https://cloudflareinsights.com https://www.google.com; " .
-            "img-src 'self' https://www.google-analytics.com https://*.googleusercontent.com https://*.ggpht.com https://*.google.com https://maps.gstatic.com data: blob:; " .
-            "object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
-        );
+        $response->headers->set('Content-Security-Policy', $csp);
         $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('X-Frame-Options', 'DENY');
