@@ -8,6 +8,7 @@ use App\Models\Occasion;
 use App\Models\Product;
 use App\Models\Recipient;
 use App\Models\StaticPage;
+use App\Services\GoogleReviewService;
 use App\Services\HeroBannerService;
 use Illuminate\Support\Facades\Cache;
 
@@ -76,6 +77,9 @@ class HomeController extends Controller
                 ->get();
         });
 
+        // 6. Google Reviews & Testimonials
+        $googleReviews = GoogleReviewService::getReviewsData();
+
         return view('pages.home', compact(
             'page',
             'heroBanners',
@@ -83,7 +87,8 @@ class HomeController extends Controller
             'featuredCategories',
             'featuredProducts',
             'occasions',
-            'recipients'
+            'recipients',
+            'googleReviews'
         ));
     }
 }
