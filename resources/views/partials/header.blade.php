@@ -9,7 +9,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
                         </svg>
-                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹799</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
@@ -35,7 +35,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
                         </svg>
-                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹799</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
@@ -61,7 +61,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM4 9h11v6H4V9zm11 0h3l3 3v3h-6V9z"></path>
                         </svg>
-                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹499</span>
+                        <span>FREE SHIPPING FOR ALL ORDERS ABOVE ₹799</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
