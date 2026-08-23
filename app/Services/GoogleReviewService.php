@@ -2,42 +2,19 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class GoogleReviewService
 {
     /**
-     * Get Google Reviews data with 1-hour caching when valid data exists.
+     * Get Google Reviews data directly from Google Places API (no cache).
      *
      * @return array
      */
     public static function getReviewsData(): array
     {
-        $cached = Cache::get('google_places_reviews_live_v1');
-
-        if (!empty($cached) && is_array($cached) && !empty($cached['reviews'])) {
-            return $cached;
-        }
-
-        $data = self::fetchFromGoogle();
-
-        if (!empty($data['reviews'])) {
-            Cache::put('google_places_reviews_live_v1', $data, 3600);
-        }
-
-        return $data;
-    }
-
-    /**
-     * Clear cached Google reviews data.
-     *
-     * @return void
-     */
-    public static function clearCache(): void
-    {
-        Cache::forget('google_places_reviews_live_v1');
+        return self::fetchFromGoogle();
     }
 
     /**
@@ -45,7 +22,7 @@ class GoogleReviewService
      *
      * @return array
      */
-    protected static function fetchFromGoogle(): array
+    public static function fetchFromGoogle(): array
     {
         $apiKey = config('services.google.places_api_key');
         $placeId = config('services.google.place_id');
