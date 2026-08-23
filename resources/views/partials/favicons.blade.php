@@ -12,12 +12,3 @@
 <meta name="apple-mobile-web-app-title" content="Ashma Creations">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="{{ asset('manifest.json') }}" crossorigin="anonymous">
-<script nonce="{{ $cspNonce ?? '' }}">
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                console.debug('SW registration error:', err);
-            });
-        });
-    }
-</script>
