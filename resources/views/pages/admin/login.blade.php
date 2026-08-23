@@ -6,12 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex, nofollow">
     <title>Admin Login - Ashma Creations</title>
-    <!-- Favicon and App Icons -->
-    <link rel="icon" sizes="32x32" href="{{ url('/favicon-32x32.png') }}" type="image/png">
-    <link rel="icon" sizes="16x16" href="{{ url('/favicon-16x16.png') }}" type="image/png">
-    <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('/images/apple-touch-icon.png') }}">
-    <link rel="manifest" href="{{ asset('manifest.json') }}" crossorigin="anonymous">
+    @include('partials.favicons')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style nonce="{{ $cspNonce ?? '' }}">
