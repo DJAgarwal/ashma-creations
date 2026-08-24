@@ -12,8 +12,12 @@
         <link rel="preconnect" href="https://www.googletagmanager.com">
         <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
-        {{-- Google Fonts loaded early with optimized weights (Poppins 400/500/600/700 + Pacifico) --}}
-        <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        {{-- Google Fonts loaded asynchronously to eliminate render-blocking latency --}}
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap">
+        <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+        <noscript>
+            <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        </noscript>
 
         {{-- Core Bundled CSS & Scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -25,7 +25,7 @@
 
             <!-- Minimal Horizontal Icon/Image Carousel -->
             <div id="recipients-scroll-container" class="flex overflow-x-auto items-start gap-4 sm:gap-6 md:gap-8 pb-4 pt-1 no-scrollbar scroll-smooth snap-x snap-mandatory focus:outline-none" tabindex="0">
-                @foreach($recipients as $rec)
+                @foreach($recipients as $index => $rec)
                     @php
                         $recImg = !empty($rec->image_path) 
                             ? (filter_var($rec->image_path, FILTER_VALIDATE_URL) ? $rec->image_path : asset($rec->image_path)) 
@@ -36,7 +36,7 @@
                             @if($recImg)
                                 <img src="{{ $recImg }}" 
                                      alt="{{ $rec->name }}" 
-                                     loading="lazy" 
+                                     @if($index < 4) loading="eager" @else loading="lazy" @endif
                                      decoding="async"
                                      width="130" 
                                      height="130"
@@ -77,12 +77,12 @@
                             <div class="hero-banner-card w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-md">
                                 @if($mobileImg)
                                     <!-- Desktop Banner Image -->
-                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img hidden sm:block">
+                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img hidden sm:block" @if($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" decoding="async" @endif>
                                     <!-- Mobile Banner Image -->
-                                    <img src="{{ $mobileImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img block sm:hidden">
+                                    <img src="{{ $mobileImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img block sm:hidden" @if($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" decoding="async" @endif>
                                 @else
                                     <!-- Single Image (Desktop & Mobile fallback) -->
-                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img">
+                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img" @if($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" decoding="async" @endif>
                                 @endif
                                 <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                             </div>
