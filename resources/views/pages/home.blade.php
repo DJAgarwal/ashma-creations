@@ -75,17 +75,15 @@
                         @endphp
                         <a href="{{ $banner->link_url }}" data-slide-index="{{ $index }}" class="hero-banner-slide group cursor-pointer relative block flex-shrink-0">
                             <div class="hero-banner-card w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-md">
-                                <picture class="w-full h-full block">
-                                    @if($mobileImg)
-                                        <source media="(max-width: 639px)" srcset="{{ $mobileImg }}">
-                                    @endif
-                                    <img src="{{ $desktopImg }}" 
-                                         alt="{{ $banner->alt_text }}" 
-                                         class="hero-banner-img w-full h-full object-cover" 
-                                         @if($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" decoding="async" @endif
-                                         width="1920" 
-                                         height="768">
-                                </picture>
+                                @if($mobileImg)
+                                    <!-- Desktop Banner Image -->
+                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img hidden sm:block">
+                                    <!-- Mobile Banner Image -->
+                                    <img src="{{ $mobileImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img block sm:hidden">
+                                @else
+                                    <!-- Single Image (Desktop & Mobile fallback) -->
+                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img">
+                                @endif
                                 <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                             </div>
                         </a>
