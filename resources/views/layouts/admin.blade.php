@@ -7,16 +7,68 @@
     <meta name="robots" content="noindex, nofollow">
     <title>@yield('admin_title', 'Admin Panel') - Ashma Creations</title>
     @include('partials.favicons')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Preconnect to Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {{-- Bundled CSS & JS --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Critical Anti-FOUC and Instant Sidebar CSS --}}
     <style nonce="{{ $cspNonce ?? '' }}">
-        body {
+        html, body {
+            background-color: #FFF8F5;
+            color: #333333;
             font-family: 'Poppins', sans-serif;
         }
         .font-logo {
             font-family: 'Pacifico', cursive;
         }
+        /* Instant Sidebar Collapsed Styling to eliminate shift on page refresh */
+        @media (min-width: 768px) {
+            .sidebar-collapsed #admin-sidebar {
+                width: 5.5rem !important;
+            }
+            .sidebar-collapsed #admin-sidebar .nav-text,
+            .sidebar-collapsed #admin-sidebar .logo-text,
+            .sidebar-collapsed #admin-sidebar .logo-badge,
+            .sidebar-collapsed #admin-sidebar .profile-details,
+            .sidebar-collapsed #admin-sidebar .sign-out-text {
+                display: none !important;
+            }
+            .sidebar-collapsed #admin-sidebar .logo-icon {
+                display: inline-block !important;
+            }
+            .sidebar-collapsed #admin-sidebar .sidebar-link {
+                justify-content: center !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            .sidebar-collapsed #admin-sidebar .sign-out-btn {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                padding: 0 !important;
+                margin: 0 auto !important;
+                justify-content: center !important;
+            }
+            .sidebar-collapsed #toggle-icon {
+                transform: rotate(180deg) !important;
+            }
+        }
     </style>
+
+    {{-- Run before first paint to prevent layout flash --}}
+    <script nonce="{{ $cspNonce ?? '' }}">
+        (function() {
+            try {
+                if (window.innerWidth >= 768 && localStorage.getItem('admin_sidebar_collapsed') === 'true') {
+                    document.documentElement.classList.add('sidebar-collapsed');
+                }
+            } catch(e) {}
+        })();
+    </script>
     @stack('admin_styles')
 </head>
 <body class="bg-background min-h-screen flex flex-col md:flex-row">
@@ -214,6 +266,7 @@
             
             function setSidebarState(isCollapsed) {
                 if (isCollapsed) {
+                    document.documentElement.classList.add('sidebar-collapsed');
                     sidebar.classList.remove('md:w-64');
                     sidebar.classList.add('md:w-22');
                     
@@ -239,6 +292,7 @@
                         toggleIcon.style.transform = 'rotate(180deg)';
                     }
                 } else {
+                    document.documentElement.classList.remove('sidebar-collapsed');
                     sidebar.classList.remove('md:w-22');
                     sidebar.classList.add('md:w-64');
                     
