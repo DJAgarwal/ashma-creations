@@ -160,27 +160,11 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">
                                 {{ $prod->collections_count }}
                             </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-wrap gap-1 max-w-xs">
-                                    @forelse ($prod->occasions as $occ)
-                                        <span class="px-2 py-0.5 bg-purple-50 text-purple-700 text-xxs font-semibold rounded-full border border-purple-100">
-                                            {{ $occ->name }}
-                                        </span>
-                                    @empty
-                                        <span class="text-xs text-gray-400 font-medium">None</span>
-                                    @endforelse
-                                </div>
+                            <td class="px-6 py-4 text-xs text-gray-700 max-w-xs">
+                                {{ $prod->occasions->isNotEmpty() ? $prod->occasions->pluck('name')->implode(', ') : '—' }}
                             </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-wrap gap-1 max-w-xs">
-                                    @forelse ($prod->recipients as $rec)
-                                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-xxs font-semibold rounded-full border border-blue-100">
-                                            {{ $rec->name }}
-                                        </span>
-                                    @empty
-                                        <span class="text-xs text-gray-400 font-medium">None</span>
-                                    @endforelse
-                                </div>
+                            <td class="px-6 py-4 text-xs text-gray-700 max-w-xs">
+                                {{ $prod->recipients->isNotEmpty() ? $prod->recipients->pluck('name')->implode(', ') : '—' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-100 shadow-sm flex items-center w-max">
