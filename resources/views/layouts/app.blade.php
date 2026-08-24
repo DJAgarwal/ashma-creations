@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        {{-- Preconnect and DNS-Prefetch for Performance --}}
+        {{-- Essential Meta Tags First (Must be at the top of head within first 1024 bytes) --}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        {{-- Preconnect & DNS-Prefetch for Fast Asset Delivery --}}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://www.googletagmanager.com">
-        <link rel="preconnect" href="https://static.cloudflareinsights.com">
         <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+        {{-- Google Fonts loaded early with optimized weights (Poppins 400/500/600/700 + Pacifico) --}}
+        <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        {{-- Core Bundled CSS & Scripts --}}
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        {{-- Critical Base Styles --}}
+        <style nonce="{{ $cspNonce ?? '' }}">
+            html, body {
+                background-color: #FFF8F5;
+                color: #333333;
+                font-family: 'Poppins', sans-serif;
+            }
+            .ticker-wrap {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        </style>
 
         {{-- Dynamic JSON-LD Schema Injection via Centralized SchemaGenerator --}}
         @php
@@ -51,14 +74,6 @@
                 <script nonce="{{ $cspNonce ?? '' }}" type="application/ld+json">{!! $jsonldString !!}</script>
             @endif
         @endif
-
-        {{-- Custom Styles --}}
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <link nonce="{{ $cspNonce ?? '' }}" rel="stylesheet" href="{{ asset('css/custom.css') }}?v={{ filemtime(public_path('css/custom.css')) }}">
-        {{-- Essential Meta Tags --}}
-        <meta charset="utf-8">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         @php
             $robotsContent = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
             if (request()->hasAny(['sort', 'q', 'search', 'category', 'occasion', 'recipient', 'style', 'material', 'featured', 'best_seller', 'new_arrival', 'trending'])) {
@@ -178,8 +193,6 @@
 
     
         @stack('styles')
-        <link nonce="{{ $cspNonce ?? '' }}" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
     </head>
     <body class="antialiased selection:bg-primary-light selection:text-primary">
         <div id="app" class="min-h-screen flex flex-col">
@@ -198,7 +211,10 @@
            rel="noopener noreferrer" 
            class="whatsapp-float-btn fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[99999] flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300" 
            aria-label="Chat with us on WhatsApp">
-            <img src="{{ asset('images/whatsapp.png') }}" alt="WhatsApp Chat" class="whatsapp-float-img w-full h-full object-cover">
+            <picture>
+                <source srcset="{{ asset('images/whatsapp.webp') }}" type="image/webp">
+                <img src="{{ asset('images/whatsapp.png') }}" alt="WhatsApp Chat" width="64" height="64" class="whatsapp-float-img w-full h-full object-cover" loading="lazy">
+            </picture>
         </a>
 
         <!-- Tasteful Floating Elements (Optional/Placeholder) -->

@@ -208,12 +208,12 @@
                 </svg>
             </form>
 
-            <a href="{{ route('search') }}" class="lg:hidden p-2 text-primary hover:text-accent focus:outline-none" title="Search">
+            <a href="{{ route('search') }}" class="lg:hidden p-2 text-primary hover:text-accent focus:outline-none" aria-label="Search creations" title="Search">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </a>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden text-primary hover:text-accent focus:outline-none p-1">
+            <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open navigation menu" class="md:hidden text-primary hover:text-accent focus:outline-none p-1">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
@@ -226,7 +226,7 @@
     <aside id="mobile-menu-panel" class="absolute right-0 top-0 flex h-full w-80 max-w-[85vw] translate-x-full flex-col bg-white p-6 shadow-2xl transition-transform duration-300 overflow-y-auto">
         <div class="flex items-center justify-between pb-4 border-b border-primary-light/20">
             <span class="text-xl font-heading text-primary">Navigation</span>
-            <button id="close-menu-btn" type="button" class="text-primary hover:text-accent focus:outline-none">
+            <button id="close-menu-btn" type="button" aria-label="Close navigation menu" class="text-primary hover:text-accent focus:outline-none">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>

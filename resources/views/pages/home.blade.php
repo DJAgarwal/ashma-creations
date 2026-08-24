@@ -37,6 +37,9 @@
                                 <img src="{{ $recImg }}" 
                                      alt="{{ $rec->name }}" 
                                      loading="lazy" 
+                                     decoding="async"
+                                     width="130" 
+                                     height="130"
                                      class="w-full h-full object-cover" />
                             @else
                                 <div class="w-full h-full flex items-center justify-center rounded-full bg-gradient-to-br from-amber-50 to-rose-50 text-amber-600">
@@ -72,15 +75,17 @@
                         @endphp
                         <a href="{{ $banner->link_url }}" data-slide-index="{{ $index }}" class="hero-banner-slide group cursor-pointer relative block flex-shrink-0">
                             <div class="hero-banner-card w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden relative shadow-md">
-                                @if($mobileImg)
-                                    <!-- Desktop Banner Image -->
-                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img hidden sm:block">
-                                    <!-- Mobile Banner Image -->
-                                    <img src="{{ $mobileImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img block sm:hidden">
-                                @else
-                                    <!-- Single Image (Desktop & Mobile fallback) -->
-                                    <img src="{{ $desktopImg }}" alt="{{ $banner->alt_text }}" class="hero-banner-img">
-                                @endif
+                                <picture class="w-full h-full block">
+                                    @if($mobileImg)
+                                        <source media="(max-width: 639px)" srcset="{{ $mobileImg }}">
+                                    @endif
+                                    <img src="{{ $desktopImg }}" 
+                                         alt="{{ $banner->alt_text }}" 
+                                         class="hero-banner-img w-full h-full object-cover" 
+                                         @if($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" decoding="async" @endif
+                                         width="1920" 
+                                         height="768">
+                                </picture>
                                 <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                             </div>
                         </a>
@@ -119,7 +124,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($featuredCategories as $cat)
+                @foreach($featuredCategories as $index => $cat)
                     @php
                         $catImg = !empty($cat->image_path) 
                             ? (filter_var($cat->image_path, FILTER_VALIDATE_URL) ? $cat->image_path : asset($cat->image_path)) 
@@ -131,7 +136,11 @@
                             @if($catImg)
                                 <img src="{{ $catImg }}" 
                                      alt="{{ $cat->name }}" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                                     width="600"
+                                     height="600"
+                                     decoding="async"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                     @if($index === 0) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-primary-light/40">
                                     <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
