@@ -119,8 +119,8 @@
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Primary Category</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Collections Count</th>
-                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Occasions</th>
-                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Recipients</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider min-w-[220px]">Occasions</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider min-w-[220px]">Recipients</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Featured</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Best Seller</th>
@@ -160,10 +160,10 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">
                                 {{ $prod->collections_count }}
                             </td>
-                            <td class="px-6 py-4 text-xs text-gray-700 max-w-xs">
+                            <td class="px-6 py-4 text-xs text-gray-700 min-w-[220px]">
                                 {{ $prod->occasions->isNotEmpty() ? $prod->occasions->pluck('name')->implode(', ') : '—' }}
                             </td>
-                            <td class="px-6 py-4 text-xs text-gray-700 max-w-xs">
+                            <td class="px-6 py-4 text-xs text-gray-700 min-w-[220px]">
                                 {{ $prod->recipients->isNotEmpty() ? $prod->recipients->pluck('name')->implode(', ') : '—' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
