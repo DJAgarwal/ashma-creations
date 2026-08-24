@@ -42,4 +42,10 @@ return [
         'maps_url' => env('GOOGLE_MAPS_URL'),
     ],
 
+    'indexnow' => [
+        'key' => env('INDEXNOW_KEY', '8f3c67d804d74cc989691be23221c1e4'),
+        'host' => env('INDEXNOW_HOST', 'ashmacreations.net'),
+        'key_location' => env('INDEXNOW_KEY_LOCATION', 'https://ashmacreations.net/8f3c67d804d74cc989691be23221c1e4.txt'),
+    ],
+
 ];

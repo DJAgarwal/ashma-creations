@@ -15,6 +15,11 @@ Route::get('/robots.txt', function () {
 })->name('robots');
 Route::get('/robots', fn () => redirect()->route('robots'));
 
+// IndexNow Verification Key File
+Route::get('/8f3c67d804d74cc989691be23221c1e4.txt', function () {
+    return response('8f3c67d804d74cc989691be23221c1e4', 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+});
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     
