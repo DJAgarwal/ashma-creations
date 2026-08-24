@@ -17,6 +17,17 @@
         </a>
     </div>
 
+    <x-admin.filter-bar :filters="request()->only(['search', 'active'])">
+        <div>
+            <label class="block text-xs font-bold text-soft-gray uppercase tracking-wider mb-2">Status</label>
+            <select name="active" class="w-full px-4 py-3 bg-background/50 border border-primary-light/20 rounded-xl text-sm">
+                <option value="">All</option>
+                <option value="1" {{ request('active') === '1' ? 'selected' : '' }}>Active</option>
+                <option value="0" {{ request('active') === '0' ? 'selected' : '' }}>Inactive</option>
+            </select>
+        </div>
+    </x-admin.filter-bar>
+
     <!-- Table Card -->
     <div class="bg-white rounded-[2rem] shadow-sm border border-primary-light/10 overflow-hidden">
         <div class="overflow-x-auto">
@@ -27,6 +38,8 @@
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Slug</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Parent</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Order</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Status</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider text-right">Actions</th>
                     </tr>
                 </thead>
@@ -62,6 +75,16 @@
                                     <span class="text-xs text-gray-400 font-medium">None (Top-level)</span>
                                 @endif
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                {{ $cat->display_order }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if ($cat->active)
+                                    <span class="px-2.5 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full border border-green-100">Active</span>
+                                @else
+                                    <span class="px-2.5 py-1 bg-gray-50 text-gray-500 text-xs font-semibold rounded-full border border-gray-100">Inactive</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-3">
                                     <a href="{{ route('admin.categories.edit', $cat->slug) }}" class="p-2 text-primary hover:bg-primary/10 rounded-xl transition-all" title="Edit">
@@ -84,7 +107,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-12 text-center text-soft-gray text-sm">
+                            <td colspan="7" class="px-6 py-12 text-center text-soft-gray text-sm">
                                 <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.008 1.24l.885 1.77a2.25 2.25 0 002.007 1.24h1.98a2.25 2.25 0 002.007-1.24l.885-1.77a2.25 2.25 0 012.007-1.24h3.86m-18 0h18"></path>
                                 </svg>
@@ -95,5 +118,6 @@
                 </tbody>
             </table>
         </div>
+        <x-admin.pagination :items="$categories" />
     </div>
 @endsection

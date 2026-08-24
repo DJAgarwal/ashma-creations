@@ -16,7 +16,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                         </svg>
-                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                        <span>ALL OUR GIFTS ARE 100% CUSTOMIZABLE</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
@@ -42,7 +42,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                         </svg>
-                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                        <span>ALL OUR GIFTS ARE 100% CUSTOMIZABLE</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
@@ -68,7 +68,7 @@
                         <svg class="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                         </svg>
-                        <span>ALL OUR GIFTS ARE CUSTOMIZABLE</span>
+                        <span>ALL OUR GIFTS ARE 100% CUSTOMIZABLE</span>
                     </span>
                     <span class="text-white/50 text-xs">✦</span>
                     <span class="flex items-center gap-2 tracking-wider uppercase">
@@ -119,7 +119,7 @@
                 <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 collections-mega-menu">
                     <div class="collections-grid">
                         @foreach(App\Models\Collection::active()->ordered()->get() as $navCol)
-                            <a href="{{ route('collections.show', $navCol->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                            <a href="{{ route('collections.show', $navCol->slug) }}" title="{{ $navCol->name }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
                                 {{ $navCol->name }}
                             </a>
                         @endforeach
@@ -137,7 +137,7 @@
                 <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 occasions-mega-menu">
                     <div class="occasions-grid">
                         @foreach(App\Models\Occasion::active()->ordered()->get() as $navOcc)
-                            <a href="{{ route('occasions.show', $navOcc->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                            <a href="{{ route('occasions.show', $navOcc->slug) }}" title="{{ $navOcc->name }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
                                 {{ $navOcc->name }}
                             </a>
                         @endforeach
@@ -155,7 +155,7 @@
                 <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 occasions-mega-menu">
                     <div class="occasions-grid">
                         @foreach(App\Models\Recipient::active()->ordered()->get() as $navRec)
-                            <a href="{{ route('recipients.show', $navRec->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                            <a href="{{ route('recipients.show', $navRec->slug) }}" title="{{ $navRec->name }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
                                 {{ $navRec->name }}
                             </a>
                         @endforeach
@@ -173,7 +173,7 @@
                 <div class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border border-primary-light/20 rounded-3xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-6 z-50 categories-mega-menu">
                     <div class="categories-grid">
                         @foreach(App\Models\Category::active()->ordered()->get() as $navCat)
-                            <a href="{{ route('categories.show', $navCat->slug) }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
+                            <a href="{{ route('categories.show', $navCat->slug) }}" title="{{ $navCat->name }}" class="block px-3.5 py-2.5 text-xs sm:text-sm font-body font-medium text-charcoal hover:bg-primary-light/15 hover:text-primary rounded-2xl transition-all whitespace-nowrap overflow-hidden text-ellipsis">
                                 {{ $navCat->name }}
                             </a>
                         @endforeach

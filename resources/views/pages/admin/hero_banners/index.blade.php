@@ -31,7 +31,7 @@
                 </div>
 
                 <!-- Status Select Filter -->
-                <select name="status" onchange="this.form.submit()" class="w-full sm:w-48 px-4 py-2.5 bg-background border border-primary-light/20 rounded-xl text-sm focus:outline-none focus:border-primary text-gray-800 cursor-pointer">
+                <select id="banner-status-filter" name="status" class="w-full sm:w-48 px-4 py-2.5 bg-background border border-primary-light/20 rounded-xl text-sm focus:outline-none focus:border-primary text-gray-800 cursor-pointer">
                     <option value="">All Statuses</option>
                     <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active Only</option>
                     <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive Only</option>
@@ -61,7 +61,7 @@
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Image Preview</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Destination Link</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider text-center">Display Order</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider text-center">Order</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Created Date</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider text-right">Actions</th>
                     </tr>
@@ -190,3 +190,16 @@
         @endif
     </div>
 @endsection
+ 
+@push('admin_scripts')
+    <script nonce="{{ $cspNonce ?? '' }}">
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusFilter = document.getElementById('banner-status-filter');
+            if (statusFilter) {
+                statusFilter.addEventListener('change', function () {
+                    this.form.submit();
+                });
+            }
+        });
+    </script>
+@endpush
