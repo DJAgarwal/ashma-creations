@@ -96,9 +96,9 @@
                             <span class="text-xs font-body text-soft-gray uppercase tracking-wider block">Price & Availability</span>
                             <span class="text-xl font-heading text-primary">
                                 @if(!is_null($product->price) && $product->price !== '')
-                                    {{ (float)$product->price }} Rs (In Stock / Custom Made Available)
+                                    {{ (float)$product->price }} Rs (In Stock / Customization Available)
                                 @else
-                                    In Stock / Custom Made Available
+                                    In Stock / Customization Available
                                 @endif
                             </span>
                         </div>
