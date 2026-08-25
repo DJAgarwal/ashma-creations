@@ -52,6 +52,14 @@ class SubmitIndexNowCommand extends Command
             $status = $details['status'] ?? 'N/A';
             $success = !empty($details['success']) ? 'SUCCESS' : 'FAILED';
             $this->line("- [{$endpoint}] HTTP {$status} ({$success})");
+            if (!empty($details['body'])) {
+                $decoded = json_decode($details['body'], true);
+                if (isset($decoded['message'])) {
+                    $this->warn("  Message: " . $decoded['message']);
+                } else {
+                    $this->line("  Body: " . $details['body']);
+                }
+            }
             if (!empty($details['error'])) {
                 $this->error("  Error: " . $details['error']);
             }
