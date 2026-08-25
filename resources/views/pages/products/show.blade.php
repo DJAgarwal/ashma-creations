@@ -90,15 +90,18 @@
 
                     <h1 class="text-3xl sm:text-4xl font-heading text-charcoal mb-4">{{ $product->name }}</h1>
 
-                    <!-- Price Placeholder -->
+                    <!-- Price & Availability -->
                     <div class="mb-6 p-4 rounded-2xl bg-background border border-primary-light/20 flex items-center justify-between">
                         <div>
                             <span class="text-xs font-body text-soft-gray uppercase tracking-wider block">Price & Availability</span>
-                            <span class="text-xl font-heading text-primary">In Stock / Custom Made Available</span>
+                            <span class="text-xl font-heading text-primary">
+                                @if(!is_null($product->price) && $product->price !== '')
+                                    {{ (float)$product->price }} Rs (In Stock / Custom Made Available)
+                                @else
+                                    In Stock / Custom Made Available
+                                @endif
+                            </span>
                         </div>
-                        <!-- <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-body font-bold rounded-full">
-                            In Stock / Custom Made
-                        </span> -->
                     </div>
 
                     <!-- Description -->

@@ -29,6 +29,19 @@
                     @enderror
                 </div>
 
+                <!-- Price -->
+                <div>
+                    <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">Price (in Rs / INR)</label>
+                    <div class="relative">
+                        <input id="price" type="number" step="0.01" min="0" name="price" value="{{ old('price') }}" placeholder="e.g., 65"
+                               class="w-full px-5 py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('price') border-red-500 @enderror">
+                        <span class="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-soft-gray">Rs</span>
+                    </div>
+                    @error('price')
+                        <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>

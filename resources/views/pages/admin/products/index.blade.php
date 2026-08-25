@@ -117,6 +117,7 @@
                     <tr>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Image</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Price</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Primary Category</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider">Collections Count</th>
                         <th class="px-6 py-4 text-xs font-bold text-soft-gray uppercase tracking-wider min-w-[220px]">Occasions</th>
@@ -146,6 +147,13 @@
                                 <div class="text-xs text-gray-600 font-mono select-all mb-1">{{ $prod->slug }}</div>
                                 @if ($prod->description)
                                     <div class="text-xs text-soft-gray line-clamp-1 max-w-sm" title="{{ $prod->description }}">{{ Str::limit($prod->description, 60) }}</div>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if (!is_null($prod->price) && $prod->price !== '')
+                                    <span class="text-sm font-bold text-primary">{{ (float)$prod->price }} Rs</span>
+                                @else
+                                    <span class="text-xs text-gray-400 font-medium">—</span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">

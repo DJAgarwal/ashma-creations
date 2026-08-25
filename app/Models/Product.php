@@ -19,6 +19,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
+        'price',
         'description',
         'details',
         'images',
@@ -33,6 +34,7 @@ class Product extends Model
     ];
 
     protected $casts = [
+        'price' => 'decimal:2',
         'images' => 'array',
         'is_featured' => 'boolean',
         'is_best_seller' => 'boolean',
