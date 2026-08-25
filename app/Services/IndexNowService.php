@@ -13,68 +13,46 @@ use Illuminate\Support\Facades\Log;
 
 class IndexNowService
 {
-    protected bool $enabled;
-    protected string $key;
-    protected string $host;
-    protected string $keyLocation;
-    protected string $primaryEndpoint;
-    protected array $endpoints;
+    private string $endpoint;
+    private bool $enabled;
+    private ?string $key;
+    private ?string $host;
 
     public function __construct()
     {
-        $this->enabled = (bool) (config('indexnow.enabled') ?? config('services.indexnow.enabled', true));
-        $this->key = config('indexnow.key') ?? config('services.indexnow.key', '8f3c67d804d74cc989691be23221c1e4');
-
-        $configuredHost = config('indexnow.host') ?? config('services.indexnow.host', 'ashmacreations.net');
-        if (empty($configuredHost) || in_array($configuredHost, ['localhost', '127.0.0.1'])) {
-            $configuredHost = 'ashmacreations.net';
-        }
-        $this->host = preg_replace('#^https?://#', '', rtrim($configuredHost, '/'));
-
-        $this->keyLocation = config('indexnow.key_location') 
-            ?? config('services.indexnow.key_location') 
-            ?? "https://{$this->host}/{$this->key}.txt";
-
-        $this->primaryEndpoint = config('indexnow.endpoint', 'https://api.indexnow.org/indexnow');
-        $this->endpoints = config('indexnow.endpoints', [
-            'https://api.indexnow.org/indexnow',
-            'https://www.bing.com/indexnow',
-            'https://yandex.com/indexnow',
-        ]);
+        $this->enabled = (bool) config('indexnow.enabled', true);
+        $this->key = config('indexnow.key', '8f3c67d804d74cc989691be23221c1e4');
+        $this->host = config('indexnow.host', 'ashmacreations.net');
+        $this->endpoint = config('indexnow.endpoint', 'https://yandex.com/indexnow');
     }
 
     /**
      * Submit a single URL to IndexNow.
      */
-    public function submitUrl(string $url): array
+    public function submitUrl(string $url): bool
     {
         return $this->submitUrls([$url]);
     }
 
     /**
-     * Submit multiple URLs in bulk to IndexNow.
+     * Submit multiple URLs to IndexNow in a batch.
      */
-    public function submitUrls(array $urls): array
+    public function submitUrls(array $urls): bool
     {
         if (!$this->enabled) {
-            Log::info('IndexNow is disabled in configuration. Skipping submission.');
-            return [
-                'success' => false,
-                'message' => 'IndexNow is disabled in configuration.',
-                'status' => null,
-            ];
+            return false;
         }
 
         if (empty($this->key)) {
             Log::warning('IndexNow: API key is missing. Skipping submission.');
-            return [
-                'success' => false,
-                'message' => 'IndexNow API key is missing.',
-                'status' => null,
-            ];
+            return false;
         }
 
-        // Normalize URLs to ensure they use the public host
+        if (empty($urls)) {
+            return false;
+        }
+
+        // Normalize and unique URLs
         $normalizedUrls = [];
         foreach ($urls as $u) {
             if (empty($u)) {
@@ -88,80 +66,37 @@ class IndexNowService
         $normalizedUrls = array_values(array_unique(array_filter($normalizedUrls)));
 
         if (empty($normalizedUrls)) {
-            return [
-                'success' => false,
-                'message' => 'No valid URLs provided for submission.',
-                'status' => null,
-            ];
+            return false;
         }
 
-        // IndexNow limits to 10,000 URLs per request
-        $chunks = array_chunk($normalizedUrls, 10000);
-        $lastResult = [];
+        try {
+            $response = Http::timeout(10)
+                ->withHeaders(['Content-Type' => 'application/json; charset=utf-8'])
+                ->post($this->endpoint, [
+                    'host' => $this->host,
+                    'key' => $this->key,
+                    'urlList' => $normalizedUrls,
+                ]);
 
-        foreach ($chunks as $chunk) {
-            $payload = [
-                'host' => $this->host,
-                'key' => $this->key,
-                'keyLocation' => $this->keyLocation,
-                'urlList' => $chunk,
-            ];
-
-            $results = [];
-            $overallSuccess = false;
-
-            foreach ($this->endpoints as $endpoint) {
-                try {
-                    $response = Http::timeout(15)
-                        ->withHeaders([
-                            'Content-Type' => 'application/json; charset=utf-8',
-                            'User-Agent' => 'AshmaCreations-IndexNow/1.0',
-                        ])
-                        ->post($endpoint, $payload);
-
-                    $status = $response->status();
-                    $isOk = in_array($status, [200, 202]);
-
-                    if ($isOk) {
-                        $overallSuccess = true;
-                    }
-
-                    $results[$endpoint] = [
-                        'status' => $status,
-                        'success' => $isOk,
-                        'body' => $response->body(),
-                    ];
-                } catch (\Throwable $e) {
-                    Log::warning("IndexNow submission failed for {$endpoint}: " . $e->getMessage());
-                    $results[$endpoint] = [
-                        'status' => 0,
-                        'success' => false,
-                        'error' => $e->getMessage(),
-                    ];
-                }
-            }
-
-            if ($overallSuccess) {
+            if ($response->successful()) {
                 Log::info('IndexNow: Successfully submitted URLs.', [
-                    'count' => count($chunk),
-                    'results' => $results,
+                    'count' => count($normalizedUrls),
+                    'status' => $response->status(),
                 ]);
-            } else {
-                Log::error('IndexNow: Failed to submit URLs to any endpoint.', [
-                    'count' => count($chunk),
-                    'results' => $results,
-                ]);
+                return true;
             }
 
-            $lastResult = [
-                'success' => $overallSuccess,
-                'count' => count($normalizedUrls),
-                'urls' => $normalizedUrls,
-                'endpoints' => $results,
-            ];
+            Log::warning('IndexNow: Submission returned non-200 status.', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+            return false;
+        } catch (\Throwable $e) {
+            Log::error('IndexNow: Exception during submission.', [
+                'message' => $e->getMessage(),
+            ]);
+            return false;
         }
-
-        return $lastResult;
     }
 
     /**
@@ -229,10 +164,9 @@ class IndexNowService
     /**
      * Submits the entire site URLs to IndexNow.
      */
-    public function submitAllSiteUrls(): array
+    public function submitAllSiteUrls(): bool
     {
-        $urls = $this->getAllSiteUrls();
-        return $this->submitUrls($urls);
+        return $this->submitUrls($this->getAllSiteUrls());
     }
 
     public function isEnabled(): bool

@@ -16,13 +16,9 @@ Route::get('/robots.txt', function () {
 Route::get('/robots', fn () => redirect()->route('robots'));
 
 // IndexNow Verification Key File
-Route::get('/{key}.txt', function (string $key) {
-    $configuredKey = config('indexnow.key') ?? config('services.indexnow.key', '8f3c67d804d74cc989691be23221c1e4');
-    if ($key === $configuredKey) {
-        return response($configuredKey, 200, ['Content-Type' => 'text/plain; charset=utf-8']);
-    }
-    abort(404);
-})->where('key', '^[a-fA-F0-9]{8,128}$');
+Route::get('/8f3c67d804d74cc989691be23221c1e4.txt', function () {
+    return response('8f3c67d804d74cc989691be23221c1e4', 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+});
 
 
 
