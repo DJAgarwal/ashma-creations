@@ -19,6 +19,7 @@ class IndexNowService
     protected array $endpoints = [
         'https://api.indexnow.org/indexnow',
         'https://www.bing.com/indexnow',
+        'https://yandex.com/indexnow',
     ];
 
     public function __construct()
