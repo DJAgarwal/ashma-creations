@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController,CatalogController,PageController,SitemapController};
+use App\Http\Controllers\{HomeController,CatalogController,PageController,SitemapController,GoogleFeedController};
 use App\Http\Controllers\Admin\{AdminAuthController,AdminController,AdminCategoryController,AdminCollectionController,AdminHeroBannerController,AdminProductController,AdminTaxonomyController,};
 use App\Support\TaxonomyRegistry;
+
+// Google Merchant Center XML Product Feed
+Route::get('/google-merchant-feed.xml', [GoogleFeedController::class, 'index'])->name('google.merchant.feed');
 
 // Sitemap & Robots
 Route::controller(SitemapController::class)->group(function () {

@@ -34,5 +34,6 @@ trait FlushesHomeCache
         Cache::forget('home_recipients_v1');
         Cache::forget('home_recipients_v2');
         Cache::forget('home_recipients_v3');
+        Cache::forget('google_merchant_feed_xml');
     }
 }
