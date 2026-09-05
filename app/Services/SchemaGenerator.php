@@ -848,6 +848,15 @@ class SchemaGenerator
             ],
         ];
 
+        // Weight (QuantitativeValue in Grams / GRM)
+        if (!empty($product->weight) && (float)$product->weight > 0) {
+            $productEntity['weight'] = [
+                '@type' => 'QuantitativeValue',
+                'value' => (float)$product->weight,
+                'unitCode' => 'GRM',
+            ];
+        }
+
         // Ratings & Reviews
         $reviewData = GoogleReviewService::getReviewsData();
         $ratingValue = !empty($reviewData['rating']) ? (float)$reviewData['rating'] : 5.0;

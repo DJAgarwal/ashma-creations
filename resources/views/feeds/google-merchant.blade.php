@@ -38,23 +38,15 @@
         $price = (isset($product->price) && (float)$product->price > 0) ? (float)$product->price : 65.00;
         $formattedPrice = number_format($price, 2, '.', '') . ' INR';
 
-        // Categories & Taxonomy
-        $catName = $product->primaryCategory ? trim($product->primaryCategory->name) : '';
-        $parentCatName = ($product->primaryCategory && $product->primaryCategory->parent) ? trim($product->primaryCategory->parent->name) : '';
-        
-        // Build product_type breadcrumb hierarchy (e.g. Handmade Gifts > Flower Pot > Mini Flower Pot)
-        $productTypeParts = array_filter(['Handmade Gifts', $parentCatName, $catName]);
-        $productType = implode(' > ', $productTypeParts);
-
-        // Google Product Category mapping
-        $lowerSearch = strtolower($product->name . ' ' . $catName . ' ' . $parentCatName);
-        if (str_contains($lowerSearch, 'pot') || str_contains($lowerSearch, 'plant')) {
-            $googleCategory = 'Home & Garden > Decor > Artificial Flora > Artificial Plants';
-        } elseif (str_contains($lowerSearch, 'keychain') || str_contains($lowerSearch, 'pin') || str_contains($lowerSearch, 'accessory')) {
-            $googleCategory = 'Apparel & Accessories > Handbag & Wallet Accessories > Keychains';
-        } else {
-            $googleCategory = 'Home & Garden > Decor > Artificial Flora > Artificial Flowers';
+        // Dynamic Real Category Breadcrumb Hierarchy from Database
+        $categoryHierarchy = [];
+        $currCat = $product->primaryCategory;
+        while ($currCat) {
+            array_unshift($categoryHierarchy, trim($currCat->name));
+            $currCat = $currCat->parent;
         }
+        $realCategoryPath = !empty($categoryHierarchy) ? implode(' > ', $categoryHierarchy) : 'General';
+        $primaryCatName = $product->primaryCategory ? trim($product->primaryCategory->name) : '';
 
         // Custom Labels (for Google Shopping segmentation & reporting)
         $badge = 'Standard';
@@ -87,18 +79,25 @@
       <g:brand><![CDATA[Ashma Creations]]></g:brand>
       <g:condition>new</g:condition>
       <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category><![CDATA[{!! $googleCategory !!}]]></g:google_product_category>
-      <g:product_type><![CDATA[{!! $productType !!}]]></g:product_type>
+      <category><![CDATA[{!! $realCategoryPath !!}]]></category>
+      <g:product_type><![CDATA[{!! $realCategoryPath !!}]]></g:product_type>
+      <g:google_product_category><![CDATA[{!! $realCategoryPath !!}]]></g:google_product_category>
       <g:shipping>
         <g:country>IN</g:country>
         <g:service>Standard Delivery</g:service>
         <g:price>100.00 INR</g:price>
       </g:shipping>
-      <g:shipping_weight>0.35 kg</g:shipping_weight>
+@if(isset($product->weight) && (float)$product->weight > 0)
+    @php
+        $w = (float)$product->weight;
+        $weightStr = ($w == (int)$w ? (int)$w : number_format($w, 1, '.', '')) . ' g';
+    @endphp
+      <g:shipping_weight>{{ $weightStr }}</g:shipping_weight>
+@endif
       <g:material><![CDATA[{!! $materialName !!}]]></g:material>
       <g:custom_label_0><![CDATA[{!! $badge !!}]]></g:custom_label_0>
-@if(!empty($catName))
-      <g:custom_label_1><![CDATA[{!! $catName !!}]]></g:custom_label_1>
+@if(!empty($primaryCatName))
+      <g:custom_label_1><![CDATA[{!! $primaryCatName !!}]]></g:custom_label_1>
 @endif
 @if(!empty($occasionName))
       <g:custom_label_2><![CDATA[{!! $occasionName !!}]]></g:custom_label_2>

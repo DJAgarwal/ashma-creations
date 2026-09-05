@@ -27,6 +27,7 @@ class GoogleFeedController extends Controller
                 'recipients',
                 'styles',
                 'materials',
+                'collections',
             ])
             ->whereNull('deleted_at')
             ->latest()

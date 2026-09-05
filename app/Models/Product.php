@@ -20,6 +20,7 @@ class Product extends Model
         'name',
         'slug',
         'price',
+        'weight',
         'description',
         'details',
         'images',
@@ -35,6 +36,7 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'decimal:2',
+        'weight' => 'decimal:3',
         'images' => 'array',
         'is_featured' => 'boolean',
         'is_best_seller' => 'boolean',

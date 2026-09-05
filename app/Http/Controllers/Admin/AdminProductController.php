@@ -90,6 +90,7 @@ class AdminProductController extends Controller
             'name' => $name,
             'slug' => $slug,
             'price' => $request->input('price'),
+            'weight' => $request->input('weight'),
             'description' => $request->input('description'),
             'details' => $request->input('details'),
             'category_id' => $request->input('category_id'),
@@ -135,6 +136,7 @@ class AdminProductController extends Controller
             'name' => $name,
             'slug' => $slug,
             'price' => $request->input('price'),
+            'weight' => $request->input('weight'),
             'description' => $request->input('description'),
             'details' => $request->input('details'),
             'category_id' => $request->input('category_id'),
@@ -186,6 +188,7 @@ class AdminProductController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'price' => ['nullable', 'numeric', 'min:0'],
+            'weight' => ['nullable', 'numeric', 'min:0'],
             'description' => ['nullable', 'string'],
             'details' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
