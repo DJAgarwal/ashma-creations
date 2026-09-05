@@ -48,6 +48,9 @@
         $realCategoryPath = !empty($categoryHierarchy) ? implode(' > ', $categoryHierarchy) : 'General';
         $primaryCatName = $product->primaryCategory ? trim($product->primaryCategory->name) : '';
 
+        // Google Product Category (Official Google Product Taxonomy)
+        $googleProductCategory = \App\Http\Controllers\GoogleFeedController::resolveGoogleProductCategory($product);
+
         // Primary Material
         $materialName = ($product->materials && $product->materials->isNotEmpty()) ? $product->materials->first()->name : 'Chenille Pipe Cleaner';
 
@@ -73,7 +76,7 @@
       <g:identifier_exists>no</g:identifier_exists>
       <category><![CDATA[{!! $realCategoryPath !!}]]></category>
       <g:product_type><![CDATA[{!! $realCategoryPath !!}]]></g:product_type>
-      <g:google_product_category><![CDATA[{!! $realCategoryPath !!}]]></g:google_product_category>
+      <g:google_product_category><![CDATA[{!! $googleProductCategory !!}]]></g:google_product_category>
       <g:shipping>
         <g:country>IN</g:country>
         <g:service>Standard Delivery</g:service>

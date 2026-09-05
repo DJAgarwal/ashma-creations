@@ -170,4 +170,73 @@ class GoogleFeedController extends Controller
             'custom_label_4' => $origin,
         ];
     }
+
+    /**
+     * Resolve valid official Google Product Taxonomy category path based on the product's actual function.
+     */
+    public static function resolveGoogleProductCategory(Product $product): string
+    {
+        // Build search string from category hierarchy and product name
+        $categories = [];
+        $curr = $product->primaryCategory;
+        while ($curr) {
+            array_unshift($categories, strtolower(trim($curr->name)));
+            $curr = $curr->parent;
+        }
+        $catPathStr = implode(' ', $categories);
+        $searchStr = strtolower(trim(($product->name ?? '') . ' ' . $catPathStr));
+
+        // 1. Desk Organizers / Pen Stands (Office Supplies > Filing & Organization > Desk Organizers)
+        if (str_contains($searchStr, 'pen stand') || str_contains($searchStr, 'pencil holder') || str_contains($searchStr, 'desk organizer') || str_contains($searchStr, 'pen holder') || str_contains($searchStr, 'stationery organizer')) {
+            return 'Office Supplies > Filing & Organization > Desk Organizers';
+        }
+
+        // 2. Keychains / Bag Charms (Apparel & Accessories > Handbag & Wallet Accessories > Keychains)
+        if (str_contains($searchStr, 'keychain') || str_contains($searchStr, 'key chain') || str_contains($searchStr, 'key ring') || str_contains($searchStr, 'bag charm') || str_contains($searchStr, 'key holder')) {
+            return 'Apparel & Accessories > Handbag & Wallet Accessories > Keychains';
+        }
+
+        // 3. Curtain Holders / Tiebacks (Home & Garden > Decor > Window Treatment Accessories > Curtain Holdbacks & Tassels)
+        if (str_contains($searchStr, 'curtain holder') || str_contains($searchStr, 'curtain tieback') || str_contains($searchStr, 'curtain tie back') || str_contains($searchStr, 'curtain holdback') || str_contains($searchStr, 'curtain')) {
+            return 'Home & Garden > Decor > Window Treatment Accessories > Curtain Holdbacks & Tassels';
+        }
+
+        // 4. Religious Items / Aasans (Religious & Ceremonial > Religious Items)
+        if (str_contains($searchStr, 'aasan') || str_contains($searchStr, 'asan') || str_contains($searchStr, 'janmashtami') || str_contains($searchStr, 'krishna') || str_contains($searchStr, 'laddu gopal') || str_contains($searchStr, 'pooja') || str_contains($searchStr, 'puja') || str_contains($searchStr, 'mandir') || str_contains($searchStr, 'poshak') || str_contains($searchStr, 'deity')) {
+            return 'Religious & Ceremonial > Religious Items';
+        }
+
+        // 5. Photo Frames / Picture Frames (Home & Garden > Decor > Picture Frames)
+        if (str_contains($searchStr, 'photo frame') || str_contains($searchStr, 'picture frame') || str_contains($searchStr, 'frame')) {
+            return 'Home & Garden > Decor > Picture Frames';
+        }
+
+        // 6. Wall Hangings / Decorative Plaques (Home & Garden > Decor > Decorative Plaques)
+        if (str_contains($searchStr, 'wall hanging') || str_contains($searchStr, 'name hanging') || str_contains($searchStr, 'wall plaque') || str_contains($searchStr, 'name plaque') || str_contains($searchStr, 'door hanging') || str_contains($searchStr, 'wall decor') || str_contains($searchStr, 'baby name')) {
+            return 'Home & Garden > Decor > Decorative Plaques';
+        }
+
+        // 7. Flower Pots / Planters (Home & Garden > Lawn & Garden > Gardening > Pots & Planters)
+        if (str_contains($searchStr, 'flower pot') || str_contains($searchStr, 'pot') || str_contains($searchStr, 'planter')) {
+            return 'Home & Garden > Lawn & Garden > Gardening > Pots & Planters';
+        }
+
+        // 8. Hair Accessories
+        if (str_contains($searchStr, 'hair clip') || str_contains($searchStr, 'headband') || str_contains($searchStr, 'hair accessory') || str_contains($searchStr, 'hair pin') || str_contains($searchStr, 'barrette')) {
+            return 'Apparel & Accessories > Clothing Accessories > Hair Accessories';
+        }
+
+        // 9. Bookmarks
+        if (str_contains($searchStr, 'bookmark')) {
+            return 'Office Supplies > Book Accessories > Bookmarks';
+        }
+
+        // 10. Bouquets / Artificial Flora (only if genuinely standalone flowers/bouquets without another functional object)
+        if (str_contains($searchStr, 'bouquet') || str_contains($searchStr, 'artificial flora') || str_contains($searchStr, 'flower stem') || str_contains($searchStr, 'artificial flower')) {
+            return 'Home & Garden > Decor > Artificial Flora';
+        }
+
+        // Default fallback to general Home & Garden > Decor
+        return 'Home & Garden > Decor';
+    }
 }
