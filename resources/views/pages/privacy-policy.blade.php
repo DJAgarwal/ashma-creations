@@ -1,134 +1,149 @@
 @extends('layouts.app')
 
+@section('title', 'Privacy Policy - Ashma Creations')
+@section('meta_description', 'At Ashma Creations, we create handmade art — not data profiles. Learn about our privacy-first promise, zero tracking, and no data harvesting.')
+
 @section('content')
 <x-legal-layout title="Privacy Policy">
-    <!-- Introduction -->
-    <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">1. Introduction</h2>
-        <p class="text-soft-gray">
-            At <strong>Ashma Creations</strong>, we are committed to safeguarding the privacy of our website visitors, customers, and partners. This Privacy Policy details how we collect, use, disclose, and protect your personal information when you visit our website, inquire about our handcrafted pipe cleaner flowers, or place custom orders.
+    <!-- Privacy-First Pledge Banner -->
+    <div class="bg-gradient-to-r from-primary-light/15 via-secondary/15 to-primary-light/15 border-2 border-dashed border-primary/30 rounded-3xl p-6 sm:p-8 mb-10 text-charcoal">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center shrink-0 shadow-md">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+            </div>
+            <div>
+                <span class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full uppercase tracking-wider mb-1">Our Privacy Pledge</span>
+                <h2 class="text-xl sm:text-2xl font-heading text-primary m-0">We Handcraft Gifts, Not Data Profiles</h2>
+            </div>
+        </div>
+        <p class="text-soft-gray font-body text-base leading-relaxed m-0">
+            At <strong>Ashma Creations</strong>, we take immense pride in running an honest, artisanal craft studio. We do <strong>not</strong> harvest, profile, track, or sell your personal information. You can explore our handcrafted flowers, bouquets, and decor freely without worrying about a digital footprint.
         </p>
-        <p class="text-soft-gray mt-4">
-            By accessing or using our services, you consent to the practices described in this Privacy Policy. If you do not agree with any of the terms outlined here, please refrain from using our website or providing us with your personal data.
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-3 text-center border border-primary-light/30 shadow-sm">
+                <span class="text-xl block mb-1">🚫</span>
+                <span class="text-xs font-semibold text-charcoal">Zero Ad Tracking</span>
+            </div>
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-3 text-center border border-primary-light/30 shadow-sm">
+                <span class="text-xl block mb-1">🛡️</span>
+                <span class="text-xs font-semibold text-charcoal">No Stored Profiles</span>
+            </div>
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-3 text-center border border-primary-light/30 shadow-sm">
+                <span class="text-xl block mb-1">🔒</span>
+                <span class="text-xs font-semibold text-charcoal">Zero Card Data Saved</span>
+            </div>
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-3 text-center border border-primary-light/30 shadow-sm">
+                <span class="text-xl block mb-1">🤝</span>
+                <span class="text-xs font-semibold text-charcoal">Never Sold to Anyone</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. Philosophy -->
+    <div>
+        <h2 class="text-2xl font-heading text-primary mb-3">1. Our Philosophy: Art Over Algorithms</h2>
+        <p class="text-soft-gray leading-relaxed">
+            Most websites use complicated privacy policies to justify taking as much user data as possible. We do the exact opposite. 
+        </p>
+        <p class="text-soft-gray leading-relaxed mt-3">
+            <strong>Ashma Creations</strong> is an independent handmade creator based in India, specializing in everlasting pipe cleaner flower bouquets, ceramic flower pots, and bespoke gift keepsakes. We earn our living through our craftsmanship, creativity, and the joy of gifting — <strong>never by collecting, monetizing, or selling your data</strong>.
         </p>
     </div>
 
-    <!-- Information We Collect -->
+    <!-- 2. What We Don't Collect -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">2. Information We Collect</h2>
-        <p class="text-soft-gray">
-            We collect information that helps us deliver a personalized and seamless experience. The types of personal information we may collect include:
+        <h2 class="text-2xl font-heading text-primary mb-3">2. What We Proudly Do NOT Collect</h2>
+        <p class="text-soft-gray leading-relaxed">
+            We believe your online browsing should remain private. Here is what we deliberately steer clear of:
         </p>
-        <ul class="list-disc pl-6 mt-4 text-soft-gray space-y-2">
-            <li><strong>Contact Details:</strong> Your name, email address, phone number, and WhatsApp details when you fill out forms, contact us, or request custom flower bouquets.</li>
-            <li><strong>Order & Delivery Information:</strong> Shipping address, billing details, and recipient information required to craft, pack, and ship your handmade creations.</li>
-            <li><strong>Inquiry Content:</strong> Information you share with us regarding your design preferences, color palettes, custom bouquet layouts, or flower pot selections.</li>
-            <li><strong>Usage & Device Data:</strong> Technical details such as your IP address, browser type, operating system, and pages visited, collected automatically through cookies and logging tools to optimize website performance.</li>
+        <ul class="list-disc pl-6 mt-3 text-soft-gray space-y-2">
+            <li><strong>No Behavioral Profiling:</strong> We do not track what other websites you visit, build demographic dossiers, or analyze your browsing habits.</li>
+            <li><strong>No Invasive Ad Trackers:</strong> We do not run third-party advertising pixels, retargeting networks, or surveillance trackers designed to follow you across the internet.</li>
+            <li><strong>No Forced Accounts:</strong> You do not need to register an account, set up passwords, or leave a permanent user profile on our servers just to view our creations.</li>
+            <li><strong>No Financial or Card Storage:</strong> We never handle, see, or store your credit card, debit card, or banking credentials. Any payment is conducted directly and securely through encrypted UPI or banking channels.</li>
+            <li><strong>No Marketing Spams:</strong> We do not compile your email or phone number into mass marketing blast lists. We despise spam just as much as you do.</li>
         </ul>
     </div>
 
-    <!-- How We Use Information -->
+    <!-- 3. The Only Data We Touch -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">3. How We Use Your Information</h2>
-        <p class="text-soft-gray">
-            We use your personal data to power our artistic creations and provide customer support, specifically to:
+        <h2 class="text-2xl font-heading text-primary mb-3">3. The Only Information We Ever Touch (And Why)</h2>
+        <p class="text-soft-gray leading-relaxed">
+            Because our creations are physical items that must be shipped to real destinations, we only ever interact with the absolute minimum details necessary to craft and deliver your order:
         </p>
-        <ul class="list-disc pl-6 mt-4 text-soft-gray space-y-2">
-            <li>Process, confirm, and update you on standard and custom orders.</li>
-            <li>Collaborate with you via WhatsApp or Email for design approvals and custom commissions.</li>
-            <li>Deliver your handcrafted products safely to your door via our trusted delivery partners.</li>
-            <li>Respond to your inquiries, feedback, and customer service requests.</li>
-            <li>Maintain, analyze, and enhance the functionality and security of our website.</li>
+        <ul class="list-disc pl-6 mt-3 text-soft-gray space-y-2">
+            <li><strong>Direct Communication (WhatsApp / Email):</strong> When you reach out to discuss a custom color palette, bouquet size, or special commission, we only receive the message and contact handle you voluntarily share with us to fulfill your request.</li>
+            <li><strong>Delivery Label Details:</strong> When you place an order, we request your name, recipient delivery address, and contact number solely to write the shipping label and book courier transit with our delivery partner (e.g., India Post or courier service).</li>
+            <li><strong>Essential Server Logs:</strong> Like every standard web server on the internet, our server registers temporary technical connection requests (such as error codes or anonymized page loads) strictly to keep the website running securely and prevent denial-of-service attacks.</li>
         </ul>
     </div>
 
-    <!-- Information Sharing & Disclosure -->
+    <!-- 4. Zero Data Selling -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">4. Information Sharing &amp; Disclosure</h2>
-        <p class="text-soft-gray">
-            We respect your privacy and will never sell, rent, or trade your personal information. We only share your data with trusted partners under the following circumstances:
+        <h2 class="text-2xl font-heading text-primary mb-3">4. Zero Data Selling — Now and Forever</h2>
+        <p class="text-soft-gray leading-relaxed">
+            We have a strict, non-negotiable rule: <strong>We will never sell, rent, lease, exchange, or trade your personal information with any third party, broker, or advertiser.</strong>
         </p>
-        <ul class="list-disc pl-6 mt-4 text-soft-gray space-y-2">
-            <li><strong>Delivery Partners:</strong> Sharing your name, phone number, and address with shipping carriers to ensure accurate delivery of your orders.</li>
-            <li><strong>Legal Obligations:</strong> Disclosing details if required to do so by Indian law or to protect the rights, property, and safety of Ashma Creations and our users.</li>
-            <li><strong>Service Providers:</strong> With hosting companies and analytics services that help operate our platform, under strict confidentiality agreements.</li>
-        </ul>
-    </div>
-
-    <!-- Cookies Policy -->
-    <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">5. Cookies and Tracking Technologies</h2>
-        <p class="text-soft-gray">
-            Our website uses cookies to improve user experience, monitor site usage, and remember your preferences. Cookies are small text files placed on your device.
-        </p>
-        <p class="text-soft-gray mt-4">
-            You can choose to disable cookies through your browser settings; however, please note that doing so may prevent certain interactive features of our website from functioning correctly.
+        <p class="text-soft-gray leading-relaxed mt-3">
+            The only external party that ever receives your shipping address is the courier delivery partner responsible for bringing your package to your doorstep. They receive it for the sole purpose of fulfillment.
         </p>
     </div>
 
-    <!-- Data Security -->
+    <!-- 5. Cookies & Tracking -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">6. Data Security &amp; Retention</h2>
-        <p class="text-soft-gray">
-            We implement administrative and technical security measures designed to protect your personal information from unauthorized access, loss, or alteration. 
+        <h2 class="text-2xl font-heading text-primary mb-3">5. Cookies? Only What Is Strictly Necessary</h2>
+        <p class="text-soft-gray leading-relaxed">
+            We do not use advertising cookies, marketing cookies, or tracking beacons.
         </p>
-        <p class="text-soft-gray mt-4">
-            We retain your information only as long as necessary to fulfill the purposes outlined in this policy, handle custom order histories, comply with tax/legal obligations, or resolve active disputes.
+        <p class="text-soft-gray leading-relaxed mt-3">
+            Our website uses only essential, functional cookies required for core website operations — such as preserving security tokens to protect forms from automated spam bots and ensuring pages load smoothly. You can disable cookies entirely in your browser settings at any time, and you will still be able to browse all our creations.
         </p>
     </div>
 
-    <!-- Your Rights -->
+    <!-- 6. Human-to-Human Communication -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">7. Your Rights</h2>
-        <p class="text-soft-gray">
-            You have control over your personal data. Depending on your location, you may have the right to:
+        <h2 class="text-2xl font-heading text-primary mb-3">6. Direct Human-to-Human Ordering</h2>
+        <p class="text-soft-gray leading-relaxed">
+            When you contact us on <strong>WhatsApp (+91 7728879509)</strong> or <strong>Instagram (@ashma_creations07)</strong>, you speak directly with us — the artists behind the craft. 
         </p>
-        <ul class="list-disc pl-6 mt-4 text-soft-gray space-y-2">
-            <li>Request access to the personal data we hold about you.</li>
-            <li>Request corrections to any inaccurate or incomplete personal information.</li>
-            <li>Request the deletion of your personal details from our records, subject to outstanding order completions or legal requirements.</li>
-            <li>Opt-out of communications at any time.</li>
-        </ul>
-        <p class="text-soft-gray mt-4">
-            To exercise any of these rights, please contact us directly at the email listed below.
+        <p class="text-soft-gray leading-relaxed mt-3">
+            We treat our conversations with complete confidentiality and respect. Your phone number will never be added to automated marketing broadcast lists, third-party promotional groups, or robocall registries.
         </p>
     </div>
 
-    <!-- External Links -->
+    <!-- 7. Your Right to Be Forgotten -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">8. Third-Party Links</h2>
-        <p class="text-soft-gray">
-            Our website may contain links to social media platforms (like Instagram) or third-party web services. We do not control, and are not responsible for, the privacy practices or content of these external platforms. We encourage you to read their respective privacy policies before sharing any information.
+        <h2 class="text-2xl font-heading text-primary mb-3">7. Your Right to Complete Privacy</h2>
+        <p class="text-soft-gray leading-relaxed">
+            Because we don't maintain marketing databases, user dossiers, or customer tracking profiles, there is practically nothing about you stored on our systems.
+        </p>
+        <p class="text-soft-gray leading-relaxed mt-3">
+            If you have ordered from us in the past and wish for your delivery details or past chat history to be cleared after delivery completion, simply drop us a message and we will gladly purge any fulfillment records from our communication channels.
         </p>
     </div>
 
-    <!-- Children's Privacy -->
+    <!-- 8. Children's Privacy -->
     <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">9. Children's Privacy</h2>
-        <p class="text-soft-gray">
-            While we create whimsical pipe cleaner flowers and family-friendly crafts, our website services are intended for use by individuals who are at least 18 years old (or the legal age of majority in their jurisdiction). We do not knowingly collect personal data from children. If we discover a child under 13 has provided us with personal information, we will delete it immediately.
+        <h2 class="text-2xl font-heading text-primary mb-3">8. Safe for Everyone &amp; Children</h2>
+        <p class="text-soft-gray leading-relaxed">
+            Our handcrafted floral arrangements and whimsical keepsakes are cherished by families and flower lovers of all ages. Because we do not track or harvest personal data from any visitor, our website is inherently safe, private, and secure for everyone.
         </p>
     </div>
 
-    <!-- Changes to this Policy -->
-    <div>
-        <h2 class="text-2xl font-heading text-primary mb-4">10. Changes to This Privacy Policy</h2>
-        <p class="text-soft-gray">
-            We may update this Privacy Policy from time to time to reflect changes in our operational, legal, or regulatory standards. The "Last Updated" date at the bottom will represent the most recent changes. We advise you to review this page periodically to stay informed about how we protect your information.
-        </p>
-    </div>
-
-    <!-- Contact Information -->
+    <!-- 9. Contact Us -->
     <div class="border-t border-primary-light/30 pt-10">
-        <h2 class="text-2xl font-heading text-primary mb-4">11. Contact Us</h2>
-        <p class="text-soft-gray">
-            If you have any questions, concerns, or requests regarding this Privacy Policy or your personal information, please feel free to reach out to us:
+        <h2 class="text-2xl font-heading text-primary mb-3">9. Questions or Friendly Chats</h2>
+        <p class="text-soft-gray leading-relaxed">
+            If you have questions about our privacy commitment, want custom flower creations, or just want to say hi, we are always happy to hear from you:
         </p>
-        <p class="text-soft-gray mt-4">
-            <strong>Email:</strong> <a href="mailto:ashmacreations07@gmail.com" class="text-primary hover:text-accent font-semibold underline">ashmacreations07@gmail.com</a><br>
-            <strong>Inquiries:</strong> <a href="{{ url('/contact') }}" class="text-primary hover:text-accent font-semibold underline">Contact Us Form</a><br>
-            <strong>Last Updated:</strong> June 19, 2026
-        </p>
+        <div class="mt-4 p-5 bg-background rounded-2xl border border-primary-light/20 text-soft-gray space-y-2">
+            <div><strong>Email:</strong> <a href="mailto:ashmacreations07@gmail.com" class="text-primary hover:text-accent font-semibold underline">ashmacreations07@gmail.com</a></div>
+            <div><strong>WhatsApp:</strong> <a href="https://wa.me/917728879509" target="_blank" rel="noopener" class="text-primary hover:text-accent font-semibold underline">+91 7728879509</a></div>
+            <div><strong>Instagram:</strong> <a href="https://www.instagram.com/ashma_creations07" target="_blank" rel="noopener" class="text-primary hover:text-accent font-semibold underline">@ashma_creations07</a></div>
+            <div class="pt-2 text-xs text-soft-gray/70"><strong>Last Updated:</strong> {{ date('F Y') }}</div>
+        </div>
     </div>
 </x-legal-layout>
 @endsection

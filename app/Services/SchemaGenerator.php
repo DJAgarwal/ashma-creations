@@ -506,7 +506,7 @@ class SchemaGenerator
                 'name' => 'How long does it take to create and deliver my order?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
-                    'text' => 'Creation time typically takes 2 to 4 business days because each piece is handcrafted individually with care. Once ready and securely packaged, shipping within India usually takes 3 to 7 business days, and we share tracking info with you directly.',
+                    'text' => 'Creation time typically takes 2 to 5 business days because each piece is handcrafted individually with care. Once ready and securely packaged, shipping within India usually takes 3 to 7 business days, and we share tracking info with you directly.',
                 ],
             ],
             [
@@ -530,7 +530,7 @@ class SchemaGenerator
                 'name' => 'What is your return and cancellation policy for handmade items?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
-                    'text' => 'Because our products are made-to-order and handcrafted, standard returns for buyer change-of-mind are not available. However, if an item arrives damaged during transit, contact us via WhatsApp or Email within 24 hours of delivery with photos/videos for a prompt replacement or solution.',
+                    'text' => 'Because our products are made-to-order and handcrafted, standard returns for buyer change-of-mind are not available. However, if an item arrives damaged during transit, contact us via WhatsApp or Email within 48 hours of delivery with photos/videos for a prompt replacement or refund.',
                 ],
             ],
             [
@@ -904,12 +904,25 @@ class SchemaGenerator
         // Offers Structure
         $price = (isset($product->price) && (float)$product->price > 0) ? (float)$product->price : 65.00;
 
+        $validFrom = date('Y-m-d');
+        if (!empty($product->created_at)) {
+            if ($product->created_at instanceof \DateTimeInterface) {
+                $validFrom = $product->created_at->format('Y-m-d');
+            } else {
+                $ts = strtotime((string) $product->created_at);
+                if ($ts !== false && $ts > 0) {
+                    $validFrom = date('Y-m-d', $ts);
+                }
+            }
+        }
+
         $offerData = [
             '@type' => 'Offer',
             'url' => $canonicalUrl,
             'priceCurrency' => 'INR',
             'price' => number_format($price, 2, '.', ''),
             'priceValidUntil' => date('Y-12-31', strtotime('+1 year')),
+            'validFrom' => $validFrom,
             'availability' => 'https://schema.org/InStock',
             'itemCondition' => 'https://schema.org/NewCondition',
             'seller' => [

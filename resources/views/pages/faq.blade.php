@@ -225,7 +225,7 @@
                         </button>
                         <div class="faq-content hidden px-6 pb-6 md:px-8 md:pb-8 pt-0 border-t border-dashed border-primary-light/20 text-soft-gray font-body text-base leading-relaxed">
                             <p class="mt-4">
-                                Because each creation is 100% handcrafted with precision and love, crafting typically takes <strong>2 to 4 business days</strong> depending on the bouquet size and complexity.
+                                Because each creation is 100% handcrafted with precision and love, crafting typically takes <strong>2 to 5 business days</strong> depending on the bouquet size and complexity.
                             </p>
                             <p class="mt-2">
                                 Once ready, we package your item in protective bubble wrap and shipping boxes. Delivery across India usually takes <strong>3 to 7 business days</strong>. We share tracking details as soon as your package is dispatched!
@@ -321,7 +321,7 @@
                                 Because all items are custom handmade upon order, we cannot accept returns for change-of-mind once crafting has started.
                             </p>
                             <p class="mt-2">
-                                However, <strong>your satisfaction is our top priority</strong>. If your parcel arrives damaged during shipping, please record an unboxing photo/video and notify us within 24 hours of delivery via WhatsApp (+91 7728879509) or email (ashmacreations07@gmail.com). We will promptly send a replacement or resolve the issue.
+                                However, <strong>your satisfaction is our top priority</strong>. If your parcel arrives damaged/defective/wrong during shipping, please record an unboxing photo/video and notify us within 48 hours of delivery via WhatsApp (+91 7728879509) or email (ashmacreations07@gmail.com). We will promptly send a replacement or refund your full amount(including delivery charges).
                             </p>
                         </div>
                     </div>

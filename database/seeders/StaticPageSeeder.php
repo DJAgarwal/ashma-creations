@@ -39,7 +39,7 @@ class StaticPageSeeder extends Seeder
                 'page_name' => 'privacy-policy',
                 'schema_type' => 'webpage',
                 'meta_title' => 'Privacy Policy - Ashma Creations',
-                'meta_description' => 'Read about how Ashma Creations collects, uses, and protects your data while you browse our website and buy handmade products.',
+                'meta_description' => 'Read about our privacy-first promise at Ashma Creations. We handcraft bespoke gifts and decor with zero data tracking, no ad profiling, and complete respect for your privacy.',
             ],
             [
                 'page_name' => 'terms-and-conditions',
