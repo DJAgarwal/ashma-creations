@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class GoogleFeedController extends Controller
 {
@@ -41,5 +42,132 @@ class GoogleFeedController extends Controller
             'X-Robots-Tag' => 'noindex',
             'Cache-Control' => 'public, max-age=3600',
         ]);
+    }
+
+    /**
+     * Resolve descriptive custom labels (0 to 4) for Google Shopping campaign segmentation.
+     *
+     * custom_label_0: Product Status / Promotion Badge (Featured, Best Seller, New Arrival, Trending)
+     * custom_label_1: Pluralized Category / Item Type (e.g. Flower Keychains, Janmashtami Gifts, Mini Flower Pots)
+     * custom_label_2: Occasion (e.g. Birthday, Janmashtami, Baby Shower)
+     * custom_label_3: Target Recipient / Audience (e.g. Best Friend, Krishna, Kids)
+     * custom_label_4: Craftsmanship & Origin (Handcrafted in India)
+     */
+    public static function resolveCustomLabels(Product $product): array
+    {
+        // 0. Status / Highlight Badge
+        $badge = 'Featured';
+        if (!empty($product->is_featured)) {
+            $badge = 'Featured';
+        } elseif (!empty($product->is_best_seller)) {
+            $badge = 'Best Seller';
+        } elseif (!empty($product->is_new_arrival)) {
+            $badge = 'New Arrival';
+        } elseif (!empty($product->is_trending)) {
+            $badge = 'Trending';
+        }
+
+        // 1. Category / Product Type (Pluralized)
+        if (!empty($product->primaryCategory?->name)) {
+            $categoryType = Str::plural(trim($product->primaryCategory->name));
+        } elseif (!empty($product->collections) && $product->collections->isNotEmpty()) {
+            $categoryType = Str::plural(trim($product->collections->first()->name));
+        } else {
+            $categoryType = Str::plural(trim($product->name));
+        }
+
+        $title = strtolower(trim($product->name ?? ''));
+        $catStr = strtolower(trim($product->primaryCategory?->name ?? ''));
+        $titleAndCat = $title . ' ' . $catStr;
+        $rawDesc = !empty($product->description) ? $product->description : (!empty($product->details) ? $product->details : $product->meta_description);
+        $desc = strtolower(trim(strip_tags($rawDesc ?? '')));
+
+        // 2. Occasion
+        $matchOccasion = function (string $str): ?string {
+            if (str_contains($str, 'janmashtami') || str_contains($str, 'krishna') || str_contains($str, 'kanha') || str_contains($str, 'laddu gopal') || str_contains($str, 'aasan')) return 'Janmashtami';
+            if (str_contains($str, 'baby') || str_contains($str, 'shower') || str_contains($str, 'nursery') || str_contains($str, 'newborn')) return 'Baby Shower';
+            if (str_contains($str, 'rakhi') || str_contains($str, 'rakshabandhan')) return 'Rakhi';
+            if (str_contains($str, 'diwali') || str_contains($str, 'deepavali')) return 'Diwali';
+            if (str_contains($str, 'valentine') || str_contains($str, 'romance')) return 'Valentine\'s Day';
+            if (str_contains($str, 'mother')) return 'Mother\'s Day';
+            if (str_contains($str, 'father')) return 'Father\'s Day';
+            if (str_contains($str, 'birthday') || str_contains($str, 'bday')) return 'Birthday';
+            if (str_contains($str, 'wedding') || str_contains($str, 'marriage') || str_contains($str, 'bridal')) return 'Wedding';
+            if (str_contains($str, 'anniversary')) return 'Anniversary';
+            if (str_contains($str, 'housewarming')) return 'Housewarming';
+            if (str_contains($str, 'christmas') || str_contains($str, 'xmas')) return 'Christmas';
+            if (str_contains($str, 'new year')) return 'New Year';
+            if (str_contains($str, 'engagement')) return 'Engagement';
+            if (str_contains($str, 'friendship')) return 'Friendship Day';
+            if (str_contains($str, 'women')) return 'Women\'s Day';
+            return null;
+        };
+
+        $occasion = $matchOccasion($titleAndCat);
+
+        // If not matched in title or category, check attached occasions
+        if (empty($occasion) && !empty($product->occasions) && $product->occasions->isNotEmpty()) {
+            $occNames = $product->occasions->pluck('name')->toArray();
+            if (count($occNames) <= 3) {
+                $occasion = $occNames[0];
+            } else {
+                // If many attached (e.g. seeder attached all), prefer Birthday as universal gifting occasion
+                $occasion = in_array('Birthday', $occNames) ? 'Birthday' : $occNames[0];
+            }
+        }
+
+        if (empty($occasion)) {
+            $occasion = $matchOccasion($desc) ?: 'Birthday';
+        }
+
+        // 3. Recipient / Audience
+        $matchRecipient = function (string $str): ?string {
+            if (str_contains($str, 'janmashtami') || str_contains($str, 'krishna') || str_contains($str, 'kanha') || str_contains($str, 'laddu gopal') || str_contains($str, 'bal gopal') || str_contains($str, 'aasan') || str_contains($str, 'poshak') || str_contains($str, 'puja') || str_contains($str, 'mandir')) return 'Krishna';
+            if (str_contains($str, 'baby') || str_contains($str, 'kid') || str_contains($str, 'child') || str_contains($str, 'nursery') || str_contains($str, 'newborn') || str_contains($str, 'infant')) return 'Kids';
+            if (str_contains($str, 'keychain') || str_contains($str, 'friend') || str_contains($str, 'best friend') || str_contains($str, 'bestie') || str_contains($str, 'bff')) return 'Best Friend';
+            if (str_contains($str, 'mom') || str_contains($str, 'mother')) return 'Mom';
+            if (str_contains($str, 'dad') || str_contains($str, 'father')) return 'Dad';
+            if (str_contains($str, 'wife')) return 'Wife';
+            if (str_contains($str, 'husband')) return 'Husband';
+            if (str_contains($str, 'girlfriend')) return 'Girlfriend';
+            if (str_contains($str, 'boyfriend')) return 'Boyfriend';
+            if (str_contains($str, 'sister')) return 'Sister';
+            if (str_contains($str, 'brother')) return 'Brother';
+            if (str_contains($str, 'teacher')) return 'Teacher';
+            if (str_contains($str, 'couple')) return 'Couples';
+            if (str_contains($str, 'bride')) return 'Bride';
+            if (str_contains($str, 'groom')) return 'Groom';
+            if (str_contains($str, 'daughter')) return 'Daughter';
+            if (str_contains($str, 'son')) return 'Son';
+            return null;
+        };
+
+        $recipient = $matchRecipient($titleAndCat);
+
+        // If not in title or category, check attached recipients
+        if (empty($recipient) && !empty($product->recipients) && $product->recipients->isNotEmpty()) {
+            $recNames = $product->recipients->pluck('name')->toArray();
+            if (count($recNames) <= 3) {
+                $recipient = $recNames[0];
+            } else {
+                // If many attached, prefer Best Friend or first
+                $recipient = in_array('Best Friend', $recNames) ? 'Best Friend' : (in_array('Friends', $recNames) ? 'Friends' : $recNames[0]);
+            }
+        }
+
+        if (empty($recipient)) {
+            $recipient = $matchRecipient($desc) ?: 'Best Friend';
+        }
+
+        // 4. Origin & Craftsmanship
+        $origin = 'Handcrafted in India';
+
+        return [
+            'custom_label_0' => $badge,
+            'custom_label_1' => $categoryType,
+            'custom_label_2' => $occasion,
+            'custom_label_3' => $recipient,
+            'custom_label_4' => $origin,
+        ];
     }
 }

@@ -48,19 +48,11 @@
         $realCategoryPath = !empty($categoryHierarchy) ? implode(' > ', $categoryHierarchy) : 'General';
         $primaryCatName = $product->primaryCategory ? trim($product->primaryCategory->name) : '';
 
-        // Custom Labels (for Google Shopping segmentation & reporting)
-        $badge = 'Standard';
-        if ($product->is_featured) $badge = 'Featured';
-        elseif ($product->is_best_seller) $badge = 'Best Seller';
-        elseif ($product->is_new_arrival) $badge = 'New Arrival';
-        elseif ($product->is_trending) $badge = 'Trending';
-
         // Primary Material
         $materialName = ($product->materials && $product->materials->isNotEmpty()) ? $product->materials->first()->name : 'Chenille Pipe Cleaner';
 
-        // Primary Occasion & Recipient
-        $occasionName = ($product->occasions && $product->occasions->isNotEmpty()) ? $product->occasions->first()->name : '';
-        $recipientName = ($product->recipients && $product->recipients->isNotEmpty()) ? $product->recipients->first()->name : '';
+        // Descriptive Custom Labels (Segmented for Shopping campaigns)
+        $labels = \App\Http\Controllers\GoogleFeedController::resolveCustomLabels($product);
     @endphp
     <item>
       <g:id>ashma-{{ $product->id }}</g:id>
@@ -95,17 +87,11 @@
       <g:shipping_weight>{{ $weightStr }}</g:shipping_weight>
 @endif
       <g:material><![CDATA[{!! $materialName !!}]]></g:material>
-      <g:custom_label_0><![CDATA[{!! $badge !!}]]></g:custom_label_0>
-@if(!empty($primaryCatName))
-      <g:custom_label_1><![CDATA[{!! $primaryCatName !!}]]></g:custom_label_1>
-@endif
-@if(!empty($occasionName))
-      <g:custom_label_2><![CDATA[{!! $occasionName !!}]]></g:custom_label_2>
-@endif
-@if(!empty($recipientName))
-      <g:custom_label_3><![CDATA[{!! $recipientName !!}]]></g:custom_label_3>
-@endif
-      <g:custom_label_4><![CDATA[Handcrafted in India]]></g:custom_label_4>
+      <g:custom_label_0><![CDATA[{!! $labels['custom_label_0'] !!}]]></g:custom_label_0>
+      <g:custom_label_1><![CDATA[{!! $labels['custom_label_1'] !!}]]></g:custom_label_1>
+      <g:custom_label_2><![CDATA[{!! $labels['custom_label_2'] !!}]]></g:custom_label_2>
+      <g:custom_label_3><![CDATA[{!! $labels['custom_label_3'] !!}]]></g:custom_label_3>
+      <g:custom_label_4><![CDATA[{!! $labels['custom_label_4'] !!}]]></g:custom_label_4>
       <guid isPermaLink="true">{{ $canonicalUrl }}</guid>
     </item>
 @endforeach
