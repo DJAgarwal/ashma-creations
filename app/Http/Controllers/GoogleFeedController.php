@@ -216,24 +216,24 @@ class GoogleFeedController extends Controller
             return 'Home & Garden > Decor > Decorative Plaques';
         }
 
-        // 7. Flower Pots / Planters (Home & Garden > Lawn & Garden > Gardening > Pots & Planters)
-        if (str_contains($searchStr, 'flower pot') || str_contains($searchStr, 'pot') || str_contains($searchStr, 'planter')) {
+        // 7. Potted Flowers, Flower Pots & Artificial Floral Arrangements (Home & Garden > Decor > Artificial Flora)
+        if (str_contains($searchStr, 'flower pot') || str_contains($searchStr, 'tulip pot') || str_contains($searchStr, 'potted flower') || str_contains($searchStr, 'bouquet') || str_contains($searchStr, 'flower arrangement') || str_contains($searchStr, 'artificial flora') || str_contains($searchStr, 'flower stem') || str_contains($searchStr, 'artificial flower')) {
+            return 'Home & Garden > Decor > Artificial Flora';
+        }
+
+        // 8. Empty Pots & Planters for Gardening (Home & Garden > Lawn & Garden > Gardening > Pots & Planters)
+        if (str_contains($searchStr, 'planter') || str_contains($searchStr, 'plant pot') || str_contains($searchStr, 'gardening pot')) {
             return 'Home & Garden > Lawn & Garden > Gardening > Pots & Planters';
         }
 
-        // 8. Hair Accessories
+        // 9. Hair Accessories
         if (str_contains($searchStr, 'hair clip') || str_contains($searchStr, 'headband') || str_contains($searchStr, 'hair accessory') || str_contains($searchStr, 'hair pin') || str_contains($searchStr, 'barrette')) {
             return 'Apparel & Accessories > Clothing Accessories > Hair Accessories';
         }
 
-        // 9. Bookmarks
+        // 10. Bookmarks
         if (str_contains($searchStr, 'bookmark')) {
             return 'Office Supplies > Book Accessories > Bookmarks';
-        }
-
-        // 10. Bouquets / Artificial Flora (only if genuinely standalone flowers/bouquets without another functional object)
-        if (str_contains($searchStr, 'bouquet') || str_contains($searchStr, 'artificial flora') || str_contains($searchStr, 'flower stem') || str_contains($searchStr, 'artificial flower')) {
-            return 'Home & Garden > Decor > Artificial Flora';
         }
 
         // Default fallback to general Home & Garden > Decor
