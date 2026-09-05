@@ -511,6 +511,14 @@ class SchemaGenerator
             ],
             [
                 '@type' => 'Question',
+                'name' => 'What are the delivery charges, and do you offer free shipping?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'We offer FREE Delivery across India on all orders of ₹799 or more. For orders below ₹799, a flat delivery fee of ₹80 applies to cover protective multi-layer packaging and door-to-door courier service.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
                 'name' => 'How are fragile handmade flower pots and bouquets packaged for shipping?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
@@ -950,7 +958,7 @@ class SchemaGenerator
                 '@type' => 'OfferShippingDetails',
                 'shippingRate' => [
                     '@type' => 'MonetaryAmount',
-                    'value' => '100.00',
+                    'value' => '80.00',
                     'currency' => 'INR',
                 ],
                 'shippingDestination' => [

@@ -233,7 +233,38 @@
                         </div>
                     </div>
 
-                    <!-- FAQ 7: Packaging & Fragile Items -->
+                    <!-- FAQ 7: Delivery Charges -->
+                    <div class="faq-item bg-white rounded-3xl border border-primary-light/20 shadow-sm hover:shadow-md transition-all overflow-hidden">
+                        <button type="button" 
+                                class="faq-toggle w-full px-6 py-5 md:px-8 md:py-6 text-left flex items-center justify-between gap-4 focus:outline-none group"
+                                aria-expanded="false">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-secondary/20 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-body font-semibold text-base text-charcoal group-hover:text-primary transition-colors">
+                                    What are the delivery charges, and do you offer free shipping?
+                                </h3>
+                            </div>
+                            <span class="faq-icon-wrapper w-8 h-8 rounded-full bg-background flex items-center justify-center shrink-0 text-primary transition-transform duration-300">
+                                <svg class="w-4 h-4 faq-chevron transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6 md:px-8 md:pb-8 pt-0 border-t border-dashed border-primary-light/20 text-soft-gray font-body text-base leading-relaxed">
+                            <p class="mt-4">
+                                We offer <strong>FREE Delivery across India</strong> on all orders of <strong>₹799 or more</strong>!
+                            </p>
+                            <p class="mt-2">
+                                For orders below ₹799, a flat delivery fee of <strong>₹80</strong> applies to cover safe, multi-layer protective packaging and door-to-door courier transit. Full tracking details are shared with you as soon as your parcel is dispatched.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 8: Packaging & Fragile Items -->
                     <div class="faq-item bg-white rounded-3xl border border-primary-light/20 shadow-sm hover:shadow-md transition-all overflow-hidden">
                         <button type="button" 
                                 class="faq-toggle w-full px-6 py-5 md:px-8 md:py-6 text-left flex items-center justify-between gap-4 focus:outline-none group"

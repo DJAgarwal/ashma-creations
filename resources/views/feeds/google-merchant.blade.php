@@ -85,7 +85,7 @@
       <g:shipping>
         <g:country>IN</g:country>
         <g:service>Standard Delivery</g:service>
-        <g:price>100.00 INR</g:price>
+        <g:price>80.00 INR</g:price>
       </g:shipping>
 @if(isset($product->weight) && (float)$product->weight > 0)
     @php
