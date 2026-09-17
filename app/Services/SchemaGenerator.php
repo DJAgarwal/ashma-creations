@@ -865,6 +865,33 @@ class SchemaGenerator
             ];
         }
 
+        // Depth / Length (QuantitativeValue in Centimeters / CMT)
+        if (!empty($product->length) && (float)$product->length > 0) {
+            $productEntity['depth'] = [
+                '@type' => 'QuantitativeValue',
+                'value' => (float)$product->length,
+                'unitCode' => 'CMT',
+            ];
+        }
+
+        // Width (QuantitativeValue in Centimeters / CMT)
+        if (!empty($product->width) && (float)$product->width > 0) {
+            $productEntity['width'] = [
+                '@type' => 'QuantitativeValue',
+                'value' => (float)$product->width,
+                'unitCode' => 'CMT',
+            ];
+        }
+
+        // Height (QuantitativeValue in Centimeters / CMT)
+        if (!empty($product->height) && (float)$product->height > 0) {
+            $productEntity['height'] = [
+                '@type' => 'QuantitativeValue',
+                'value' => (float)$product->height,
+                'unitCode' => 'CMT',
+            ];
+        }
+
         // Ratings & Reviews
         $reviewData = GoogleReviewService::getReviewsData();
         $ratingValue = !empty($reviewData['rating']) ? (float)$reviewData['rating'] : 5.0;

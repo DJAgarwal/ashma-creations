@@ -60,6 +60,51 @@
                     </div>
                 </div>
 
+                <!-- Dimensions Grid (Length, Height, Width in cm) -->
+                <div class="grid grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Length -->
+                    <div>
+                        <label for="length" class="block text-sm font-semibold text-gray-700 mb-2">Length (in cm)</label>
+                        <div class="relative">
+                            <input id="length" type="number" step="0.1" min="0" name="length" value="{{ old('length', $product->length ? (float)$product->length : '') }}" placeholder="e.g., 15"
+                                   class="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('length') border-red-500 @enderror">
+                            <span class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-soft-gray pointer-events-none">cm</span>
+                        </div>
+                        <p class="text-xs text-soft-gray mt-1.5">Enter product length in cm.</p>
+                        @error('length')
+                            <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Height -->
+                    <div>
+                        <label for="height" class="block text-sm font-semibold text-gray-700 mb-2">Height (in cm)</label>
+                        <div class="relative">
+                            <input id="height" type="number" step="0.1" min="0" name="height" value="{{ old('height', $product->height ? (float)$product->height : '') }}" placeholder="e.g., 30"
+                                   class="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('height') border-red-500 @enderror">
+                            <span class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-soft-gray pointer-events-none">cm</span>
+                        </div>
+                        <p class="text-xs text-soft-gray mt-1.5">Enter product height in cm.</p>
+                        @error('height')
+                            <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Width -->
+                    <div>
+                        <label for="width" class="block text-sm font-semibold text-gray-700 mb-2">Width (in cm)</label>
+                        <div class="relative">
+                            <input id="width" type="number" step="0.1" min="0" name="width" value="{{ old('width', $product->width ? (float)$product->width : '') }}" placeholder="e.g., 10"
+                                   class="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-background/50 border border-primary-light/20 rounded-2xl text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm @error('width') border-red-500 @enderror">
+                            <span class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-soft-gray pointer-events-none">cm</span>
+                        </div>
+                        <p class="text-xs text-soft-gray mt-1.5">Enter product width in cm.</p>
+                        @error('width')
+                            <span class="text-red-500 text-xs mt-2 block font-medium">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>

@@ -89,6 +89,27 @@
     @endphp
       <g:shipping_weight>{{ $weightStr }}</g:shipping_weight>
 @endif
+@if(isset($product->length) && (float)$product->length > 0)
+    @php
+        $l = (float)$product->length;
+        $lengthStr = ($l == (int)$l ? (int)$l : number_format($l, 1, '.', '')) . ' cm';
+    @endphp
+      <g:shipping_length>{{ $lengthStr }}</g:shipping_length>
+@endif
+@if(isset($product->width) && (float)$product->width > 0)
+    @php
+        $wd = (float)$product->width;
+        $widthStr = ($wd == (int)$wd ? (int)$wd : number_format($wd, 1, '.', '')) . ' cm';
+    @endphp
+      <g:shipping_width>{{ $widthStr }}</g:shipping_width>
+@endif
+@if(isset($product->height) && (float)$product->height > 0)
+    @php
+        $ht = (float)$product->height;
+        $heightStr = ($ht == (int)$ht ? (int)$ht : number_format($ht, 1, '.', '')) . ' cm';
+    @endphp
+      <g:shipping_height>{{ $heightStr }}</g:shipping_height>
+@endif
       <g:material><![CDATA[{!! $materialName !!}]]></g:material>
       <g:custom_label_0><![CDATA[{!! $labels['custom_label_0'] !!}]]></g:custom_label_0>
       <g:custom_label_1><![CDATA[{!! $labels['custom_label_1'] !!}]]></g:custom_label_1>

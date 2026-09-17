@@ -112,12 +112,57 @@
                         </p>
                     </div>
 
-                    @if(!empty($product->details))
+                    @php
+                        $hasLength = !empty($product->length) && (float)$product->length > 0;
+                        $hasWidth = !empty($product->width) && (float)$product->width > 0;
+                        $hasHeight = !empty($product->height) && (float)$product->height > 0;
+                        $hasWeight = !empty($product->weight) && (float)$product->weight > 0;
+
+                        $dimParts = [];
+                        if ($hasLength) {
+                            $len = (float)$product->length == (int)$product->length ? (int)$product->length : (float)$product->length;
+                            $dimParts[] = "Length: {$len} cm";
+                        }
+                        if ($hasWidth) {
+                            $wid = (float)$product->width == (int)$product->width ? (int)$product->width : (float)$product->width;
+                            $dimParts[] = "Width: {$wid} cm";
+                        }
+                        if ($hasHeight) {
+                            $hgt = (float)$product->height == (int)$product->height ? (int)$product->height : (float)$product->height;
+                            $dimParts[] = "Height: {$hgt} cm";
+                        }
+
+                        $dimText = '';
+                        if ($hasLength && $hasWidth && $hasHeight) {
+                            $dimText = "{$len} cm (L) &times; {$wid} cm (W) &times; {$hgt} cm (H)";
+                        } elseif (!empty($dimParts)) {
+                            $dimText = implode(' &bull; ', $dimParts);
+                        }
+
+                        $wt = $hasWeight ? ((float)$product->weight == (int)$product->weight ? (int)$product->weight : (float)$product->weight) : null;
+                    @endphp
+
+                    @if(!empty($product->details) || !empty($dimParts) || $hasWeight)
                         <div class="mb-8 p-4 rounded-2xl bg-background border border-primary-light/20">
                             <h3 class="text-xs font-body font-bold text-charcoal uppercase tracking-wider mb-2">Crafting & Product Details</h3>
-                            <p class="text-xs font-body text-soft-gray leading-relaxed whitespace-pre-line">
-                                {{ $product->details }}
-                            </p>
+                            @if(!empty($dimParts) || $hasWeight)
+                                <p class="text-xs font-body text-soft-gray leading-relaxed mb-2">
+                                    @if(!empty($dimParts))
+                                        <span class="font-semibold text-charcoal">Dimensions:</span> {!! $dimText !!}
+                                    @endif
+                                    @if($hasWeight)
+                                        @if(!empty($dimParts))
+                                            <span class="mx-1.5 text-primary-light/40">|</span>
+                                        @endif
+                                        <span class="font-semibold text-charcoal">Weight:</span> {{ $wt }} gm
+                                    @endif
+                                </p>
+                            @endif
+                            @if(!empty($product->details))
+                                <p class="text-xs font-body text-soft-gray leading-relaxed whitespace-pre-line">
+                                    {{ $product->details }}
+                                </p>
+                            @endif
                         </div>
                     @endif
 
