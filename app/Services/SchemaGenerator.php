@@ -514,7 +514,7 @@ class SchemaGenerator
                 'name' => 'What are the delivery charges, and do you offer free shipping?',
                 'acceptedAnswer' => [
                     '@type' => 'Answer',
-                    'text' => 'We offer FREE Delivery across India on all orders of ₹799 or more. For orders below ₹799, a flat delivery fee of ₹80 applies to cover protective multi-layer packaging and door-to-door courier service.',
+                    'text' => 'We offer FREE Delivery across India on all orders of ₹999 or more. For orders below ₹999, a flat delivery fee of ₹80 applies to cover protective multi-layer packaging and door-to-door courier service.',
                 ],
             ],
             [

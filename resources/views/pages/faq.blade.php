@@ -256,10 +256,10 @@
                         </button>
                         <div class="faq-content hidden px-6 pb-6 md:px-8 md:pb-8 pt-0 border-t border-dashed border-primary-light/20 text-soft-gray font-body text-base leading-relaxed">
                             <p class="mt-4">
-                                We offer <strong>FREE Delivery across India</strong> on all orders of <strong>₹799 or more</strong>!
+                                We offer <strong>FREE Delivery across India</strong> on all orders of <strong>₹999 or more</strong>!
                             </p>
                             <p class="mt-2">
-                                For orders below ₹799, a flat delivery fee of <strong>₹80</strong> applies to cover safe, multi-layer protective packaging and door-to-door courier transit. Full tracking details are shared with you as soon as your parcel is dispatched.
+                                For orders below ₹999, a flat delivery fee of <strong>₹80</strong> applies to cover safe, multi-layer protective packaging and door-to-door courier transit. Full tracking details are shared with you as soon as your parcel is dispatched.
                             </p>
                         </div>
                     </div>
